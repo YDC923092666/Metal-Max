@@ -4,12 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace MetalMax {
-	public class GUIManager : MonoSingleton<GUIManager> 
+	public class GUIManager
 	{
-        protected override void Awake()
-        {
-            base.Awake();
-        }
         private static GameObject mPrivateUIRoot;
 
         public static GameObject UIRoot
