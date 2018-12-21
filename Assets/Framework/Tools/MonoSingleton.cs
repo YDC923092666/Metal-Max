@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class MonoSingleton<T> : MonoBehaviour
-    where T: MonoBehaviour
+namespace MetalMax
+{
+    public class MonoSingleton<T> : MonoBehaviour
+    where T : MonoBehaviour
     {
-    private static T mInstance;
+        private static T mInstance;
 
-    public static T Instance
-    {
-        get
+        public static T Instance
         {
-            return mInstance;
-        }
-    }
+            get
+            {
+                return mInstance;
+            }
 
-    protected virtual void Awake()
-    {
-        mInstance = this as T;
+        }
+
+        protected virtual void Awake()
+        {
+            mInstance = this as T;
+        }
     }
 }
