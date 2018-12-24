@@ -1,0 +1,98 @@
+[
+	{
+	"Id": 1,
+	"Name": "加农炮100",
+	"Type": "Main",
+	"Hp": 0,
+	"Damage": 100,
+	"Defense": 0
+	},
+	{
+	"Id": 2,
+	"Name": "机关枪30",
+	"Type": "Second",
+	"Hp": 0,
+	"Damage": 30,
+	"Defense": 0
+	},
+	{
+	"Id": 3,
+	"Name": "麒麟300",
+	"Type": "Engine",
+	"Hp": 300,
+	"Damage": 0,
+	"Defense": 0
+	},
+	{
+	"Id": 4,
+	"Name": "托克300",
+	"Type": "Chassis",
+	"Hp": 0,
+	"Damage": 0,
+	"Defense": 300
+	},
+	{
+	"Id": 5,
+	"Name": "加农炮300",
+	"Type": "Main",
+	"Hp": 0,
+	"Damage": 300,
+	"Defense": 0
+	},
+	{
+	"Id": 6,
+	"Name": "机关枪60",
+	"Type": "Second",
+	"Hp": 0,
+	"Damage": 60,
+	"Defense": 0
+	},
+	{
+	"Id": 7,
+	"Name": "麒麟600",
+	"Type": "Engine",
+	"Hp": 600,
+	"Damage": 0,
+	"Defense": 0
+	},
+	{
+	"Id": 8,
+	"Name": "托克600",
+	"Type": "Chassis",
+	"Hp": 0,
+	"Damage": 0,
+	"Defense": 600
+	},
+	{
+	"Id": 9,
+	"Name": "加农炮500",
+	"Type": "Main",
+	"Hp": 0,
+	"Damage": 100,
+	"Defense": 0
+	},
+	{
+	"Id": 10,
+	"Name": "机关枪90",
+	"Type": "Second",
+	"Hp": 0,
+	"Damage": 90,
+	"Defense": 0
+	},
+	{
+	"Id": 11,
+	"Name": "麒麟1200",
+	"Type": "Engine",
+	"Hp": 1200,
+	"Damage": 0,
+	"Defense": 0
+	},
+	{
+	"Id": 12,
+	"Name": "托克900",
+	"Type": "Chassis",
+	"Hp": 0,
+	"Damage": 0,
+	"Defense": 900
+	}
+]

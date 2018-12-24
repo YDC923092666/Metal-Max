@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using LitJson;
 
 namespace MetalMax
 {
@@ -12,36 +13,36 @@ namespace MetalMax
 	{
         private GameObject canvas;
 
-        private void Start()
-        {
-            canvas = GameObject.Find("Canvas");
-        }
-
         protected override void OnBeforeDestroy()
         {
 
         }
 
-
         public override void Init()
         {
             //设置分辨率
-            GUIManager.Instance.SetResolution(1080, 1920, 1);
+            GUIManager.Instance.SetResolution(1920, 1080, 1);
+
+            canvas = GameObject.Find("Canvas");
             //显示健康游戏提醒。
-            Delay(3.0f, () => {
-                GUIManager.Instance.UnLoadPanel("JiankongyouxiPanel");
-                //显示BG图片
-                GameObject jiankangyouxiPanel = canvas.transform.GetChild(0).gameObject;
-                jiankangyouxiPanel.SetActive(false);
-                GameObject BGPanel = canvas.transform.GetChild(1).gameObject;
+            GameObject jiankangyouxiPanel = canvas.transform.Find("JiankongyouxiPanel").gameObject;
+            jiankangyouxiPanel.SetActive(true);
+
+            Delay(3.0f, () =>
+            {
+                Destroy(jiankangyouxiPanel);
+                GameObject BGPanel = canvas.transform.Find("BGPanel").gameObject;
                 BGPanel.SetActive(true);
                 Text text = BGPanel.GetComponentInChildren<Text>();
                 text.DOFade(1, 2);
-
+            
                 //播放BGM
                 AudioSource BGMAudioSource = Camera.main.GetComponent<AudioSource>();
                 AudioManager.Instance.PlayBGM("Sound", "Bgm_JieMian", BGMAudioSource);
+            });
 
+            Delay(6.0f, () =>
+            {
                 //检查版本更新（右下角显示“正在检查更新……”）。
                 if (Check4Update())
                 {
@@ -61,7 +62,7 @@ namespace MetalMax
                     {
                         //无存档
                         //进入游戏角色名字创建页面
-                        GameObject createRolePanel = canvas.transform.GetChild(2).gameObject;
+                        GameObject createRolePanel = canvas.transform.Find("CreateRolePanel").gameObject;
                         createRolePanel.SetActive(true);
                     }
                 }
