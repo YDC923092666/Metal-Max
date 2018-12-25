@@ -19,7 +19,7 @@ namespace MetalMax
         private int damage;
         private int defense;
         private int criticalRate;  //暴击率
-        private SpecialSkill[] skill;
+        private List<string> skill;
 
         public int Id
         {
@@ -73,11 +73,15 @@ namespace MetalMax
             }
         }
 
-        public string Skill
+        public List<string> Skill
         {
             set
             {
-                skill = (SpecialSkill[])System.Enum.Parse(typeof(SpecialSkill[]), value);
+                skill = value;
+            }
+            get
+            {
+                return skill;
             }
         }
 

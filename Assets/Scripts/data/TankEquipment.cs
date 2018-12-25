@@ -26,18 +26,10 @@ namespace MetalMax
 	{
         private int id;
         private string name;
-        private TankEquipmentType type;    //装备类型
+        private string type;    //装备类型
         private int hp;
         private int damage;
         private int defense;
-
-        public string Type
-        {
-            set
-            {
-                type = (TankEquipmentType)System.Enum.Parse(typeof(TankEquipmentType), value);
-            }
-        }
 
         public int Hp
         {
@@ -101,6 +93,19 @@ namespace MetalMax
             set
             {
                 id = value;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return type;
+            }
+
+            set
+            {
+                type = value;
             }
         }
     }

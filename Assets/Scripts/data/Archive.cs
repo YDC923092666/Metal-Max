@@ -6,6 +6,7 @@ namespace MetalMax
 {
     public class Archive
     {
+        private int id;
         private int teamPersonCount;
         private PersonStatus[] personStatus;
         private TankStatus[] tankStatus;
@@ -90,6 +91,19 @@ namespace MetalMax
                 position = value;
             }
         }
+
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
     }
 
     public class PersonStatus
@@ -99,7 +113,7 @@ namespace MetalMax
         private int personDamage; //攻击力
         private int personDefense; //防御力
 
-        public Dictionary<PersonEquipmentType, PersonEquipment> personEquipmentDict; //装备位置和对应的装备对象
+        public Dictionary<string, PersonEquipment> personEquipmentDict; //装备位置和对应的装备对象
 
         public int PersonLevel
         {

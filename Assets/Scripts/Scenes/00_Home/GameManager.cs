@@ -53,7 +53,7 @@ namespace MetalMax
                 {
                     //无更新
                     //检查是否有存档。无存档则进入游戏角色名字创建页面。有存档则进入选择存档页面
-                    if (Check4Archive())
+                    if (SaveManager.Check4Archive())
                     {
                         //TODO
                         //有存档
@@ -74,16 +74,6 @@ namespace MetalMax
         /// </summary>
         /// <returns>true则代表需要更新</returns>
         private bool Check4Update()
-        {
-            //TODO
-            return false;
-        }
-        
-        /// <summary>
-        /// 检查是否有存档
-        /// </summary>
-        /// <returns>true则代表有存档</returns>
-        private bool Check4Archive()
         {
             //TODO
             return false;
