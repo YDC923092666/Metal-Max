@@ -1,18 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace MetalMax
 {
+    [Serializable]
     public class Archive
     {
         private int id;
         private int teamPersonCount;
-        private PersonStatus[] personStatus;
-        private TankStatus[] tankStatus;
-        private Boss[] boss; //消灭的BOSS列表
         private string sceneName;   //最后所在的场景
-        private float[] position;   //最后保存的位置
+        private double[] position;   //最后保存的位置
+        private DateTime archiveDateTime; //存档时间
+        private List<PersonStatus> personStatusList;
+        private List<TankStatus> tankStatusList;
+        private List<Boss> bossList; //消灭的BOSS列表
 
         public int TeamPersonCount
         {
@@ -27,42 +30,42 @@ namespace MetalMax
             }
         }
 
-        public PersonStatus[] PersonStatus
+        public List<PersonStatus> PersonStatusList
         {
             get
             {
-                return personStatus;
+                return personStatusList;
             }
 
             set
             {
-                personStatus = value;
+                personStatusList = value;
             }
         }
 
-        public TankStatus[] TankStatus
+        public List<TankStatus> TankStatusList
         {
             get
             {
-                return tankStatus;
+                return tankStatusList;
             }
 
             set
             {
-                tankStatus = value;
+                tankStatusList = value;
             }
         }
 
-        public Boss[] Boss
+        public List<Boss> BossList
         {
             get
             {
-                return boss;
+                return bossList;
             }
 
             set
             {
-                boss = value;
+                bossList = value;
             }
         }
 
@@ -79,7 +82,7 @@ namespace MetalMax
             }
         }
 
-        public float[] Position
+        public double[] Position
         {
             get
             {
@@ -104,6 +107,19 @@ namespace MetalMax
                 id = value;
             }
         }
+
+        public DateTime ArchiveDateTime
+        {
+            get
+            {
+                return archiveDateTime;
+            }
+
+            set
+            {
+                archiveDateTime = value;
+            }
+        }
     }
 
     public class PersonStatus
@@ -113,7 +129,7 @@ namespace MetalMax
         private int personDamage; //攻击力
         private int personDefense; //防御力
 
-        public Dictionary<string, PersonEquipment> personEquipmentDict; //装备位置和对应的装备对象
+        private Dictionary<string, int> personEquipmentDict; //装备位置和对应的装备对象
 
         public int PersonLevel
         {
@@ -166,6 +182,19 @@ namespace MetalMax
                 personDefense = value;
             }
         }
+
+        public Dictionary<string, int> PersonEquipmentDict
+        {
+            get
+            {
+                return personEquipmentDict;
+            }
+
+            set
+            {
+                personEquipmentDict = value;
+            }
+        }
     }
 
     public class TankStatus
@@ -174,8 +203,9 @@ namespace MetalMax
         private int tankDamage; //攻击力
         private int tankDefense; //防御力
 
-        public Dictionary<TankEquipmentType, TankEquipment> tankEquipmentDict; //坦克装备位置和对应的装备对象
-        public Dictionary<TankBulletType, int> tankBulletCountDict; //炮弹的类型和数量
+        private Dictionary<string, int> tankEquipmentDict; //坦克装备位置和对应的装备对象.int值是id值
+        private Dictionary<string, int> tankBulletCountDict; //炮弹的类型和数量
+
         public int TankHp
         {
             get
@@ -212,6 +242,32 @@ namespace MetalMax
             set
             {
                 tankDefense = value;
+            }
+        }
+
+        public Dictionary<string, int> TankEquipmentDict
+        {
+            get
+            {
+                return tankEquipmentDict;
+            }
+
+            set
+            {
+                tankEquipmentDict = value;
+            }
+        }
+
+        public Dictionary<string, int> TankBulletCountDict
+        {
+            get
+            {
+                return tankBulletCountDict;
+            }
+
+            set
+            {
+                tankBulletCountDict = value;
             }
         }
     }

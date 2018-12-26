@@ -9,8 +9,8 @@ using LitJson;
 
 namespace MetalMax
 {
-	public class GameManager : MonoBehaviourSimplify 
-	{
+	public class GameController : MonoBehaviourSimplify
+    {
         private GameObject canvas;
 
         protected override void OnBeforeDestroy()
@@ -35,7 +35,7 @@ namespace MetalMax
                 BGPanel.SetActive(true);
                 Text text = BGPanel.GetComponentInChildren<Text>();
                 text.DOFade(1, 2);
-            
+
                 //播放BGM
                 AudioSource BGMAudioSource = Camera.main.GetComponent<AudioSource>();
                 AudioManager.Instance.PlayBGM("Sound", "Bgm_JieMian", BGMAudioSource);
@@ -57,6 +57,8 @@ namespace MetalMax
                     {
                         //TODO
                         //有存档
+                        GameObject chooseArchivePanel = canvas.transform.Find("ChooseArchivePanel").gameObject;
+                        chooseArchivePanel.SetActive(true);
                     }
                     else
                     {
@@ -89,6 +91,5 @@ namespace MetalMax
             //进入游戏场景
             SceneManager.LoadScene("");
         }
-
     }
 }

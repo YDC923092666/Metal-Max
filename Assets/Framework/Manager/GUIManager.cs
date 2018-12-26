@@ -34,5 +34,15 @@ namespace MetalMax
         {
 
         }
+
+        #region 00_Home
+        /// <summary>
+        /// 选择存档页面，点击“重新开始”按钮
+        /// </summary>
+        public void OnRestartGameButtonClick()
+        {
+
+        }
+        #endregion
     }
 }
