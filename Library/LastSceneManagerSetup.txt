@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/01/01_World1_Home.unity
+- path: "Assets/Scenes/01/01_World1_\u8F66\u95F4.unity"
   isLoaded: 1
   isActive: 1
