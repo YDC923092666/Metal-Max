@@ -124,6 +124,7 @@ namespace MetalMax
 
     public class PersonStatus
     {
+        private string personName; // 角色名
         private int personLevel; // 等级
         private int personHp; //生命值
         private int personDamage; //攻击力
@@ -193,6 +194,19 @@ namespace MetalMax
             set
             {
                 personEquipmentDict = value;
+            }
+        }
+
+        public string PersonName
+        {
+            get
+            {
+                return personName;
+            }
+
+            set
+            {
+                personName = value;
             }
         }
     }

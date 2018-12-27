@@ -12,6 +12,7 @@ namespace MetalMax
         private static string personEquipmentInfoFilePath = "Resources/Data/PersonEquipmentInfo.json";
         private static string tankEquipmentInfoFilePath = "Resources/Data/TankEquipmentInfo.json";
         private static string bossInfoFilePath = "Resources/Data/BossInfo.json";
+        public static Archive currentArchive;
 
         public static string GetJsonStringFromFile(string filePath)
         {
@@ -199,12 +200,7 @@ namespace MetalMax
         {
             if (archive != null)
             {
-                string jsonText = JsonMapper.ToJson(archive);
-                string path = Path.Combine(Application.dataPath, currentarchiveFilePath);
-                StreamWriter sw = new StreamWriter(path);   //利用写入流创建文件
-                sw.Write(jsonText);     //写入数据
-                sw.Close();     //关闭流
-                sw.Dispose();
+                currentArchive = archive;
             }
         }
     }

@@ -81,15 +81,5 @@ namespace MetalMax
             return false;
         }
 
-        /// <summary>
-        /// 当点击"开始游戏"后，跳转到游戏场景
-        /// </summary>
-        public void OnStartGameButtonClick()
-        {
-            //保存角色姓名，初始化玩家等级为1
-
-            //进入游戏场景
-            SceneManager.LoadScene("");
-        }
     }
 }

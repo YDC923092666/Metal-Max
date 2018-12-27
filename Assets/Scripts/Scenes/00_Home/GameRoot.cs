@@ -97,7 +97,7 @@ namespace MetalMax
         protected override void LaunchInProductionMode()
         {
             DontDestroyOnLoad(this);
-            GameController gm = GameObject.Find("GameController").GetComponent<GameController>();
+            GameController gm = GameObject.Find("Controllers").GetComponent<GameController>();
             print("Game Init...");
             gm.Init();
         }

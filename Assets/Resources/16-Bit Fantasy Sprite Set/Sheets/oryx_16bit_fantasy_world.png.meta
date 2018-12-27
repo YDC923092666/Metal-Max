@@ -203,8 +203,8 @@ TextureImporter:
     21300396: oryx_16bit_fantasy_world_198
     21300398: oryx_16bit_fantasy_world_199
     21300400: oryx_16bit_fantasy_world_200
-    21300402: oryx_16bit_fantasy_world_201
-    21300404: oryx_16bit_fantasy_world_202
+    21300402: door_open
+    21300404: door_locked
     21300406: oryx_16bit_fantasy_world_203
     21300408: oryx_16bit_fantasy_world_204
     21300410: oryx_16bit_fantasy_world_205
@@ -217,7 +217,7 @@ TextureImporter:
     21300424: oryx_16bit_fantasy_world_212
     21300426: oryx_16bit_fantasy_world_213
     21300428: oryx_16bit_fantasy_world_214
-    21300430: oryx_16bit_fantasy_world_215
+    21300430: cave
     21300432: oryx_16bit_fantasy_world_216
     21300434: oryx_16bit_fantasy_world_217
     21300436: oryx_16bit_fantasy_world_218
@@ -326,8 +326,8 @@ TextureImporter:
     21300642: oryx_16bit_fantasy_world_321
     21300644: oryx_16bit_fantasy_world_322
     21300646: oryx_16bit_fantasy_world_323
-    21300648: oryx_16bit_fantasy_world_324
-    21300650: oryx_16bit_fantasy_world_325
+    21300648: Chest_locked
+    21300650: Chest_open
     21300652: oryx_16bit_fantasy_world_326
     21300654: oryx_16bit_fantasy_world_327
     21300656: oryx_16bit_fantasy_world_328
@@ -6509,7 +6509,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oryx_16bit_fantasy_world_201
+      name: door_open
       rect:
         serializedVersion: 2
         x: 3153
@@ -6529,7 +6529,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oryx_16bit_fantasy_world_202
+      name: door_locked
       rect:
         serializedVersion: 2
         x: 3258
@@ -6789,11 +6789,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oryx_16bit_fantasy_world_215
+      name: cave
       rect:
         serializedVersion: 2
         x: 4623
-        y: 3992
+        y: 3994
         width: 100
         height: 100
       alignment: 0
@@ -8969,7 +8969,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oryx_16bit_fantasy_world_324
+      name: Chest_locked
       rect:
         serializedVersion: 2
         x: 4098
@@ -8989,7 +8989,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oryx_16bit_fantasy_world_325
+      name: Chest_open
       rect:
         serializedVersion: 2
         x: 4203
