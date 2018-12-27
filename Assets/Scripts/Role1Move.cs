@@ -7,33 +7,43 @@ namespace MetalMax
 {
 	public class Role1Move : MonoBehaviour 
 	{
+        public float speed = 2;
         private Animator anim;
+        private Rigidbody2D body;
         private void Start()
         {
             anim = GetComponent<Animator>();
+            body = GetComponent<Rigidbody2D>();
         }
-        private void Update()
+
+        private void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
-                anim.SetTrigger("Up");
-                transform.Translate(Vector3.up);
+                anim.SetBool("Up",true);
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.up, Time.deltaTime);
             }
-            if (Input.GetKeyDown(KeyCode.S))
+            else if (Input.GetKey(KeyCode.S))
             {
                 anim.SetTrigger("Down");
-                transform.Translate(Vector3.down);
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
             }
-            if (Input.GetKeyDown(KeyCode.A))
+            else if(Input.GetKey(KeyCode.A))
             {
                 anim.SetTrigger("Left");
-                transform.Translate(Vector3.left);
+                transform.Translate(Vector3.left * speed * Time.deltaTime);
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            else if(Input.GetKey(KeyCode.D))
             {
-                anim.SetTrigger("Right");
-                transform.Translate(Vector3.right);
+                anim.SetBool("Test", true);
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
             }
+
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                anim.SetBool("Up", false);
+            }
+            body.velocity = new Vector3(0, 0, 0);
         }
     }
 }
