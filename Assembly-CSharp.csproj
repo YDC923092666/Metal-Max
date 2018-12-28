@@ -61,26 +61,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Chest.cs" />
     <Compile Include="Assets\Framework\Manager\AudioManager.cs" />
     <Compile Include="Assets\Framework\Manager\EventManager.cs" />
     <Compile Include="Assets\Framework\Manager\GameManager.cs" />
     <Compile Include="Assets\Framework\Manager\GUIManager.cs" />
     <Compile Include="Assets\Framework\Manager\LevelManager.cs" />
     <Compile Include="Assets\Framework\Manager\MainManager.cs" />
+    <Compile Include="Assets\Framework\Manager\ResourceManager.cs" />
     <Compile Include="Assets\Framework\Manager\SaveManager.cs" />
     <Compile Include="Assets\Framework\MonoBehaviourSimplify.cs" />
     <Compile Include="Assets\Framework\Tools\DelayUtil.cs" />
     <Compile Include="Assets\Framework\Tools\MonoSingleton.cs" />
     <Compile Include="Assets\Framework\Tools\MsgDispatcher.cs" />
     <Compile Include="Assets\Framework\Tools\ResolutionCheck.cs" />
+    <Compile Include="Assets\Scripts\Char01Move.cs" />
     <Compile Include="Assets\Scripts\Data\Archive.cs" />
     <Compile Include="Assets\Scripts\Data\Boss.cs" />
     <Compile Include="Assets\Scripts\Data\PersonEquipment.cs" />
     <Compile Include="Assets\Scripts\Data\TankEquipment.cs" />
-    <Compile Include="Assets\Scripts\Role1Move.cs" />
+    <Compile Include="Assets\Scripts\Door.cs" />
     <Compile Include="Assets\Scripts\Scenes\00_Home\GameController.cs" />
     <Compile Include="Assets\Scripts\Scenes\00_Home\GameRoot.cs" />
     <Compile Include="Assets\Scripts\Scenes\00_Home\GUIController.cs" />
+    <Compile Include="Assets\Scripts\Tags.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/UnityProject/Metal-Max/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

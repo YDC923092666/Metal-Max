@@ -8,7 +8,6 @@ namespace MetalMax
     public class SaveManager : MonoBehaviour 
 	{
         private static string archiveFilePath = "Resources/Data/Archive.json";
-        private static string currentarchiveFilePath = "Resources/Data/CurrentArchive.json";
         private static string personEquipmentInfoFilePath = "Resources/Data/PersonEquipmentInfo.json";
         private static string tankEquipmentInfoFilePath = "Resources/Data/TankEquipmentInfo.json";
         private static string bossInfoFilePath = "Resources/Data/BossInfo.json";
