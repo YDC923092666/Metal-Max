@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HedgehogTeam.EasyTouch;
 
 namespace MetalMax
 {
@@ -21,18 +22,34 @@ namespace MetalMax
 
         private void Move()
         {
-            float v = Input.GetAxisRaw("Vertical");
-            float h = Input.GetAxisRaw("Horizontal");
+            float v = ETCInput.GetAxis("Vertical");
+            float h = ETCInput.GetAxis("Horizontal");
 
             if (v != 0 && h == 0)
             {
+                if (v > 0)
+                {
+                    v = 1;
+                }
+                else
+                {
+                    v = -1;
+                }
                 anim.SetFloat("v", v);
                 anim.SetBool("Idle", false);
                 transform.Translate(Vector3.up * v * speed * Time.fixedDeltaTime, Space.World);
             }
             else if (v == 0 && h != 0)
             {
-                anim.SetFloat("v", v);
+                if (h > 0)
+                {
+                    h = 1;
+                }
+                else
+                {
+                    h = -1;
+                }
+                anim.SetFloat("v", 0);
                 anim.SetFloat("h", h);
                 anim.SetBool("Idle", false);
                 transform.Translate(Vector3.right * h * speed * Time.fixedDeltaTime, Space.World);
@@ -43,7 +60,16 @@ namespace MetalMax
             }
             else
             {
+                if (v > 0)
+                {
+                    v = 1;
+                }
+                else
+                {
+                    v = -1;
+                }
                 anim.SetFloat("v", v);
+                anim.SetFloat("h", 0);
                 anim.SetBool("Idle", false);
                 transform.Translate(Vector3.up * v * speed * Time.fixedDeltaTime, Space.World);
             }

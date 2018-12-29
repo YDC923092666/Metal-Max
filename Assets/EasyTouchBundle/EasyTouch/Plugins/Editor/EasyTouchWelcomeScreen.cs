@@ -6,6 +6,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System;
 
+#pragma warning disable 0618
+
 [InitializeOnLoad]
 public class EasyTouchWelcomeScreen : EditorWindow {
 
