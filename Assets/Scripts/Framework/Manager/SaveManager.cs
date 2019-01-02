@@ -11,6 +11,7 @@ namespace MetalMax
         private static string personEquipmentInfoFilePath = "Resources/Data/PersonEquipmentInfo.json";
         private static string tankEquipmentInfoFilePath = "Resources/Data/TankEquipmentInfo.json";
         private static string bossInfoFilePath = "Resources/Data/BossInfo.json";
+        private static string NPCInfoFilePath = "Resources/Data/NPCInfo.json";
         public static Archive currentArchive;
 
         public static string GetJsonStringFromFile(string filePath)
@@ -118,6 +119,24 @@ namespace MetalMax
         public static Boss GetBossObjectFromListById(int id)
         {
             List<Boss> objList = GetObjectListFromJsonString<Boss>(bossInfoFilePath);
+            foreach (var item in objList)
+            {
+                if (item.Id == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 通过NPC的id找到对象
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static NPCInfo GetNPCjectFromListById(int id)
+        {
+            List<NPCInfo> objList = GetObjectListFromJsonString<NPCInfo>(NPCInfoFilePath);
             foreach (var item in objList)
             {
                 if (item.Id == id)

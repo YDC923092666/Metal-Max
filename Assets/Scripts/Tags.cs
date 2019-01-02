@@ -8,5 +8,7 @@ namespace MetalMax
 	public static class Tags
 	{
 		public const string charactor = "Charactor";
-	}
+        public const string chest = "Chest";
+        public const string NPC = "NPC";
+    }
 }

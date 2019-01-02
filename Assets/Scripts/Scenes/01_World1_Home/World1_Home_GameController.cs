@@ -18,7 +18,7 @@ namespace MetalMax
 
         protected override void OnBeforeDestroy()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

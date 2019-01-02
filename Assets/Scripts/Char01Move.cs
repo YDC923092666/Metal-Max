@@ -10,6 +10,7 @@ namespace MetalMax
 	{
         private Animator anim;
         public float speed = 3;
+        //public static Vector2 direction;
 
         private void Start()
         {
@@ -22,18 +23,21 @@ namespace MetalMax
 
         private void Move()
         {
+            
             float v = ETCInput.GetAxis("Vertical");
             float h = ETCInput.GetAxis("Horizontal");
-
+            print(h);
             if (v != 0 && h == 0)
             {
                 if (v > 0)
                 {
                     v = 1;
+                    //direction = Vector2.up;
                 }
                 else
                 {
                     v = -1;
+                    //direction = Vector2.down;
                 }
                 anim.SetFloat("v", v);
                 anim.SetBool("Idle", false);
@@ -44,10 +48,12 @@ namespace MetalMax
                 if (h > 0)
                 {
                     h = 1;
+                    //direction = Vector2.right;
                 }
                 else
                 {
                     h = -1;
+                    //direction = Vector2.left;
                 }
                 anim.SetFloat("v", 0);
                 anim.SetFloat("h", h);
