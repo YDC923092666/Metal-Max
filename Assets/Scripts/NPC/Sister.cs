@@ -10,7 +10,6 @@ namespace MetalMax
         protected override void Start()
         {
             base.Start();
-            print(info.Name);
         }
     }
 }
