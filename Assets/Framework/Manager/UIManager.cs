@@ -9,17 +9,7 @@ namespace MetalMax
 {
 	public class UIManager: MonoSingleton<UIManager>
 	{
-        private Vector2 rayDir;
-        private float distance = 1f; //射线检测距离
-        private LayerMask mask = 1 << 8; //射线只检测Item层
-        private GameObject buttonPanel; //按钮组面板
-        private GameObject talkPanel; //对话框面板
-        private Text nameText;  //名字文本框
-        private Text containText;   //对话内容文本框
-        private int index = 0; //对话的索引
-        private int talkInterval = 3;   //对话间隔
-
-        private bool isButtonPanelShow = false; //buttonPanel是否显示
+        private bool isMainMenuPanelShow = false; //mainMenuPanel是否显示
 
         private Transform canvasTransform;
         public Transform CanvasTransform
@@ -34,27 +24,36 @@ namespace MetalMax
             }
         }
 
-        private Dictionary<UIPanelType, string> panelPathDict;//存储所有面板prefab的路径
-        private Dictionary<UIPanelType, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
+        private Dictionary<string, string> panelPathDict;//存储所有面板prefab的路径
+        private Dictionary<string, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
         private Stack<BasePanel> panelStack;
 
         protected override void Awake()
         {
             base.Awake();
+        }
+
+        private void Start()
+        {
             DontDestroyOnLoad(this);
             ParseUIPanelTypeJson();
-            buttonPanel = GameObject.Find("Canvas/ButtonPanel");
-            talkPanel = GameObject.Find("Canvas/TalkPanel");
-            nameText = GameObject.Find("Canvas/TalkPanel/NameText").GetComponent<Text>();
-            containText = GameObject.Find("Canvas/TalkPanel/ContainText").GetComponent<Text>();
-            HideButtonPanel();
-            HideTalkPanel();
+            ETCButton button = CanvasTransform.GetComponentInChildren<ETCButton>();
+            button.onDown.AddListener(() =>
+            {
+                OnUIButtonClick();
+            });
+            //buttonPanel = GameObject.Find("Canvas/ButtonPanel");
+            //talkPanel = GameObject.Find("Canvas/TalkPanel");
+            //nameText = GameObject.Find("Canvas/TalkPanel/NameText").GetComponent<Text>();
+            //containText = GameObject.Find("Canvas/TalkPanel/ContainText").GetComponent<Text>();
+            //HideButtonPanel();
+            //HideTalkPanel();
         }
 
         /// <summary>
         /// 入栈，把某个页面显示在界面上
         /// </summary>
-        public void PushPanel(UIPanelType panelType)
+        public void PushPanel(string panelType)
         {
             if (panelStack == null)
             {
@@ -94,18 +93,17 @@ namespace MetalMax
             if (panelStack.Count <= 0) return;
             BasePanel topPanel2 = panelStack.Peek();
             topPanel2.OnResume();
-
         }
 
         /// <summary>
         /// 根据面板类型，得到实例化的面板
         /// </summary>
         /// <returns></returns>
-        private BasePanel GetPanel(UIPanelType panelType)
+        private BasePanel GetPanel(string panelType)
         {
             if (panelDict == null)
             {
-                panelDict = new Dictionary<UIPanelType, BasePanel>();
+                panelDict = new Dictionary<string, BasePanel>();
             }
 
             BasePanel panel;
@@ -116,7 +114,8 @@ namespace MetalMax
                 //如果找不到，那么就找这个面板的prefab的路径，实例化面板
                 string path;
                 panelPathDict.TryGetValue(panelType, out path);
-                GameObject instPanel = GameObject.Instantiate(Resources.Load(path)) as GameObject;
+
+                GameObject instPanel = Instantiate(Resources.Load(path)) as GameObject;
                 instPanel.transform.SetParent(CanvasTransform, false);
                 panelDict.Add(panelType, instPanel.GetComponent<BasePanel>());
                 return instPanel.GetComponent<BasePanel>();
@@ -127,50 +126,16 @@ namespace MetalMax
             }
         }
 
-        private void ParseUIPanelTypeJson()
+        /// <summary>
+        /// 解析json文件
+        /// </summary>
+        public void ParseUIPanelTypeJson()
         {
-            panelPathDict = new Dictionary<UIPanelType, string>();
-            TextAsset ta = Resources.Load<TextAsset>("UIPanelType");
-
-            UIPanelInfo jsonObject = JsonUtility.FromJson<UIPanelInfo>(ta.text);
-            foreach (UIPanelInfo info in jsonObject.infoList)
+            panelPathDict = new Dictionary<string, string>();
+            List<UIPanelInfo> infos = SaveManager.GetObjectListFromJsonString<UIPanelInfo>(Const.panelTypeFilePath);
+            foreach (UIPanelInfo info in infos)
             {
                 panelPathDict.Add(info.panelType, info.path);
-            }
-        }
-
-        public static NPCInfo GetNPCjectFromListById(int id)
-        {
-            List<NPCInfo> objList = SaveManager.GetObjectListFromJsonString<NPCInfo>(NPCInfoFilePath);
-            foreach (var item in objList)
-            {
-                if (item.Id == id)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 当对话按钮被点击时
-        /// </summary>
-        public void OnTalkButtonClick()
-        {
-            //射线检测身前的物体
-            Vector2 headDir = Char01Move.direction;
-            Vector2 char01Position = GameObject.FindGameObjectWithTag(Tags.charactor).transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(char01Position, headDir, distance, mask);
-            if (hit.collider != null && hit.collider.tag == Tags.NPC)
-            {
-                HideButtonPanel();
-                ShowTalkPanel();
-                hit.collider.GetComponent<NPCBase>().Talk();
-            }
-            else
-            {
-                //显示tipPanel，提示前面没有人。
-                //TODO
             }
         }
 
@@ -179,36 +144,18 @@ namespace MetalMax
         /// </summary>
         public void OnUIButtonClick()
         {
-            if (!isButtonPanelShow)
+            if (!isMainMenuPanelShow)
             {
-                ShowButtonPanel();
+                print("1");
+                PushPanel("MainMenu");
+                isMainMenuPanelShow = true;
             }
             else
             {
-                HideButtonPanel();
+                print("1");
+                PopPanel();
+                isMainMenuPanelShow = false;
             }
-        }
-
-        public void ShowButtonPanel()
-        {
-            buttonPanel.SetActive(true);
-            isButtonPanelShow = true;
-        }
-
-        public void HideButtonPanel()
-        {
-            buttonPanel.SetActive(false);
-            isButtonPanelShow = false;
-        }
-
-        public void ShowTalkPanel()
-        {
-            talkPanel.SetActive(true);
-        }
-
-        public void HideTalkPanel()
-        {
-            talkPanel.SetActive(false);
         }
 
         /// <summary>
@@ -237,7 +184,7 @@ namespace MetalMax
                 return;
             }
             //使用dotween插件，每一次动画完成后递归调用本函数，直至所有对话内容读取完毕
-            Tweener t = containText.DOText(containTextList[index], talkInterval).OnComplete(() =>
+            containText.DOText(containTextList[index], talkInterval).OnComplete(() =>
             {
                 index++;
                 containText.text = null;

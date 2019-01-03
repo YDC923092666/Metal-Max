@@ -23,12 +23,9 @@ namespace MetalMax
             base.Init();
 
             //创建空物体Managers，并挂载各种manager脚本
-            GameObject newGo = new GameObject("Managers");
+            GameObject newGo = Instantiate(Resources.Load<GameObject>("Prefab/Managers"));
+            newGo.name = "Managers";
             DontDestroyOnLoad(newGo);
-            newGo.AddComponent<AudioManager>();
-            newGo.AddComponent<SaveManager>();
-            newGo.AddComponent<UIManager>();
-            newGo.AddComponent<GameManager>();
 
             //设置分辨率
             UIManager.Instance.SetResolution(1920, 1080, 1);
