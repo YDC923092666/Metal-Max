@@ -10,7 +10,9 @@ namespace MetalMax
         public override void Init()
         {
             base.Init();
+            UIManager.Instance.PushPanel(UIPanelType.MainMenu);
         }
+
         protected override void InitCharactor()
         {
             print("进入新地图");

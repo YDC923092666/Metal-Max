@@ -21,8 +21,17 @@ namespace MetalMax
         public override void Init()
         {
             base.Init();
+
+            //创建空物体Managers，并挂载各种manager脚本
+            GameObject newGo = new GameObject("Managers");
+            DontDestroyOnLoad(newGo);
+            newGo.AddComponent<AudioManager>();
+            newGo.AddComponent<SaveManager>();
+            newGo.AddComponent<UIManager>();
+            newGo.AddComponent<GameManager>();
+
             //设置分辨率
-            GUIManager.Instance.SetResolution(1920, 1080, 1);
+            UIManager.Instance.SetResolution(1920, 1080, 1);
 
             canvas = GameObject.Find("Canvas");
             //显示健康游戏提醒。

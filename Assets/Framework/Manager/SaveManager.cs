@@ -7,11 +7,13 @@ namespace MetalMax
 {
     public class SaveManager : MonoBehaviour 
 	{
-        private static string archiveFilePath = "Resources/Data/Archive.json";
-        private static string personEquipmentInfoFilePath = "Resources/Data/PersonEquipmentInfo.json";
-        private static string tankEquipmentInfoFilePath = "Resources/Data/TankEquipmentInfo.json";
-        private static string bossInfoFilePath = "Resources/Data/BossInfo.json";
-        private static string NPCInfoFilePath = "Resources/Data/NPCInfo.json";
+        private const string archiveFilePath = "Resources/Data/Archive.json";
+        private const string personEquipmentInfoFilePath = "Resources/Data/PersonEquipmentInfo.json";
+        private const string tankEquipmentInfoFilePath = "Resources/Data/TankEquipmentInfo.json";
+        private const string bossInfoFilePath = "Resources/Data/BossInfo.json";
+        private const string NPCInfoFilePath = "Resources/Data/NPCInfo.json";
+        private const string panelTypeFilePath = "Resources/Data/NPCInfo.json";
+
         public static Archive currentArchive;
 
         public static string GetJsonStringFromFile(string filePath)
@@ -146,7 +148,6 @@ namespace MetalMax
             }
             return null;
         }
-
 
         /// <summary>
         /// 通过id找存档

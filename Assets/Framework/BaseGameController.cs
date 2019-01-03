@@ -34,6 +34,7 @@ namespace MetalMax
         }
 
         protected abstract void OnBeforeDestroy();
+
         /// <summary>
         /// 初始化角色
         /// </summary>

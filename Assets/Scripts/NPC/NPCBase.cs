@@ -14,15 +14,22 @@ namespace MetalMax
 
         protected virtual void Start()
         {
-            rd = GetComponent<SpriteRenderer>();
-            InitNPC(id);
+            InitNPC();
         }
 
-        public void InitNPC(int id)
+        public void InitNPC()
         {
+            rd = GetComponent<SpriteRenderer>();
             //读取NPC的json数据
             info = SaveManager.GetNPCjectFromListById(id);
             rd.sprite = Resources.Load<Sprite>(info.Sprite);
+        }
+
+        public virtual void Talk()
+        {
+            var nameText = info.Name;
+            var containTextList = info.TalkList;
+            UIManager.Instance.UpdateTalkPanel(nameText, containTextList);
         }
     }
 }
