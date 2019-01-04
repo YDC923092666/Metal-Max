@@ -9,6 +9,14 @@ namespace MetalMax
 {
 	public class UIManager: MonoSingleton<UIManager>
 	{
+        private Vector2 rayDir;
+        private float distance = 1f; //射线检测距离
+        private LayerMask mask = 1 << 8; //射线只检测Item层
+        private GameObject talkPanel; //对话框面板
+        private Text nameText;  //名字文本框
+        private Text containText;   //对话内容文本框
+        private int index = 0; //对话的索引
+        private int talkInterval = 3;   //对话间隔
         private bool isMainMenuPanelShow = false; //mainMenuPanel是否显示
 
         private Transform canvasTransform;
@@ -31,21 +39,20 @@ namespace MetalMax
         protected override void Awake()
         {
             base.Awake();
+            DontDestroyOnLoad(this);
+            ParseUIPanelTypeJson();
         }
 
         private void Start()
         {
-            DontDestroyOnLoad(this);
-            ParseUIPanelTypeJson();
             ETCButton button = CanvasTransform.GetComponentInChildren<ETCButton>();
             button.onDown.AddListener(() =>
             {
                 OnUIButtonClick();
             });
-            //buttonPanel = GameObject.Find("Canvas/ButtonPanel");
-            //talkPanel = GameObject.Find("Canvas/TalkPanel");
-            //nameText = GameObject.Find("Canvas/TalkPanel/NameText").GetComponent<Text>();
-            //containText = GameObject.Find("Canvas/TalkPanel/ContainText").GetComponent<Text>();
+
+            
+
             //HideButtonPanel();
             //HideTalkPanel();
         }
@@ -68,6 +75,7 @@ namespace MetalMax
             }
 
             BasePanel panel = GetPanel(panelType);
+            print(panel.name);
             panel.OnEnter();
             panelStack.Push(panel);
         }
@@ -146,16 +154,22 @@ namespace MetalMax
         {
             if (!isMainMenuPanelShow)
             {
-                print("1");
-                PushPanel("MainMenu");
+                PushPanel("MainMenuPanel");
                 isMainMenuPanelShow = true;
             }
             else
             {
-                print("1");
                 PopPanel();
                 isMainMenuPanelShow = false;
             }
+        }
+
+        public void SetResolution(float width, float height, float matchWidthOrHeight)
+        {
+            var canvas = GameObject.Find("Canvas");
+            var canvasScaler = canvas.GetComponent<CanvasScaler>();
+            canvasScaler.referenceResolution = new Vector2(width, height);
+            canvasScaler.matchWidthOrHeight = matchWidthOrHeight;
         }
 
         /// <summary>
@@ -180,7 +194,7 @@ namespace MetalMax
             //隐藏对话面板
             if (index >= containTextList.Count)
             {
-                HideTalkPanel();
+                UIManager.Instance.PopPanel();
                 return;
             }
             //使用dotween插件，每一次动画完成后递归调用本函数，直至所有对话内容读取完毕
@@ -192,12 +206,29 @@ namespace MetalMax
             });
         }
 
-        public void SetResolution(float width, float height, float matchWidthOrHeight)
+        /// <summary>
+        /// 当对话按钮被点击时
+        /// </summary>
+        public void OnTalkButtonClick()
         {
-            var canvas = GameObject.Find("Canvas");
-            var canvasScaler = canvas.GetComponent<CanvasScaler>();
-            canvasScaler.referenceResolution = new Vector2(width, height);
-            canvasScaler.matchWidthOrHeight = matchWidthOrHeight;
+            //射线检测身前的物体
+            Vector2 headDir = Char01Move.direction;
+            Vector2 char01Position = GameObject.FindGameObjectWithTag(Tags.charactor).transform.position;
+            RaycastHit2D hit = Physics2D.Raycast(char01Position, headDir, distance, mask);
+            if (hit.collider != null && hit.collider.tag == Tags.NPC)
+            {
+                PushPanel("TalkPanel");
+                talkPanel = panelDict["TalkPanel"].gameObject;
+                nameText = talkPanel.transform.Find("NameText").GetComponent<Text>();
+                containText = talkPanel.transform.Find("ContainText").GetComponent<Text>();
+                //TODO
+                hit.collider.GetComponent<NPCBase>().Talk();
+            }
+            else
+            {
+                //显示tipPanel，提示前面没有人。
+                //TODO
+            }
         }
     }
 }

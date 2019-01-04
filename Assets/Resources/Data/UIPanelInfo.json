@@ -1,26 +1,16 @@
 [	
 	{
-		"panelType": "ItemMessage",
-		"path": "Prefab/UI/ItemMessagePanel"
+		"panelType": "TalkPanel",
+		"path": "Prefab/UI/TalkPanel"
 	},
 
 	{
-		"panelType": "Knapsack",
+		"panelType": "KnapsackPanel",
 		"path": "Prefab/UI/KnapsackPanel"
 	},
 
 	{
-		"panelType": "MainMenu",
+		"panelType": "MainMenuPanel",
 		"path": "Prefab/UI/MainMenuPanel"
-	},
-
-	{
-		"panelType": "System",
-		"path": "Prefab/UI/SystemPanel"
-	},
-
-	{
-		"panelType": "Task",
-		"path": "Prefab/UI/TaskPanel"
 	}
 ]
