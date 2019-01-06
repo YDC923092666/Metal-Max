@@ -18,6 +18,8 @@ namespace MetalMax
         private int index = 0; //对话的索引
         private int talkInterval = 3;   //对话间隔
         private bool isMainMenuPanelShow = false; //mainMenuPanel是否显示
+        private bool canClickUIButton = true; //是否可以点击UI按钮。在某些情况下（如正在对话），该按钮不能点击
+        private ETCButton button;   //UI按钮
 
         private Transform canvasTransform;
         public Transform CanvasTransform
@@ -45,16 +47,23 @@ namespace MetalMax
 
         private void Start()
         {
-            ETCButton button = CanvasTransform.GetComponentInChildren<ETCButton>();
+            button = CanvasTransform.GetComponentInChildren<ETCButton>();
             button.onDown.AddListener(() =>
             {
                 OnUIButtonClick();
             });
+        }
 
-            
-
-            //HideButtonPanel();
-            //HideTalkPanel();
+        private void Update()
+        {
+            if (canClickUIButton)
+            {
+                button.activated = true;
+            }
+            else
+            {
+                button.activated = false;
+            }
         }
 
         /// <summary>
@@ -75,7 +84,6 @@ namespace MetalMax
             }
 
             BasePanel panel = GetPanel(panelType);
-            print(panel.name);
             panel.OnEnter();
             panelStack.Push(panel);
         }
@@ -194,7 +202,10 @@ namespace MetalMax
             //隐藏对话面板
             if (index >= containTextList.Count)
             {
-                UIManager.Instance.PopPanel();
+                PopPanel();
+                this.nameText.text = null;
+                index = 0;
+                canClickUIButton = true;
                 return;
             }
             //使用dotween插件，每一次动画完成后递归调用本函数，直至所有对话内容读取完毕
@@ -217,11 +228,12 @@ namespace MetalMax
             RaycastHit2D hit = Physics2D.Raycast(char01Position, headDir, distance, mask);
             if (hit.collider != null && hit.collider.tag == Tags.NPC)
             {
+                canClickUIButton = false;
                 PushPanel("TalkPanel");
                 talkPanel = panelDict["TalkPanel"].gameObject;
                 nameText = talkPanel.transform.Find("NameText").GetComponent<Text>();
                 containText = talkPanel.transform.Find("ContainText").GetComponent<Text>();
-                //TODO
+                
                 hit.collider.GetComponent<NPCBase>().Talk();
             }
             else
