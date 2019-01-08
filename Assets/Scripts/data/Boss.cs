@@ -1,7 +1,9 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
 namespace MetalMax
 {
     public enum SpecialSkill
@@ -9,106 +11,44 @@ namespace MetalMax
         Null,
         Flee, //逃跑
         Destroy, //破坏坦克的主炮
+        Critical
     }
 
-	public class Boss
+    [Serializable]
+    class BossJson
+    {
+        public List<Boss> infoList;
+    }
+
+    [Serializable]
+    public class Boss
 	{
-        private int id;
-        private string name;
-        private int hp;
-        private int damage;
-        private int defense;
-        private int criticalRate;  //暴击率
-        private List<string> skill;
+        public int id;
+        public string name;
+        public int hp;
+        public int damage;
+        public int defense;
+        public int criticalRate;  //暴击率
+        public List<BossSkill> skillList;
+        public string skillString;
+    }
 
-        public int Id
+    [Serializable]
+    public class BossSkill : ISerializationCallbackReceiver
+    {
+        [NonSerialized]
+        public SpecialSkill skill;
+        public string skillString;
+
+        public void OnAfterDeserialize()
         {
-            get
-            {
-                return id;
-            }
-
-            set
-            {
-                id = value;
-            }
+            SpecialSkill type = (SpecialSkill)System.Enum.Parse(typeof(SpecialSkill), skillString);
+            skill = type;
         }
 
-        public int Hp
+        public void OnBeforeSerialize()
         {
-            get
-            {
-                return hp;
-            }
 
-            set
-            {
-                hp = value;
-            }
-        }
-
-        public int Damage
-        {
-            get
-            {
-                return damage;
-            }
-
-            set
-            {
-                damage = value;
-            }
-        }
-
-        public int Defense
-        {
-            get
-            {
-                return defense;
-            }
-
-            set
-            {
-                defense = value;
-            }
-        }
-
-        public List<string> Skill
-        {
-            set
-            {
-                skill = value;
-            }
-            get
-            {
-                return skill;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
-            }
-        }
-
-        public int CriticalRate
-        {
-            get
-            {
-                return criticalRate;
-            }
-
-            set
-            {
-                criticalRate = value;
-            }
         }
     }
 }

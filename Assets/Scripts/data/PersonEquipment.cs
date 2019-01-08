@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+#pragma warning disable 0649
 namespace MetalMax
 {
     /// <summary>
@@ -17,91 +20,33 @@ namespace MetalMax
         Gun
     }
 
-    public class PersonEquipment
+    [Serializable]
+    class PersonEquipmentJson
+    {
+        public List<PersonEquipment> infoList;
+    }
+
+    [Serializable]
+    public class PersonEquipment:ISerializationCallbackReceiver
 	{
-        private int id;
-        private string name; //装备名字
-        private string type;    //装备类型
-        private int hp;
-        private int damage;
-        private int defense;
+        public int id;
+        public string name; //装备名字
+        [NonSerialized]
+        public PersonEquipmentType personEquipmentType;    //装备类型
+        public string personEquipmentTypeString;    
+        public int hp;
+        public int damage;
+        public int defense;
 
-        public int Hp
+        public void OnAfterDeserialize()
         {
-            get
-            {
-                return hp;
-            }
-
-            set
-            {
-                hp = value;
-            }
+            PersonEquipmentType type = (PersonEquipmentType)System.Enum.Parse(typeof(PersonEquipmentType), personEquipmentTypeString);
+            personEquipmentType = type;
         }
 
-        public int Damage
+        public void OnBeforeSerialize()
         {
-            get
-            {
-                return damage;
-            }
-
-            set
-            {
-                damage = value;
-            }
-        }
-
-        public int Defense
-        {
-            get
-            {
-                return defense;
-            }
-
-            set
-            {
-                defense = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
-            }
-        }
-
-        public int Id
-        {
-            get
-            {
-                return id;
-            }
-
-            set
-            {
-                id = value;
-            }
-        }
-
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-
-            set
-            {
-                type = value;
-            }
+            
         }
     }
 }

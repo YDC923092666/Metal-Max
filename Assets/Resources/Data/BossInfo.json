@@ -1,47 +1,50 @@
-[
+{
+	"infoList":
+	[
 	{
-	"Id": 1,
-	"Name": "洞穴守卫者",
-	"Hp": 200,
-	"Damage": 50,
-	"Defense": 20,
-	"CriticalRate": 2,
-	"Skill": ["Null"]
+	"id": 1,
+	"name": "洞穴守卫者",
+	"hp": 200,
+	"damage": 50,
+	"defense": 20,
+	"criticalRate": 2,
+	"skillList": [{"skillString": "Null"}]
 	},
 	{
-	"Id": 2,
-	"Name": "战争炮塔",
-	"Hp": 400,
-	"Damage": 100,
-	"Defense": 40,
-	"CriticalRate": 10,
-	"Skill": ["Destroy"]
+	"id": 2,
+	"name": "战争炮塔",
+	"hp": 400,
+	"damage": 100,
+	"defense": 40,
+	"criticalRate": 10,
+	"skillList": [{"skillString": "Destroy"}]
 	},
 	{
-	"Id": 3,
-	"Name": "狂战士",
-	"Hp": 600,
-	"Damage": 150,
-	"Defense": 60,
-	"CriticalRate": 30,
-	"Skill": ["Critical"]
+	"id": 3,
+	"name": "狂战士",
+	"hp": 600,
+	"damage": 150,
+	"defense": 60,
+	"criticalRate": 30,
+	"skillList": [{"skillString": "Critical"}]
 	},
 	{
-	"Id": 4,
-	"Name": "神秘人",
-	"Hp": 2000,
-	"Damage": 200,
-	"Defense": 120,
-	"CriticalRate": 5,
-	"Skill": ["Flee"]
+	"id": 4,
+	"name": "神秘人",
+	"hp": 2000,
+	"damage": 200,
+	"defense": 120,
+	"criticalRate": 5,
+	"skillList": [{"skillString": "Flee"}]
 	},
 	{
-	"Id": 5,
-	"Name": "诺亚",
-	"Hp": 2000,
-	"Damage": 300,
-	"Defense": 200,
-	"CriticalRate": 50,
-	"Skill": ["Destroy", "Critical"]
+	"id": 5,
+	"name": "诺亚",
+	"hp": 2000,
+	"damage": 300,
+	"defense": 200,
+	"criticalRate": 50,
+	"skillList": [{"skillString": "Destroy"}, {"skillString": "Critical"}]
 	}
-]
+	]
+}

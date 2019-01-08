@@ -22,13 +22,13 @@ namespace MetalMax
             rd = GetComponent<SpriteRenderer>();
             //读取NPC的json数据
             info = SaveManager.GetNPCjectFromListById(id);
-            rd.sprite = Resources.Load<Sprite>(info.Sprite);
+            rd.sprite = Resources.Load<Sprite>(info.sprite);
         }
 
         public virtual void Talk()
         {
-            var nameText = info.Name;
-            var containTextList = info.TalkList;
+            var nameText = info.name;
+            var containTextList = info.talkList;
             UIManager.Instance.UpdateTalkPanel(nameText, containTextList);
         }
     }

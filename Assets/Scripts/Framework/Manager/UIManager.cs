@@ -34,8 +34,8 @@ namespace MetalMax
             }
         }
 
-        private Dictionary<string, string> panelPathDict;//存储所有面板prefab的路径
-        private Dictionary<string, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
+        private Dictionary<UIPanelType, string> panelPathDict;//存储所有面板prefab的路径
+        private Dictionary<UIPanelType, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
         private Stack<BasePanel> panelStack;
 
         protected override void Awake()
@@ -69,7 +69,7 @@ namespace MetalMax
         /// <summary>
         /// 入栈，把某个页面显示在界面上
         /// </summary>
-        public void PushPanel(string panelType)
+        public void PushPanel(UIPanelType panelType)
         {
             if (panelStack == null)
             {
@@ -115,11 +115,11 @@ namespace MetalMax
         /// 根据面板类型，得到实例化的面板
         /// </summary>
         /// <returns></returns>
-        private BasePanel GetPanel(string panelType)
+        private BasePanel GetPanel(UIPanelType panelType)
         {
             if (panelDict == null)
             {
-                panelDict = new Dictionary<string, BasePanel>();
+                panelDict = new Dictionary<UIPanelType, BasePanel>();
             }
 
             BasePanel panel;
@@ -147,9 +147,9 @@ namespace MetalMax
         /// </summary>
         public void ParseUIPanelTypeJson()
         {
-            panelPathDict = new Dictionary<string, string>();
-            List<UIPanelInfo> infos = SaveManager.GetObjectListFromJsonString<UIPanelInfo>(Const.panelTypeFilePath);
-            foreach (UIPanelInfo info in infos)
+            panelPathDict = new Dictionary<UIPanelType, string>();
+            UIPanelTypeJson infos = SaveManager.GetObjectFromJsonString<UIPanelTypeJson>(Const.panelTypeFilePath);
+            foreach (UIPanelInfo info in infos.infoList)
             {
                 panelPathDict.Add(info.panelType, info.path);
             }
@@ -162,7 +162,7 @@ namespace MetalMax
         {
             if (!isMainMenuPanelShow)
             {
-                PushPanel("MainMenuPanel");
+                PushPanel(UIPanelType.MainMenuPanel);
                 isMainMenuPanelShow = true;
             }
             else
@@ -185,7 +185,7 @@ namespace MetalMax
         /// </summary>
         /// <param name="nameText">角色名</param>
         /// <param name="containTextList">角色对话列表</param>
-        public void UpdateTalkPanel(string nameText, List<string> containTextList)
+        public void UpdateTalkPanel(string nameText, List<NPCTalk> containTextList)
         {
             this.nameText.text = nameText + "：";
             //读取所有的对话内容
@@ -196,7 +196,7 @@ namespace MetalMax
         /// 递归调用本身，读取所有的对话内容
         /// </summary>
         /// <param name="containTextList">包含对话的list</param>
-        private void ChangeContainText(List<string> containTextList)
+        private void ChangeContainText(List<NPCTalk> containTextList)
         {
             //递归结束的条件。如果索引大于等于列表的长度，则表示对话内容已经读取完毕。
             //隐藏对话面板
@@ -209,7 +209,7 @@ namespace MetalMax
                 return;
             }
             //使用dotween插件，每一次动画完成后递归调用本函数，直至所有对话内容读取完毕
-            containText.DOText(containTextList[index], talkInterval).OnComplete(() =>
+            containText.DOText(containTextList[index].talk, talkInterval).OnComplete(() =>
             {
                 index++;
                 containText.text = null;
@@ -229,8 +229,8 @@ namespace MetalMax
             if (hit.collider != null && hit.collider.tag == Tags.NPC)
             {
                 canClickUIButton = false;
-                PushPanel("TalkPanel");
-                talkPanel = panelDict["TalkPanel"].gameObject;
+                PushPanel(UIPanelType.TalkPanel);
+                talkPanel = panelDict[UIPanelType.TalkPanel].gameObject;
                 nameText = talkPanel.transform.Find("NameText").GetComponent<Text>();
                 containText = talkPanel.transform.Find("ContainText").GetComponent<Text>();
                 

@@ -1,146 +1,149 @@
-[
-	{
-	"Id": 1,
-	"Name": "布巾",
-	"Type": "Head",
-	"Hp": 20,
-	"Damage": 0,
-	"Defense": 20
-	},
-	{
-	"Id": 2,
-	"Name": "布甲",
-	"Type": "Breastplate",
-	"Hp": 20,
-	"Damage": 0,
-	"Defense": 20
-	},
-	{
-	"Id": 3,
-	"Name": "布护手",
-	"Type": "Hands",
-	"Hp": 20,
-	"Damage": 0,
-	"Defense": 20
-	},
-	{
-	"Id": 4,
-	"Name": "布护腿",
-	"Type": "Pant",
-	"Hp": 20,
-	"Damage": 0,
-	"Defense": 20
-	},
-	{
-	"Id": 5,
-	"Name": "布鞋",
-	"Type": "Foot",
-	"Hp": 20,
-	"Damage": 0,
-	"Defense": 20
-	},
-	{
-	"Id": 6,
-	"Name": "弹弓",
-	"Type": "Gun",
-	"Hp": 0,
-	"Damage": 10,
-	"Defense": 0
-	},
-	{
-	"Id": 7,
-	"Name": "铁头盔",
-	"Type": "Head",
-	"Hp": 40,
-	"Damage": 0,
-	"Defense": 40
-	},
-	{
-	"Id": 8,
-	"Name": "铁甲",
-	"Type": "Breastplate",
-	"Hp": 40,
-	"Damage": 0,
-	"Defense": 40
-	},
-	{
-	"Id": 9,
-	"Name": "铁护手",
-	"Type": "Hands",
-	"Hp": 40,
-	"Damage": 0,
-	"Defense": 40
-	},
-	{
-	"Id": 10,
-	"Name": "铁护腿",
-	"Type": "Pant",
-	"Hp": 40,
-	"Damage": 0,
-	"Defense": 40
-	},
-	{
-	"Id": 11,
-	"Name": "铁鞋",
-	"Type": "Foot",
-	"Hp": 40,
-	"Damage": 0,
-	"Defense": 40
-	},
-	{
-	"Id": 12,
-	"Name": "火枪",
-	"Type": "Gun",
-	"Hp": 0,
-	"Damage": 30,
-	"Defense": 0
-	},
-	{
-	"Id": 13,
-	"Name": "钢头盔",
-	"Type": "Head",
-	"Hp": 80,
-	"Damage": 0,
-	"Defense": 80
-	},
-	{
-	"Id": 14,
-	"Name": "钢甲",
-	"Type": "Breastplate",
-	"Hp": 80,
-	"Damage": 0,
-	"Defense": 80
-	},
-	{
-	"Id": 15,
-	"Name": "钢护手",
-	"Type": "Hands",
-	"Hp": 80,
-	"Damage": 0,
-	"Defense": 80
-	},
-	{
-	"Id": 16,
-	"Name": "钢护腿",
-	"Type": "Pant",
-	"Hp": 80,
-	"Damage": 0,
-	"Defense": 80
-	},
-	{
-	"Id": 17,
-	"Name": "钢鞋",
-	"Type": "Foot",
-	"Hp": 80,
-	"Damage": 0,
-	"Defense": 80
-	},
-	{
-	"Id": 18,
-	"Name": "火炮",
-	"Type": "Gun",
-	"Hp": 0,
-	"Damage": 100,
-	"Defense": 0
-	}
-]
+{
+"infoList":
+	[
+		{
+		"id": 1,
+		"name": "布巾",
+		"personEquipmentTypeString": "Head",
+		"hp": 20,
+		"damage": 0,
+		"defense": 20
+		},
+		{
+		"id": 2,
+		"name": "布甲",
+		"personEquipmentTypeString": "Breastplate",
+		"hp": 20,
+		"damage": 0,
+		"defense": 20
+		},
+		{
+		"id": 3,
+		"name": "布护手",
+		"personEquipmentTypeString": "Hands",
+		"hp": 20,
+		"damage": 0,
+		"defense": 20
+		},
+		{
+		"id": 4,
+		"name": "布护腿",
+		"personEquipmentTypeString": "Pant",
+		"hp": 20,
+		"damage": 0,
+		"defense": 20
+		},
+		{
+		"id": 5,
+		"name": "布鞋",
+		"personEquipmentTypeString": "Foot",
+		"hp": 20,
+		"damage": 0,
+		"defense": 20
+		},
+		{
+		"id": 6,
+		"name": "弹弓",
+		"personEquipmentTypeString": "Gun",
+		"hp": 0,
+		"damage": 10,
+		"defense": 0
+		},
+		{
+		"id": 7,
+		"name": "铁头盔",
+		"personEquipmentTypeString": "Head",
+		"hp": 40,
+		"damage": 0,
+		"defense": 40
+		},
+		{
+		"id": 8,
+		"name": "铁甲",
+		"personEquipmentTypeString": "Breastplate",
+		"hp": 40,
+		"damage": 0,
+		"defense": 40
+		},
+		{
+		"id": 9,
+		"name": "铁护手",
+		"personEquipmentTypeString": "Hands",
+		"hp": 40,
+		"damage": 0,
+		"defense": 40
+		},
+		{
+		"id": 10,
+		"name": "铁护腿",
+		"personEquipmentTypeString": "Pant",
+		"hp": 40,
+		"damage": 0,
+		"defense": 40
+		},
+		{
+		"id": 11,
+		"name": "铁鞋",
+		"personEquipmentTypeString": "Foot",
+		"hp": 40,
+		"damage": 0,
+		"defense": 40
+		},
+		{
+		"id": 12,
+		"name": "火枪",
+		"personEquipmentTypeString": "Gun",
+		"hp": 0,
+		"damage": 30,
+		"defense": 0
+		},
+		{
+		"id": 13,
+		"name": "钢头盔",
+		"personEquipmentTypeString": "Head",
+		"hp": 80,
+		"damage": 0,
+		"defense": 80
+		},
+		{
+		"id": 14,
+		"name": "钢甲",
+		"personEquipmentTypeString": "Breastplate",
+		"hp": 80,
+		"damage": 0,
+		"defense": 80
+		},
+		{
+		"id": 15,
+		"name": "钢护手",
+		"personEquipmentTypeString": "Hands",
+		"hp": 80,
+		"damage": 0,
+		"defense": 80
+		},
+		{
+		"id": 16,
+		"name": "钢护腿",
+		"personEquipmentTypeString": "Pant",
+		"hp": 80,
+		"damage": 0,
+		"defense": 80
+		},
+		{
+		"id": 17,
+		"name": "钢鞋",
+		"personEquipmentTypeString": "Foot",
+		"hp": 80,
+		"damage": 0,
+		"defense": 80
+		},
+		{
+		"id": 18,
+		"name": "火炮",
+		"personEquipmentTypeString": "Gun",
+		"hp": 0,
+		"damage": 100,
+		"defense": 0
+		}
+	]
+}

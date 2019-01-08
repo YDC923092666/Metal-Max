@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+
+#pragma warning disable 0649
 namespace MetalMax
 {
     /// <summary>
@@ -22,91 +25,32 @@ namespace MetalMax
         Smoke   //烟雾弹
     }
 
-    public class TankEquipment
+    [Serializable]
+    class TankEquipmentJson
+    {
+        public List<TankEquipment> infoList;
+    }
+
+    public class TankEquipment:ISerializationCallbackReceiver
 	{
-        private int id;
-        private string name;
-        private string type;    //装备类型
-        private int hp;
-        private int damage;
-        private int defense;
+        public int id;
+        public string name;
+        [NonSerialized]
+        public TankEquipmentType tankEquipmentType; //装备类型
+        public string tankEquipmentTypeString;    
+        public int hp;
+        public int damage;
+        public int defense;
 
-        public int Hp
+        public void OnAfterDeserialize()
         {
-            get
-            {
-                return hp;
-            }
-
-            set
-            {
-                hp = value;
-            }
+            TankEquipmentType type = (TankEquipmentType)System.Enum.Parse(typeof(TankEquipmentType), tankEquipmentTypeString);
+            tankEquipmentType = type;
         }
 
-        public int Damage
+        public void OnBeforeSerialize()
         {
-            get
-            {
-                return damage;
-            }
-
-            set
-            {
-                damage = value;
-            }
-        }
-
-        public int Defense
-        {
-            get
-            {
-                return defense;
-            }
-
-            set
-            {
-                defense = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
-            }
-        }
-
-        public int Id
-        {
-            get
-            {
-                return id;
-            }
-
-            set
-            {
-                id = value;
-            }
-        }
-
-        public string Type
-        {
-            get
-            {
-                return type;
-            }
-
-            set
-            {
-                type = value;
-            }
+            
         }
     }
 }

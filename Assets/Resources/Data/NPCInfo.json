@@ -1,8 +1,10 @@
-[
+{
+	"infoList":[
 	{
-	"Id": 1,
-	"Name": "姐姐",
-	"Sprite": "Sprites/NPC/Sister",
-	"TalkList": ["弟弟，你回来啦？做你想做的事，姐姐永远支持你！", "有点累了吧，快休息一下。"]
+	"id": 1,
+	"name": "姐姐",
+	"sprite": "Sprites/NPC/Sister",
+	"talkList": [{"talk": "弟弟，你回来啦？做你想做的事，姐姐永远支持你！"}, {"talk": "有点累了吧，快休息一下。"}]
 	}
-]
+	]
+}

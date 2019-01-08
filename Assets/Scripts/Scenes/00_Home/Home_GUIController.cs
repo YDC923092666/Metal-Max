@@ -20,22 +20,22 @@ namespace MetalMax
             List<PersonStatus> personStatusList = new List<PersonStatus>();
             PersonStatus player1 = new PersonStatus()
             {
-                PersonName = text,
-                PersonLevel = 1,
-                PersonHp = 10,
-                PersonDamage = 10,
-                PersonDefence = 10
+                personName = text,
+                personLevel = 1,
+                personHp = 10,
+                personDamage = 10,
+                personDefense = 10
             };
             personStatusList.Add(player1);
             //保存角色姓名，初始化玩家等级为1
             Archive archive = new Archive()
             {
-                Id = 1,
-                TeamPersonCount = personStatusList.Count,
-                SceneName = SceneManager.GetActiveScene().name,
-                Position = new double[] { 0, 0, 0 },
-                ArchiveDateTime = DateTime.Now,
-                PersonStatusList = personStatusList
+                id = 1,
+                teamPersonCount = personStatusList.Count,
+                sceneName = SceneManager.GetActiveScene().name,
+                position = new double[] { 0, 0, 0 },
+                archiveDateTime = DateTime.Now,
+                personStatusList = personStatusList
             };
             SaveManager.SaveCurrentArchive(archive);
 

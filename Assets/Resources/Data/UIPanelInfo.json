@@ -1,16 +1,14 @@
-[	
-	{
-		"panelType": "TalkPanel",
-		"path": "Prefab/UI/TalkPanel"
-	},
+{
+"infoList":
+	[
+	{"panelTypeString":"TalkPanel",
+	"path":"Prefab/UI/TalkPanel"},
+	
+	{"panelTypeString":"KnapsackPanel",
+	"path":"Prefab/UI/KnapsackPanel"},
+	
+	{"panelTypeString":"MainMenuPanel",
+	"path":"Prefab/UI/MainMenuPanel"}
 
-	{
-		"panelType": "KnapsackPanel",
-		"path": "Prefab/UI/KnapsackPanel"
-	},
-
-	{
-		"panelType": "MainMenuPanel",
-		"path": "Prefab/UI/MainMenuPanel"
-	}
-]
+	]
+}

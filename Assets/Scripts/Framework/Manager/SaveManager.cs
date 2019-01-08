@@ -1,5 +1,4 @@
-﻿using LitJson;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -27,16 +26,16 @@ namespace MetalMax
         }
 
         /// <summary>
-        /// Json解析字符串为对象的列表
+        /// 解析字符串为Json对象
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">想要解析成的json对象</typeparam>
         /// <param name="filePath">想要读取文件的相对路径。如Resources/Data/PersonEquipmentInfo.json</param>
-        /// <returns>返回对象的一个列表</returns>
-        public static List<T> GetObjectListFromJsonString<T>(string filePath)
+        /// <returns>返回对象</returns>
+        public static T GetObjectFromJsonString<T>(string filePath)
         {
             string jsonText = GetJsonStringFromFile(filePath);
-            List<T> itemList = JsonMapper.ToObject<List<T>>(jsonText);
-            return itemList;
+            T jsonObject = JsonUtility.FromJson<T>(jsonText);
+            return jsonObject;
         }
 
         /// <summary>
@@ -47,7 +46,7 @@ namespace MetalMax
         /// <param name="filePath">想要保存文件的相对路径。如Resources/Data/PersonEquipmentInfo.json</param>
         public static void SaveObject2JsonFile<T>(T t)
         {
-            string jsonText = "[" + JsonMapper.ToJson(t) + "]";
+            string jsonText = JsonUtility.ToJson(t);
             string path = Path.Combine(Application.dataPath, Const.archiveFilePath);
             StreamWriter sw = new StreamWriter(path);   //利用写入流创建文件
             sw.Write(jsonText);     //写入数据
@@ -64,8 +63,8 @@ namespace MetalMax
             string path = Path.Combine(Application.dataPath, Const.archiveFilePath);
             if (File.Exists(path))
             {
-                List<Archive> archiveList = GetObjectListFromJsonString<Archive>(Const.archiveFilePath);
-                if (archiveList != null)
+                ArchiveJson archivejsonObject = GetObjectFromJsonString<ArchiveJson>(Const.archiveFilePath);
+                if (archivejsonObject != null)
                 {
                     return true;
                 }
@@ -82,10 +81,10 @@ namespace MetalMax
         /// <returns></returns>
         public static PersonEquipment GetPersonEquipmentObjectFromListById(int id)
         {
-            List<PersonEquipment> objList = GetObjectListFromJsonString<PersonEquipment>(Const.personEquipmentInfoFilePath);
-            foreach (var item in objList)
+            PersonEquipmentJson jsonObject = GetObjectFromJsonString<PersonEquipmentJson>(Const.personEquipmentInfoFilePath);
+            foreach (var item in jsonObject.infoList)
             {
-                if(item.Id == id)
+                if(item.id == id)
                 {
                     return item;
                 }
@@ -100,10 +99,10 @@ namespace MetalMax
         /// <returns></returns>
         public static TankEquipment GetTankEquipmentObjectFromListById(int id)
         {
-            List<TankEquipment> objList = GetObjectListFromJsonString<TankEquipment>(Const.tankEquipmentInfoFilePath);
-            foreach (var item in objList)
+            TankEquipmentJson jsonObject = GetObjectFromJsonString<TankEquipmentJson>(Const.tankEquipmentInfoFilePath);
+            foreach (var item in jsonObject.infoList)
             {
-                if (item.Id == id)
+                if (item.id == id)
                 {
                     return item;
                 }
@@ -118,10 +117,10 @@ namespace MetalMax
         /// <returns></returns>
         public static Boss GetBossObjectFromListById(int id)
         {
-            List<Boss> objList = GetObjectListFromJsonString<Boss>(Const.bossInfoFilePath);
-            foreach (var item in objList)
+            BossJson jsonObject = GetObjectFromJsonString<BossJson>(Const.bossInfoFilePath);
+            foreach (var item in jsonObject.infoList)
             {
-                if (item.Id == id)
+                if (item.id == id)
                 {
                     return item;
                 }
@@ -136,10 +135,10 @@ namespace MetalMax
         /// <returns></returns>
         public static NPCInfo GetNPCjectFromListById(int id)
         {
-            List<NPCInfo> objList = GetObjectListFromJsonString<NPCInfo>(Const.NPCInfoFilePath);
-            foreach (var item in objList)
+            NPCInfoJson jsonObject = GetObjectFromJsonString<NPCInfoJson>(Const.NPCInfoFilePath);
+            foreach (var item in jsonObject.infoList)
             {
-                if (item.Id == id)
+                if (item.id == id)
                 {
                     return item;
                 }
@@ -154,8 +153,8 @@ namespace MetalMax
         /// <returns></returns>
         public static Archive GetArchiveById(int id)
         {
-            Archive archive = GetObjectListFromJsonString<Archive>(Const.archiveFilePath)[id - 1];
-            return archive;
+            ArchiveJson jsonObject = GetObjectFromJsonString<ArchiveJson>(Const.archiveFilePath);
+            return jsonObject.infoList[id - 1];
         }
 
         /// <summary>
@@ -168,10 +167,10 @@ namespace MetalMax
             List<Archive> tmpList = new List<Archive>();
 
             //将其他不需要修改的存档存入在一个tmpList里
-            List<Archive> archiveList = GetObjectListFromJsonString<Archive>(Const.archiveFilePath);
-            foreach (var item in archiveList)
+            ArchiveJson jsonObject = GetObjectFromJsonString<ArchiveJson>(Const.archiveFilePath);
+            foreach (var item in jsonObject.infoList)
             {
-                if(item.Id != id)
+                if(item.id != id)
                 {
                     tmpList.Add(item);
                 }
@@ -179,9 +178,11 @@ namespace MetalMax
 
             //将需要修改的存档也一并存入tmpList
             tmpList.Add(archive);
+            Dictionary<string, List<Archive>> dict = new Dictionary<string, List<Archive>>();
+            dict.Add("infoList", tmpList);
 
-            //将list存入文件
-            string jsonText = JsonMapper.ToJson(tmpList);
+            //将dict存入文件
+            string jsonText = JsonUtility.ToJson(dict);
             string path = Path.Combine(Application.dataPath, Const.archiveFilePath);
             StreamWriter sw = new StreamWriter(path);   //利用写入流创建文件
             sw.Write(jsonText);     //写入数据
@@ -199,7 +200,7 @@ namespace MetalMax
             string jsonText = null;
             if (archiveList.Count > 0)
             {
-                jsonText = JsonMapper.ToJson(archiveList);
+                jsonText = JsonUtility.ToJson(archiveList);
             }
             else
             {
@@ -220,5 +221,7 @@ namespace MetalMax
                 currentArchive = archive;
             }
         }
+
+        
     }
 }
