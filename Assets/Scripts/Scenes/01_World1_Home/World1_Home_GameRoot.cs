@@ -26,7 +26,9 @@ namespace MetalMax
 
         protected override void LaunchInTestMode()
         {
-            throw new NotImplementedException();
+            Sprite sprite = Resources.Load<Sprite>("Sprites/HP3");
+            GameObject.Find("Test").GetComponent<SpriteRenderer>().sprite = sprite;
+            
         }
     }
 }

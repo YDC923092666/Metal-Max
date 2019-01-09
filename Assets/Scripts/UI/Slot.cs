@@ -38,9 +38,9 @@ namespace MetalMax
         /// 得到当前物品槽存储的物品类型
         /// </summary>
         /// <returns></returns>
-        public Item.ItemType GetItemType()
+        public ItemType GetItemType()
         {
-            return transform.GetChild(0).GetComponent<ItemUI>().Item.Type;
+            return transform.GetChild(0).GetComponent<ItemUI>().Item.itemType;
         }
 
         /// <summary>
@@ -49,13 +49,13 @@ namespace MetalMax
         /// <returns></returns>
         public int GetItemId()
         {
-            return transform.GetChild(0).GetComponent<ItemUI>().Item.ID;
+            return transform.GetChild(0).GetComponent<ItemUI>().Item.id;
         }
 
         public bool IsFilled()
         {
             ItemUI itemUI = transform.GetChild(0).GetComponent<ItemUI>();
-            return itemUI.Amount >= itemUI.Item.Capacity;//当前的数量大于等于容量
+            return itemUI.Amount >= itemUI.Item.capacity;//当前的数量大于等于容量
         }
 
         public void OnPointerExit(PointerEventData eventData)
@@ -146,11 +146,11 @@ namespace MetalMax
                     //可以完全放下
                     //只能放下其中一部分
                     //自身的id!=pickedItem.id   pickedItem跟当前物品交换          
-                    if (currentItem.Item.ID == InventoryManager.Instance.PickedItem.Item.ID)
+                    if (currentItem.Item.id == InventoryManager.Instance.PickedItem.Item.id)
                     {
                         if (Input.GetKey(KeyCode.LeftControl))
                         {
-                            if (currentItem.Item.Capacity > currentItem.Amount)//当前物品槽还有容量
+                            if (currentItem.Item.capacity > currentItem.Amount)//当前物品槽还有容量
                             {
                                 currentItem.AddAmount();
                                 InventoryManager.Instance.RemoveItem();
@@ -162,9 +162,9 @@ namespace MetalMax
                         }
                         else
                         {
-                            if (currentItem.Item.Capacity > currentItem.Amount)
+                            if (currentItem.Item.capacity > currentItem.Amount)
                             {
-                                int amountRemain = currentItem.Item.Capacity - currentItem.Amount;//当前物品槽剩余的空间
+                                int amountRemain = currentItem.Item.capacity - currentItem.Amount;//当前物品槽剩余的空间
                                 if (amountRemain >= InventoryManager.Instance.PickedItem.Amount)
                                 {
                                     currentItem.SetAmount(currentItem.Amount + InventoryManager.Instance.PickedItem.Amount);

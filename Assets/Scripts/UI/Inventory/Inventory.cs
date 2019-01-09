@@ -17,7 +17,6 @@ namespace MetalMax
 
         private CanvasGroup canvasGroup;
 
-        // Use this for initialization
         public virtual void Start()
         {
             slotList = GetComponentsInChildren<Slot>();
@@ -42,6 +41,7 @@ namespace MetalMax
             Item item = InventoryManager.Instance.GetItemById(id);
             return StoreItem(item);
         }
+
         public bool StoreItem(Item item)
         {
             if (item == null)
@@ -49,7 +49,7 @@ namespace MetalMax
                 Debug.LogWarning("要存储的物品的id不存在");
                 return false;
             }
-            if (item.Capacity == 1)
+            if (item.capacity == 1)
             {
                 Slot slot = FindEmptySlot();
                 if (slot == null)
@@ -106,7 +106,7 @@ namespace MetalMax
         {
             foreach (Slot slot in slotList)
             {
-                if (slot.transform.childCount >= 1 && slot.GetItemId() == item.ID && slot.IsFilled() == false)
+                if (slot.transform.childCount >= 1 && slot.GetItemId() == item.id && slot.IsFilled() == false)
                 {
                     return slot;
                 }
@@ -145,7 +145,7 @@ namespace MetalMax
                 if (slot.transform.childCount > 0)
                 {
                     ItemUI itemUI = slot.transform.GetChild(0).GetComponent<ItemUI>();
-                    sb.Append(itemUI.Item.ID + "," + itemUI.Amount + "-");
+                    sb.Append(itemUI.Item.id + "," + itemUI.Amount + "-");
                 }
                 else
                 {

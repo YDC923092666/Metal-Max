@@ -66,8 +66,8 @@ namespace MetalMax
             this.Item = item;
             this.Amount = amount;
             // update ui 
-            ItemImage.sprite = Resources.Load<Sprite>(item.Sprite);
-            if (Item.Capacity > 1)
+            ItemImage.sprite = Resources.Load<Sprite>(item.sprite);
+            if (Item.capacity > 1)
                 AmountText.text = Amount.ToString();
             else
                 AmountText.text = "";
@@ -78,7 +78,7 @@ namespace MetalMax
             transform.localScale = animationScale;
             this.Amount += amount;
             //update ui 
-            if (Item.Capacity > 1)
+            if (Item.capacity > 1)
                 AmountText.text = Amount.ToString();
             else
                 AmountText.text = "";
@@ -88,7 +88,7 @@ namespace MetalMax
             transform.localScale = animationScale;
             this.Amount -= amount;
             //update ui 
-            if (Item.Capacity > 1)
+            if (Item.capacity > 1)
                 AmountText.text = Amount.ToString();
             else
                 AmountText.text = "";
@@ -98,7 +98,7 @@ namespace MetalMax
             transform.localScale = animationScale;
             this.Amount = amount;
             //update ui 
-            if (Item.Capacity > 1)
+            if (Item.capacity > 1)
                 AmountText.text = Amount.ToString();
             else
                 AmountText.text = "";

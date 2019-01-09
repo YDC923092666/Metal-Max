@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd3807a3a929da4b8a912748025f873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 101822, guid: b95953b0f2d33594ab66def913505f39, type: 2}
+  itemPrefab: {fileID: 101822, guid: 11d985094fd1bea4ab8299ee07268983, type: 2}
 --- !u!222 &22253412
 CanvasRenderer:
   m_ObjectHideFlags: 1

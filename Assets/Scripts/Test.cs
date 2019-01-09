@@ -10,11 +10,11 @@ namespace MetalMax
 	{
         public void TestJson()
         {
-            string ta = GetJsonStringFromFile(Const.NPCInfoFilePath);
-            NPCInfoJson jsonObject = JsonUtility.FromJson<NPCInfoJson>(ta);
+            string ta = GetJsonStringFromFile(Const.personEquipmentInfoFilePath);
+            PersonEquipmentJson jsonObject = JsonUtility.FromJson<PersonEquipmentJson>(ta);
             foreach (var item in jsonObject.infoList)
             {
-                print(item.name);
+                print(item.personEquipmentType.ToString());
             }
         }
 
@@ -28,6 +28,15 @@ namespace MetalMax
                 jsonText += srReadFile.ReadLine();
             }
             return jsonText;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                int id = UnityEngine.Random.Range(1, 18);
+                KnapsackPanel.Instance.StoreItem(id);
+            }
         }
 
     }

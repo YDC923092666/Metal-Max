@@ -4,7 +4,8 @@
 		{
 		"id": 1,
 		"name": "布巾",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Common",
 		"equiptype": "Head",
 		"description": "用布做的头巾",
 		"capacity": 1,
@@ -12,12 +13,14 @@
         "sellPrice": 5,
 		"hp": 20,
 		"damage": 0,
-		"defense": 20
+		"defense": 20,
+		"sprite": "Sprites/Items/PersonEquipment/Head1"
 		},
 		{
 		"id": 2,
 		"name": "布甲",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Common",
 		"equiptype": "Breastplate",
 		"description": "用来遮挡身体",
 		"capacity": 1,
@@ -25,12 +28,14 @@
         "sellPrice": 5,
 		"hp": 20,
 		"damage": 0,
-		"defense": 20
+		"defense": 20,
+		"sprite": "Sprites/Items/PersonEquipment/Breastplate1"
 		},
 		{
 		"id": 3,
 		"name": "布护手",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Common",
 		"equiptype": "Hands",
 		"description": "用布来包裹住手",
 		"capacity": 1,
@@ -38,12 +43,14 @@
         "sellPrice": 5,
 		"hp": 20,
 		"damage": 0,
-		"defense": 20
+		"defense": 20,
+		"sprite": "Sprites/Items/PersonEquipment/Hands1"
 		},
 		{
 		"id": 4,
 		"name": "布护腿",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Common",
 		"equiptype": "Pant",
 		"description": "用来遮挡身体",
 		"capacity": 1,
@@ -51,12 +58,14 @@
         "sellPrice": 5,
 		"hp": 20,
 		"damage": 0,
-		"defense": 20
+		"defense": 20,
+		"sprite": "Sprites/Items/PersonEquipment/Pant1"
 		},
 		{
 		"id": 5,
 		"name": "布鞋",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Common",
 		"equiptype": "Foot",
 		"description": "走起路来很轻，就是有点扎脚",
 		"capacity": 1,
@@ -64,25 +73,29 @@
         "sellPrice": 5,
 		"hp": 20,
 		"damage": 0,
-		"defense": 20
+		"defense": 20,
+		"sprite": "Sprites/Items/PersonEquipment/Foot1"
 		},
 		{
 		"id": 6,
-		"name": "弓箭",
-		"type": "PersonEquipment",
+		"name": "匕首",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Common",
 		"equiptype": "Weapon",
-		"description": "biubiubiu",
+		"description": "捅就完事了",
 		"capacity": 1,
 		"buyPrice": 10,
         "sellPrice": 5,
 		"hp": 0,
 		"damage": 10,
-		"defense": 0
+		"defense": 0,
+		"sprite": "Sprites/Items/PersonEquipment/Weapon1"
 		},
 		{
 		"id": 7,
 		"name": "铁头盔",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Uncommon",
 		"equiptype": "Head",
 		"description": "戴上后有点沉",
 		"capacity": 1,
@@ -90,25 +103,29 @@
         "sellPrice": 10,
 		"hp": 40,
 		"damage": 0,
-		"defense": 40
+		"defense": 40,
+		"sprite": "Sprites/Items/PersonEquipment/Head2"
 		},
 		{
 		"id": 8,
 		"name": "铁甲",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Uncommon",
 		"equiptype": "Breastplate",
-		"description": "妈妈再也不用担心我被人砍死了",
+		"description": "坚如磐石",
 		"capacity": 1,
 		"buyPrice": 30,
         "sellPrice": 20,
 		"hp": 100,
 		"damage": 0,
-		"defense": 60
+		"defense": 60,
+		"sprite": "Sprites/Items/PersonEquipment/Breastplate2"
 		},
 		{
 		"id": 9,
 		"name": "铁护手",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Uncommon",
 		"equiptype": "Hands",
 		"description": "手指不太灵活",
 		"capacity": 1,
@@ -116,12 +133,14 @@
         "sellPrice": 10,
 		"hp": 40,
 		"damage": 0,
-		"defense": 40
+		"defense": 40,
+		"sprite": "Sprites/Items/PersonEquipment/Hands2"
 		},
 		{
 		"id": 10,
 		"name": "铁护腿",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Uncommon",
 		"equiptype": "Pant",
 		"description": "太重啦",
 		"capacity": 1,
@@ -129,12 +148,14 @@
         "sellPrice": 20,
 		"hp": 100,
 		"damage": 0,
-		"defense": 60
+		"defense": 60,
+		"sprite": "Sprites/Items/PersonEquipment/Pant2"
 		},
 		{
 		"id": 11,
 		"name": "铁鞋",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Uncommon",
 		"equiptype": "Foot",
 		"description": "一步一个脚印",
 		"capacity": 1,
@@ -142,12 +163,14 @@
         "sellPrice": 10,
 		"hp": 40,
 		"damage": 0,
-		"defense": 40
+		"defense": 40,
+		"sprite": "Sprites/Items/PersonEquipment/Foot2"
 		},
 		{
 		"id": 12,
 		"name": "斧头",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Uncommon",
 		"equiptype": "Weapon",
 		"description": "声音很清脆",
 		"capacity": 1,
@@ -155,12 +178,14 @@
         "sellPrice": 10,
 		"hp": 0,
 		"damage": 20,
-		"defense": 0
+		"defense": 0,
+		"sprite": "Sprites/Items/PersonEquipment/Weapon2"
 		},
 		{
 		"id": 13,
 		"name": "钢头盔",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Rare",
 		"equiptype": "Head",
 		"description": "防弹的",
 		"capacity": 1,
@@ -168,12 +193,14 @@
         "sellPrice": 20,
 		"hp": 80,
 		"damage": 0,
-		"defense": 80
+		"defense": 80,
+		"sprite": "Sprites/Items/PersonEquipment/Head3"
 		},
 		{
 		"id": 14,
 		"name": "钢甲",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Rare",
 		"equiptype": "Breastplate",
 		"description": "锃亮锃亮",
 		"capacity": 1,
@@ -181,12 +208,14 @@
         "sellPrice": 20,
 		"hp": 80,
 		"damage": 0,
-		"defense": 80
+		"defense": 80,
+		"sprite": "Sprites/Items/PersonEquipment/Breastplate3"
 		},
 		{
 		"id": 15,
 		"name": "钢护手",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Rare",
 		"equiptype": "Hands",
 		"description": "可以砸核桃",
 		"capacity": 1,
@@ -194,12 +223,14 @@
         "sellPrice": 20,
 		"hp": 80,
 		"damage": 0,
-		"defense": 80
+		"defense": 80,
+		"sprite": "Sprites/Items/PersonEquipment/Hands3"
 		},
 		{
 		"id": 16,
 		"name": "钢护腿",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Rare",
 		"equiptype": "Pant",
 		"description": "亮晶晶",
 		"capacity": 1,
@@ -207,12 +238,14 @@
         "sellPrice": 20,
 		"hp": 80,
 		"damage": 0,
-		"defense": 80
+		"defense": 80,
+		"sprite": "Sprites/Items/PersonEquipment/Pant3"
 		},
 		{
 		"id": 17,
 		"name": "钢鞋",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Rare",
 		"equiptype": "Foot",
 		"description": "不扎脚，谁用谁知道",
 		"capacity": 1,
@@ -220,12 +253,14 @@
         "sellPrice": 20,
 		"hp": 80,
 		"damage": 0,
-		"defense": 80
+		"defense": 80,
+		"sprite": "Sprites/Items/PersonEquipment/Foot3"
 		},
 		{
 		"id": 18,
 		"name": "大剑",
-		"type": "PersonEquipment",
+		"typeString": "PersonEquipment",
+		"itemQualityString": "Rare",
 		"equiptype": "Weapon",
 		"description": "爆炸输出!",
 		"capacity": 1,
@@ -233,7 +268,8 @@
         "sellPrice": 40,
 		"hp": 0,
 		"damage": 100,
-		"defense": 0
+		"defense": 0,
+		"sprite": "Sprites/Items/PersonEquipment/Weapon3"
 		}
 	]
 }
