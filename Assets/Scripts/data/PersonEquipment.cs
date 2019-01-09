@@ -17,7 +17,7 @@ namespace MetalMax
         Hands,
         Pant,
         Foot,
-        Gun
+        Weapon
     }
 
     [Serializable]

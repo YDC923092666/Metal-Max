@@ -109,8 +109,8 @@ namespace MetalMax
             //文本为在Unity里面是 TextAsset类型
             TextAsset itemText = Resources.Load<TextAsset>("Items");
             string itemsJson = itemText.text;//物品信息的Json格式
-            JSONObject j = new JSONObject(itemsJson);
-            foreach (JSONObject temp in j.list)
+            //JSONObject j = new JSONObject(itemsJson);
+            //foreach (JSONObject temp in j.list)
             {
                 string typeStr = temp["type"].str;
                 Item.ItemType type = (Item.ItemType)System.Enum.Parse(typeof(Item.ItemType), typeStr);

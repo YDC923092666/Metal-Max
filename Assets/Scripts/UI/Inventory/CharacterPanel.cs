@@ -23,13 +23,13 @@ namespace MetalMax
 
         private Text propertyText;
 
-        private Player player;
+        //private Player player;
 
         public override void Start()
         {
             base.Start();
             propertyText = transform.Find("PropertyPanel/Text").GetComponent<Text>();
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            //player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
             UpdatePropertyText();
             Hide();
         }
@@ -57,14 +57,14 @@ namespace MetalMax
                 }
             }
             if (exitItem != null)
-                Knapsack.Instance.StoreItem(exitItem);
+                KnapsackPanel.Instance.StoreItem(exitItem);
 
             UpdatePropertyText();
         }
 
         public void PutOff(Item item)
         {
-            Knapsack.Instance.StoreItem(item);
+            KnapsackPanel.Instance.StoreItem(item);
             UpdatePropertyText();
         }
 
@@ -91,11 +91,11 @@ namespace MetalMax
                     }
                 }
             }
-            strength += player.BasicStrength;
-            intellect += player.BasicIntellect;
-            agility += player.BasicAgility;
-            stamina += player.BasicStamina;
-            damage += player.BasicDamage;
+            //strength += player.BasicStrength;
+            //intellect += player.BasicIntellect;
+            //agility += player.BasicAgility;
+            //stamina += player.BasicStamina;
+            //damage += player.BasicDamage;
             string text = string.Format("力量：{0}\n智力：{1}\n敏捷：{2}\n体力：{3}\n攻击力：{4} ", strength, intellect, agility, stamina, damage);
             propertyText.text = text;
         }
