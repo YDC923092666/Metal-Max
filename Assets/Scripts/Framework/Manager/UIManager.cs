@@ -35,7 +35,7 @@ namespace MetalMax
         }
 
         private Dictionary<UIPanelType, string> panelPathDict;//存储所有面板prefab的路径
-        private Dictionary<UIPanelType, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
+        public static Dictionary<UIPanelType, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
         private Stack<BasePanel> panelStack;
 
         protected override void Awake()
@@ -69,7 +69,7 @@ namespace MetalMax
         /// <summary>
         /// 入栈，把某个页面显示在界面上
         /// </summary>
-        public void PushPanel(UIPanelType panelType)
+        public void PushPanel(UIPanelType panelType, string content=null)
         {
             if (panelStack == null)
             {
@@ -84,7 +84,7 @@ namespace MetalMax
             }
 
             BasePanel panel = GetPanel(panelType);
-            panel.OnEnter();
+            panel.OnEnter(content);
             panelStack.Push(panel);
         }
 

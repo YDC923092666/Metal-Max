@@ -8,7 +8,10 @@
 	"path":"Prefab/UI/KnapsackPanel"},
 	
 	{"panelTypeString":"MainMenuPanel",
-	"path":"Prefab/UI/MainMenuPanel"}
+	"path":"Prefab/UI/MainMenuPanel"},
+	
+	{"panelTypeString":"ItemInfoPanel",
+	"path":"Prefab/UI/ItemInfoPanel"}
 
 	]
 }

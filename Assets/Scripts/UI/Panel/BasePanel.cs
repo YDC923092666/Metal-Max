@@ -10,7 +10,7 @@ namespace MetalMax
         /// <summary>
         /// 界面显示出来
         /// </summary>
-        public virtual void OnEnter()
+        public virtual void OnEnter(string content)
         {
 
         }

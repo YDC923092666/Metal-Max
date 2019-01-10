@@ -21,7 +21,7 @@ namespace MetalMax
             });
         }
 
-        public override void OnEnter()
+        public override void OnEnter(string content)
         {
             if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.alpha = 1;

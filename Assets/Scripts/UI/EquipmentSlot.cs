@@ -21,7 +21,6 @@ namespace MetalMax
                     DestroyImmediate(currentItemUI.gameObject);
                     //脱掉放到背包里面
                     transform.parent.SendMessage("PutOff", itemTemp);
-                    InventoryManager.Instance.HideToolTip();
                 }
             }
 

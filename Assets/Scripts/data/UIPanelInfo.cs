@@ -10,7 +10,8 @@ namespace MetalMax
     {
         TalkPanel,
         KnapsackPanel,
-        MainMenuPanel
+        MainMenuPanel,
+        ItemInfoPanel
     }
 
     [Serializable]

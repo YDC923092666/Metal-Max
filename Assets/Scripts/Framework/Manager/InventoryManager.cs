@@ -13,12 +13,12 @@ namespace MetalMax
         /// </summary>
         private List<Item> itemList;
 
-        #region ToolTip
-        private ToolTip toolTip;
+        #region ItemInfoPanel
+        private ItemInfoPanel itemInfoPanel;
 
-        private bool isToolTipShow = false;
+        private bool isItemInfoPanelShow = false;
 
-        private Vector2 toolTipPosionOffset = new Vector2(10, -10);
+        private Vector2 ItemInfoPanelPosionOffset = new Vector2(1, 0);
         #endregion
 
         private Canvas canvas;
@@ -53,7 +53,6 @@ namespace MetalMax
 
         void Start()
         {
-            toolTip = GameObject.FindObjectOfType<ToolTip>();
             canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
             pickedItem = GameObject.Find("PickedItem").GetComponent<ItemUI>();
             pickedItem.Hide();
@@ -61,14 +60,6 @@ namespace MetalMax
 
         void Update()
         {
-            if (isToolTipShow)
-            {
-                //控制提示面板跟随鼠标
-                Vector2 position;
-                RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
-                toolTip.SetLocalPotion(position + toolTipPosionOffset);
-            }
-
             //物品丢弃的处理
             if (isPickedItem && Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1) == false)
             {
@@ -103,17 +94,28 @@ namespace MetalMax
             return null;
         }
 
-        public void ShowToolTip(string content)
+        public void ShowItemInfoPanel(string content, ItemType type)
         {
             if (this.isPickedItem) return;
-            isToolTipShow = true;
-            toolTip.Show(content);
-        }
-
-        public void HideToolTip()
-        {
-            isToolTipShow = false;
-            toolTip.Hide();
+            isItemInfoPanelShow = true;
+            UIManager.Instance.PushPanel(UIPanelType.ItemInfoPanel, content);
+            string text = null;
+            switch (type)
+            {
+                case ItemType.Consumable:
+                    text = "使用";
+                    break;
+                case ItemType.PersonEquipment:
+                    text = "装备";
+                    break;
+                case ItemType.TankEquipment:
+                    text = "装备";
+                    break;
+                case ItemType.Special:
+                    text = "使用";
+                    break;
+            }
+            UIManager.panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
         }
 
         //捡起物品槽指定数量的物品
@@ -123,7 +125,6 @@ namespace MetalMax
             isPickedItem = true;
 
             PickedItem.Show();
-            this.toolTip.Hide();
             //如果我们捡起了物品，我们就要让物品跟随鼠标
             Vector2 position;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, null, out position);
