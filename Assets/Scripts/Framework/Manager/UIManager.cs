@@ -1,9 +1,18 @@
-﻿using System;
+﻿#if UNITY_ANDROID && !UNITY_EDITOR
+#define ANDROID
+#endif
+ 
+#if UNITY_IPHONE && !UNITY_EDITOR
+#define IPHONE
+#endif
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 namespace MetalMax
 {
@@ -17,9 +26,9 @@ namespace MetalMax
         private Text containText;   //对话内容文本框
         private int index = 0; //对话的索引
         private int talkInterval = 3;   //对话间隔
-        private bool isMainMenuPanelShow = false; //mainMenuPanel是否显示
+        private bool isMainMenuPanelShow = false;
         private bool canClickUIButton = true; //是否可以点击UI按钮。在某些情况下（如正在对话），该按钮不能点击
-        private ETCButton button;   //UI按钮
+        private Stack<BasePanel> panelStack;
 
         private Transform canvasTransform;
         public Transform CanvasTransform
@@ -34,9 +43,13 @@ namespace MetalMax
             }
         }
 
+        private ETCButton button;   //UI按钮
+
         private Dictionary<UIPanelType, string> panelPathDict;//存储所有面板prefab的路径
         public static Dictionary<UIPanelType, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
-        private Stack<BasePanel> panelStack;
+        
+        [HideInInspector]
+        public static Slot selectedSlot; //当前选中的物体
 
         protected override void Awake()
         {
@@ -63,6 +76,23 @@ namespace MetalMax
             else
             {
                 button.activated = false;
+            }
+
+            if (Input.GetMouseButtonDown(0) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))
+            {
+#if IPHONE || ANDROID
+			if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+#else
+                if (EventSystem.current.IsPointerOverGameObject())
+#endif
+                {
+                    Debug.Log("当前触摸在UI上");
+                }
+                else
+                {
+                    Debug.Log("当前没有触摸在UI上");
+                    PopPanel();
+                }
             }
         }
 
@@ -155,23 +185,7 @@ namespace MetalMax
             }
         }
 
-        /// <summary>
-        /// 当右下角按钮被点击时，显示buttonPanel，当再点击时，隐藏buttonPanel;
-        /// </summary>
-        public void OnUIButtonClick()
-        {
-            if (!isMainMenuPanelShow)
-            {
-                PushPanel(UIPanelType.MainMenuPanel);
-                isMainMenuPanelShow = true;
-            }
-            else
-            {
-                PopPanel();
-                isMainMenuPanelShow = false;
-            }
-        }
-
+        
         public void SetResolution(float width, float height, float matchWidthOrHeight)
         {
             var canvas = GameObject.Find("Canvas");
@@ -217,6 +231,30 @@ namespace MetalMax
             });
         }
 
+
+        #region ButtonClickEvent
+        /// <summary>
+        /// 当右下角按钮被点击时，显示buttonPanel，当再点击时，隐藏buttonPanel;
+        /// </summary>
+        public void OnUIButtonClick()
+        {
+            BasePanel mainMenuPanel = null;
+            if (panelDict == null)
+            {
+                panelDict = new Dictionary<UIPanelType, BasePanel>();
+            }
+            //判断主面板是否已经初始化过
+            var isExist = panelDict.TryGetValue(UIPanelType.MainMenuPanel, out mainMenuPanel);
+            if (isExist == false || (isExist && mainMenuPanel.isShow == false))
+            {
+                PushPanel(UIPanelType.MainMenuPanel);
+            }
+            else if (isExist && mainMenuPanel.isShow == true)
+            {
+                PopPanel();
+            }
+        }
+
         /// <summary>
         /// 当对话按钮被点击时
         /// </summary>
@@ -242,5 +280,31 @@ namespace MetalMax
                 //TODO
             }
         }
+
+        /// <summary>
+        /// 打开背包面板
+        /// </summary>
+        public void OnKnapsackButtonClick()
+        {
+            PushPanel(UIPanelType.KnapsackPanel);
+        }
+
+        /// <summary>
+        /// 打开装备面板
+        /// </summary>
+        public void OnEquipmentButtonClick()
+        {
+            PushPanel(UIPanelType.CharacterPanel);
+        }
+
+        public void OnUseButtonClick()
+        {
+            CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
+            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+        }
+        public void OnMoreButtonClick()
+        {
+        }
+        #endregion
     }
 }

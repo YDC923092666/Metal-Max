@@ -11,7 +11,8 @@ namespace MetalMax
         TalkPanel,
         KnapsackPanel,
         MainMenuPanel,
-        ItemInfoPanel
+        ItemInfoPanel,
+        CharacterPanel
     }
 
     [Serializable]

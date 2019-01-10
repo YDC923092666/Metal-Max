@@ -8,7 +8,7 @@ namespace MetalMax
     /// <summary>
     /// 物品槽
     /// </summary>
-    public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler,IPointerClickHandler
+    public class Slot : MonoBehaviour,IPointerClickHandler
     {
         public GameObject itemPrefab;
         /// <summary>
@@ -32,7 +32,6 @@ namespace MetalMax
                 transform.GetChild(0).GetComponent<ItemUI>().AddAmount();
             }
         }
-
 
         /// <summary>
         /// 得到当前物品槽存储的物品类型
@@ -58,18 +57,19 @@ namespace MetalMax
             return itemUI.Amount >= itemUI.Item.capacity;//当前的数量大于等于容量
         }
 
-        public void OnPointerExit(PointerEventData eventData)
-        {
-        }
-
         public void OnPointerClick(PointerEventData eventData)
         {
             if (transform.childCount > 0)
             {
                 Item item = transform.GetChild(0).GetComponent<ItemUI>().Item;
+                UIManager.selectedSlot = GetComponent<Slot>();
                 ItemType type = item.itemType;
                 string toolTipText = item.GetToolTipText();
                 InventoryManager.Instance.ShowItemInfoPanel(toolTipText, type); //根据不同的物品类型，显示不同的按钮Text（装备or使用）
+            }
+            else
+            {
+                UIManager.selectedSlot = null;
             }
         }
 

@@ -6,14 +6,28 @@ namespace MetalMax
 {
     public class ItemInfoPanel : BasePanel
     {
-
         private Text contentText;
-        private CanvasGroup canvasGroup;
+        private Button useButton;
+        private Button moreButton;
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             contentText = transform.Find("Content").GetComponent<Text>();
-            canvasGroup = GetComponent<CanvasGroup>();
+
+            //给“装备/使用”按钮添加点击事件
+            useButton = transform.Find("ButtonGroup/UseButton").GetComponent<Button>();
+            useButton.onClick.AddListener(() =>
+            {
+                UIManager.Instance.OnUseButtonClick();
+            });
+
+            //给“更多”按钮添加点击事件
+            moreButton = transform.Find("ButtonGroup/MoreButton").GetComponent<Button>();
+            moreButton.onClick.AddListener(() =>
+            {
+                UIManager.Instance.OnMoreButtonClick();
+            });
         }
 
         public override void OnEnter(string content)
@@ -22,23 +36,22 @@ namespace MetalMax
             {
                 contentText = transform.Find("Content").GetComponent<Text>();
             }
-            if(canvasGroup == null)
-            {
-                canvasGroup = GetComponent<CanvasGroup>();
-            }
             contentText.text = content;
-            canvasGroup.alpha = 1;
         }
 
-        public void SetLocalPotion(Vector3 position)
+        public override void OnPause()
         {
-            transform.localPosition = position;
+            
         }
 
-        public void SetWorldPotion(Vector3 position)
+        public override void OnResume()
         {
-            transform.position = position;
+            
         }
 
+        public override void OnExit()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

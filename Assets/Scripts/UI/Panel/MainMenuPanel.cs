@@ -8,16 +8,28 @@ namespace MetalMax
 {
 	public class MainMenuPanel : BasePanel
 	{
-        private CanvasGroup canvasGroup;
         private Button talkButton;
+        private Button knapsackButton;
+        private Button equipmentButton;
 
-        void Start()
+        protected override void Start()
         {
-            if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
-            talkButton = GameObject.Find("TalkButton").GetComponent<Button>();
+            base.Start();
+            talkButton = GameObject.Find("LeftPanel/TalkButton").GetComponent<Button>();
+            knapsackButton = GameObject.Find("LeftPanel/KnapsackButton").GetComponent<Button>();
+            equipmentButton = GameObject.Find("LeftPanel/EquipmentButton").GetComponent<Button>();
+
             talkButton.onClick.AddListener(() =>
             {
                 UIManager.Instance.OnTalkButtonClick();
+            });
+            knapsackButton.onClick.AddListener(() =>
+            {
+                UIManager.Instance.OnKnapsackButtonClick();
+            });
+            equipmentButton.onClick.AddListener(() =>
+            {
+                UIManager.Instance.OnEquipmentButtonClick();
             });
         }
 
@@ -26,22 +38,27 @@ namespace MetalMax
             if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
+            isShow = true;
         }
 
         public override void OnPause()
         {
-            canvasGroup.blocksRaycasts = false;//当弹出新的面板的时候，让主菜单面板 不再和鼠标交互
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = 0;
+            isShow = false;
         }
 
         public override void OnResume()
         {
             canvasGroup.blocksRaycasts = true;
+            isShow = true;
         }
 
         public override void OnExit()
         {
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
+            isShow = false;
         }
     }
 }
