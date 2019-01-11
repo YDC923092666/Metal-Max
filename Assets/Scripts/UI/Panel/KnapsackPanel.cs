@@ -110,7 +110,10 @@ namespace MetalMax
 
         public override void OnEnter(string content)
         {
-            
+            if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
+            isShow = true;
         }
 
         public override void OnPause()
@@ -125,7 +128,9 @@ namespace MetalMax
 
         public override void OnExit()
         {
-            
+            canvasGroup.alpha = 0;
+            canvasGroup.blocksRaycasts = false;
+            isShow = false;
         }
     }
 }

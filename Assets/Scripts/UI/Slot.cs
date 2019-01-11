@@ -65,10 +65,11 @@ namespace MetalMax
                 UIManager.selectedSlot = GetComponent<Slot>();
                 ItemType type = item.itemType;
                 string toolTipText = item.GetToolTipText();
-                InventoryManager.Instance.ShowItemInfoPanel(toolTipText, type); //根据不同的物品类型，显示不同的按钮Text（装备or使用）
+                UIManager.Instance.ShowItemInfoPanel(toolTipText, type); //根据不同的物品类型，显示不同的按钮Text（装备or使用）
             }
             else
             {
+                UIManager.Instance.HideItemInfoPanel();
                 UIManager.selectedSlot = null;
             }
         }

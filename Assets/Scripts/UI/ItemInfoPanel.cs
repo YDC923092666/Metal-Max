@@ -37,6 +37,10 @@ namespace MetalMax
                 contentText = transform.Find("Content").GetComponent<Text>();
             }
             contentText.text = content;
+            if (canvasGroup == null) canvasGroup = GetComponent<CanvasGroup>();
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
+            isShow = true;
         }
 
         public override void OnPause()
@@ -46,12 +50,16 @@ namespace MetalMax
 
         public override void OnResume()
         {
-            
+            canvasGroup.blocksRaycasts = true;
+            canvasGroup.alpha = 1;
+            isShow = true;
         }
 
         public override void OnExit()
         {
-            throw new System.NotImplementedException();
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.alpha = 0;
+            isShow = false;
         }
     }
 }

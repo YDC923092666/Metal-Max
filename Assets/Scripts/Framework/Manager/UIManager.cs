@@ -26,7 +26,6 @@ namespace MetalMax
         private Text containText;   //对话内容文本框
         private int index = 0; //对话的索引
         private int talkInterval = 3;   //对话间隔
-        private bool isMainMenuPanelShow = false;
         private bool canClickUIButton = true; //是否可以点击UI按钮。在某些情况下（如正在对话），该按钮不能点击
         private Stack<BasePanel> panelStack;
 
@@ -115,7 +114,10 @@ namespace MetalMax
 
             BasePanel panel = GetPanel(panelType);
             panel.OnEnter(content);
-            panelStack.Push(panel);
+            if (panelStack.Contains(panel) == false)
+            {
+                panelStack.Push(panel);
+            }
         }
 
         /// <summary>
@@ -162,6 +164,7 @@ namespace MetalMax
                 panelPathDict.TryGetValue(panelType, out path);
 
                 GameObject instPanel = Instantiate(Resources.Load(path)) as GameObject;
+                instPanel.name = Resources.Load(path).name; //保持prefab本来的名字
                 instPanel.transform.SetParent(CanvasTransform, false);
                 panelDict.Add(panelType, instPanel.GetComponent<BasePanel>());
                 return instPanel.GetComponent<BasePanel>();
@@ -231,6 +234,37 @@ namespace MetalMax
             });
         }
 
+        public void ShowItemInfoPanel(string content, ItemType type)
+        {
+            PushPanel(UIPanelType.ItemInfoPanel, content);
+            string text = null;
+            switch (type)
+            {
+                case ItemType.Consumable:
+                    text = "使用";
+                    break;
+                case ItemType.PersonEquipment:
+                    text = "装备";
+                    break;
+                case ItemType.TankEquipment:
+                    text = "装备";
+                    break;
+                case ItemType.Special:
+                    text = "使用";
+                    break;
+            }
+            panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
+        }
+
+        public void HideItemInfoPanel()
+        {
+            BasePanel panel;
+            panelDict.TryGetValue(UIPanelType.ItemInfoPanel, out panel);
+            if (panelStack.Contains(panel))
+            {
+                PopPanel();
+            }
+        }
 
         #region ButtonClickEvent
         /// <summary>
@@ -299,6 +333,10 @@ namespace MetalMax
 
         public void OnUseButtonClick()
         {
+            //弹出当前最高层（ItemInfoPanel），显示角色面板层
+            PopPanel();
+            PushPanel(UIPanelType.CharacterPanel);
+
             CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
         }

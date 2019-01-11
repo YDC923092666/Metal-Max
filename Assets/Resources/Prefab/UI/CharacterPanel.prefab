@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74b8b61493ecde438d2c519ff4f6f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isShow: 0
 --- !u!114 &114121240291325216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1226,7 +1227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 269.24997, y: -12.5}
+  m_AnchoredPosition: {x: -261.5, y: -12.5}
   m_SizeDelta: {x: 261.5, y: 321.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224981170163296216

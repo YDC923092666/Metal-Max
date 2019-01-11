@@ -50,6 +50,7 @@ namespace MetalMax
 
         public override void OnResume()
         {
+            canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
             isShow = true;
         }
