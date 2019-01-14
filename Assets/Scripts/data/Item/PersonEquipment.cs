@@ -35,7 +35,7 @@ namespace MetalMax
         public int hp;
         public int damage;
         public int defense;
-
+        public int speed;
 
         public override string GetToolTipText()
         {

@@ -16,26 +16,27 @@ namespace MetalMax
         {
             string text = GameObject.FindObjectOfType<InputField>().text;
 
-            //构建角色列表
-            List<PersonStatus> personStatusList = new List<PersonStatus>();
+            //构建角色对象
             PersonStatus player1 = new PersonStatus()
             {
                 personName = text,
-                personLevel = 1,
-                personHp = 10,
+                personLv = 1,
+                personCurrentHp = 20,
+                personMaxHp = 20,
                 personDamage = 10,
-                personDefense = 10
+                personDefense = 10,
+                personSpeed = 1,
+                personExp = 1,
+                personCurrentLvNeedExp = 20
             };
-            personStatusList.Add(player1);
             //保存角色姓名，初始化玩家等级为1
             Archive archive = new Archive()
             {
                 id = 1,
-                teamPersonCount = personStatusList.Count,
                 sceneName = SceneManager.GetActiveScene().name,
                 position = new double[] { 0, 0, 0 },
                 archiveDateTime = DateTime.Now,
-                personStatusList = personStatusList
+                personStatus = player1
             };
             SaveManager.SaveCurrentArchive(archive);
 

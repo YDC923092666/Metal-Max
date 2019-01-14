@@ -57,7 +57,7 @@ namespace MetalMax
             return itemUI.Amount >= itemUI.Item.capacity;//当前的数量大于等于容量
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public virtual void OnPointerClick(PointerEventData eventData)
         {
             if (transform.childCount > 0)
             {

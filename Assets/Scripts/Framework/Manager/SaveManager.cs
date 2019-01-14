@@ -214,6 +214,10 @@ namespace MetalMax
             sw.Dispose();
         }
 
+        /// <summary>
+        /// 临时存档，保存在内存中。用于游戏中实时读取和修改
+        /// </summary>
+        /// <param name="archive"></param>
         public static void SaveCurrentArchive(Archive archive)
         {
             if (archive != null)

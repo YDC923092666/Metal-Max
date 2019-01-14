@@ -256,6 +256,13 @@ namespace MetalMax
             panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
         }
 
+        public void ShowItemInfoPanel(string content)
+        {
+            PushPanel(UIPanelType.ItemInfoPanel, content);
+            string text = "卸下";
+            panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
+        }
+
         public void HideItemInfoPanel()
         {
             BasePanel panel;
@@ -340,6 +347,7 @@ namespace MetalMax
             CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
         }
+
         public void OnMoreButtonClick()
         {
         }

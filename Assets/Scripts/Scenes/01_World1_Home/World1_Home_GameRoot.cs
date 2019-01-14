@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MetalMax
 {
@@ -13,6 +14,30 @@ namespace MetalMax
             GameObject newGo = Instantiate(Resources.Load<GameObject>("Prefab/Managers"));
             newGo.name = "Managers";
             DontDestroyOnLoad(newGo);
+
+            //构建角色对象
+            PersonStatus player1 = new PersonStatus()
+            {
+                personName = "丶橙子皮皮",
+                personLv = 1,
+                personCurrentHp = 20,
+                personMaxHp = 20,
+                personDamage = 10,
+                personDefense = 10,
+                personSpeed = 1,
+                personExp = 1,
+                personCurrentLvNeedExp = 20
+            };
+            //保存角色姓名，初始化玩家等级为1
+            Archive archive = new Archive()
+            {
+                id = 1,
+                sceneName = SceneManager.GetActiveScene().name,
+                position = new double[] { 0, 0, 0 },
+                archiveDateTime = DateTime.Now,
+                personStatus = player1
+            };
+            SaveManager.SaveCurrentArchive(archive);
 
             World1_Home_GameController gm = GetComponent<World1_Home_GameController>();
             gm.Init();

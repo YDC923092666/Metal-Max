@@ -17,5 +17,21 @@ namespace MetalMax
             }
             return false;
         }
+
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            if (transform.childCount > 0)
+            {
+                Item item = transform.GetChild(0).GetComponent<ItemUI>().Item;
+                UIManager.selectedSlot = GetComponent<Slot>();
+                string toolTipText = item.GetToolTipText();
+                UIManager.Instance.ShowItemInfoPanel(toolTipText); //装备面板，显示“卸下”的按钮
+            }
+            else
+            {
+                UIManager.Instance.HideItemInfoPanel();
+                UIManager.selectedSlot = null;
+            }
+        }
     }
 }
