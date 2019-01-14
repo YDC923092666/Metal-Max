@@ -26,7 +26,7 @@ namespace MetalMax
         private Text containText;   //对话内容文本框
         private int index = 0; //对话的索引
         private int talkInterval = 3;   //对话间隔
-        private bool canClickUIButton = true; //是否可以点击UI按钮。在某些情况下（如正在对话），该按钮不能点击
+        public bool canClickUIButton = true; //是否可以点击UI按钮。在某些情况下（如正在对话），该按钮不能点击
         private Stack<BasePanel> panelStack;
 
         private Transform canvasTransform;
@@ -47,8 +47,7 @@ namespace MetalMax
         private Dictionary<UIPanelType, string> panelPathDict;//存储所有面板prefab的路径
         public static Dictionary<UIPanelType, BasePanel> panelDict; //保存所有被实例化的面板的游戏物体身上的BasePanel组件
         
-        [HideInInspector]
-        public static Slot selectedSlot; //当前选中的物体
+        public Slot selectedSlot; //当前选中的格子
 
         protected override void Awake()
         {
@@ -263,6 +262,16 @@ namespace MetalMax
             panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
         }
 
+        /// <summary>
+        /// 显示角色面板专用ItemInfoPanel
+        /// </summary>
+        /// <param name="content"></param>
+        public void ShowItemInfo4CharPanel(string content)
+        {
+            PushPanel(UIPanelType.ItemInfo4CharPanel, content);
+            string text = "卸下";
+        }
+
         public void HideItemInfoPanel()
         {
             BasePanel panel;
@@ -343,6 +352,16 @@ namespace MetalMax
             //弹出当前最高层（ItemInfoPanel），显示角色面板层
             PopPanel();
             PushPanel(UIPanelType.CharacterPanel);
+            PopPanel();
+
+            CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
+            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+        }
+
+        public void OnTakeOffButtonClick()
+        {
+            //弹出当前最高层（ItemInfoPanel）
+            PopPanel();
 
             CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);

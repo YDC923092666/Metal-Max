@@ -23,14 +23,14 @@ namespace MetalMax
             if (transform.childCount > 0)
             {
                 Item item = transform.GetChild(0).GetComponent<ItemUI>().Item;
-                UIManager.selectedSlot = GetComponent<Slot>();
+                UIManager.Instance.selectedSlot = GetComponent<Slot>();
                 string toolTipText = item.GetToolTipText();
-                UIManager.Instance.ShowItemInfoPanel(toolTipText); //装备面板，显示“卸下”的按钮
+                UIManager.Instance.ShowItemInfo4CharPanel(toolTipText); //装备面板，显示“卸下”的按钮
             }
             else
             {
                 UIManager.Instance.HideItemInfoPanel();
-                UIManager.selectedSlot = null;
+                UIManager.Instance.selectedSlot = null;
             }
         }
     }

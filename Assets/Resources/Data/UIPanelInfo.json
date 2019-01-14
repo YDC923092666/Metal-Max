@@ -14,7 +14,10 @@
 	"path":"Prefab/UI/ItemInfoPanel"},
 	
 	{"panelTypeString":"CharacterPanel",
-	"path":"Prefab/UI/CharacterPanel"}
+	"path":"Prefab/UI/CharacterPanel"},
+
+	{"panelTypeString":"ItemInfo4CharPanel",
+	"path":"Prefab/UI/ItemInfo4CharPanel"}
 
 	]
 }

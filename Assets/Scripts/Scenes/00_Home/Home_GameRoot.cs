@@ -92,7 +92,7 @@ namespace MetalMax
 
         protected override void LaunchInTestMode()
         {
-            GetComponent<Test>().TestJson();
+            GetComponent<Test>().TestArray();
         }
 
         protected override void LaunchInProductionMode()

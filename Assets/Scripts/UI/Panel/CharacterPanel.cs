@@ -15,7 +15,7 @@ namespace MetalMax
             }
         }
 
-        public Slot[] slotList; //面板上所有的格子
+        private Slot[] slotArray; //面板上所有的格子
         private Text nameText;
         private Text lvText;
         private Text hpText;
@@ -37,7 +37,7 @@ namespace MetalMax
         protected override void Start()
         {
             base.Start();
-            slotList = GetComponentsInChildren<Slot>();
+            slotArray = GetComponentsInChildren<Slot>();
             nameText = GameObject.Find("RightPanel/NameText").GetComponent<Text>();
             lvText = GameObject.Find("RightPanel/LvText").GetComponent<Text>();
             hpText = GameObject.Find("RightPanel/HpText").GetComponent<Text>();
@@ -54,14 +54,15 @@ namespace MetalMax
         public void PutOn(Item item)
         {
             Item exitItem = null;
-            if(slotList == null)
+            if (slotArray == null)
             {
-                slotList = GetComponentsInChildren<Slot>();
+                slotArray = GetComponentsInChildren<Slot>();
             }
-            foreach (Slot slot in slotList)
+            foreach (Slot slot in slotArray)
             {
                 EquipmentSlot equipmentSlot = (EquipmentSlot)slot;
                 //找到符合item type的格子
+
                 if (equipmentSlot.IsRightItem(item))
                 {
                     //如果格子里有装备了，则交换装备
@@ -102,10 +103,12 @@ namespace MetalMax
         /// </summary>
         public void UpdateUI()
         {
-            if (slotList == null)
+            if (slotArray == null)
             {
-                slotList = GetComponentsInChildren<Slot>();
+                slotArray = GetComponentsInChildren<Slot>();
             }
+
+            ChangeCurrentArchive();
             var personStatus = SaveManager.currentArchive.personStatus;
             
             if (nameText == null) nameText = GameObject.Find("RightPanel/NameText").GetComponent<Text>();
@@ -125,9 +128,16 @@ namespace MetalMax
             expText.text = string.Format("{0}/{1}", personStatus.personExp, personStatus.personCurrentLvNeedExp);
         }
 
-        public void ChangeArchive()
+        /// <summary>
+        /// 修改当前存档中，人物属性值
+        /// </summary>
+        public void ChangeCurrentArchive()
         {
-            foreach (Slot slot in slotList)
+            totalHp = 0;
+            totalDamage = 0;
+            totalDefense = 0;
+            totalSpeed = 0;
+            foreach (Slot slot in slotArray)
             {
                 if (slot.transform.childCount > 0)
                 {
@@ -139,7 +149,10 @@ namespace MetalMax
                 }
             }
             var personStatus = SaveManager.currentArchive.personStatus;
-            //personStatus.personMaxHp =
+            personStatus.personMaxHp = Charactor.initHp + totalHp;
+            personStatus.personDamage = Charactor.initDamage + totalDamage;
+            personStatus.personDefense = Charactor.initDefense + totalDefense;
+            personStatus.personSpeed = Charactor.initSpeed + totalSpeed;
         }
 
         public override void OnEnter(string content)
@@ -148,6 +161,7 @@ namespace MetalMax
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
             isShow = true;
+            UIManager.Instance.canClickUIButton = false;
         }
 
         public override void OnPause()
@@ -165,6 +179,7 @@ namespace MetalMax
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
             isShow = false;
+            UIManager.Instance.canClickUIButton = true;
         }
     }
 }

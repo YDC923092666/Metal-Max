@@ -12,7 +12,8 @@ namespace MetalMax
         KnapsackPanel,
         MainMenuPanel,
         ItemInfoPanel,
-        CharacterPanel
+        CharacterPanel,
+        ItemInfo4CharPanel
     }
 
     [Serializable]

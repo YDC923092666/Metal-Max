@@ -114,6 +114,7 @@ namespace MetalMax
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
             isShow = true;
+            UIManager.Instance.canClickUIButton = false;
         }
 
         public override void OnPause()
@@ -131,6 +132,7 @@ namespace MetalMax
             canvasGroup.alpha = 0;
             canvasGroup.blocksRaycasts = false;
             isShow = false;
+            UIManager.Instance.canClickUIButton = true;
         }
     }
 }

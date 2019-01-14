@@ -62,7 +62,7 @@ namespace MetalMax
             if (transform.childCount > 0)
             {
                 Item item = transform.GetChild(0).GetComponent<ItemUI>().Item;
-                UIManager.selectedSlot = GetComponent<Slot>();
+                UIManager.Instance.selectedSlot = GetComponent<Slot>();
                 ItemType type = item.itemType;
                 string toolTipText = item.GetToolTipText();
                 UIManager.Instance.ShowItemInfoPanel(toolTipText, type); //根据不同的物品类型，显示不同的按钮Text（装备or使用）
@@ -70,7 +70,7 @@ namespace MetalMax
             else
             {
                 UIManager.Instance.HideItemInfoPanel();
-                UIManager.selectedSlot = null;
+                UIManager.Instance.selectedSlot = null;
             }
         }
 

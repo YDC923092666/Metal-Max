@@ -39,5 +39,16 @@ namespace MetalMax
             }
         }
 
+        private Array[] arrays;
+        public void TestArray()
+        {
+            
+            if(arrays == null)
+            {
+                print("1");
+            }
+            print("2");
+        }
+
     }
 }

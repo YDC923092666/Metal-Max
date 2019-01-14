@@ -7,10 +7,10 @@ namespace MetalMax
 {
 	public class Charactor
 	{
-        public int initLv = 1;
-        public int initHp = 20;
-        public int initSpeed = 1;
-        public int initDamage = 20;
-        public int initDefense = 20;
+        public static int initLv = 1;
+        public static int initHp = 20;
+        public static int initSpeed = 1;
+        public static int initDamage = 20;
+        public static int initDefense = 20;
 	}
 }
