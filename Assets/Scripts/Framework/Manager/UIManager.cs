@@ -359,13 +359,21 @@ namespace MetalMax
                 switch (go.name)
                 {
                     case "TakeOnButton":
-                        //弹出当前最高层（ItemInfoPanel），显示角色面板层
-                        PopPanel();
-                        PushPanel(UIPanelType.CharacterPanel);
-                        PopPanel();
+                        //如果装备类型是人物装备，则给人物穿上
+                        if(selectedSlot.GetComponentInChildren<ItemUI>().Item.itemType == ItemType.PersonEquipment)
+                        {
+                            //弹出当前最高层（ItemInfoPanel），显示角色面板层
+                            PopPanel();
+                            PushPanel(UIPanelType.CharacterPanel);
+                            PopPanel();
 
-                        CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
-                        DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+                            CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
+                            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+                        }
+                        else //如果装备类型是坦克装备，则给坦克装备上
+                        {
+                            //首先判断人物是否已经装备上了坦克
+                        }
                         break;
                     case "UseButton":
                         PopPanel();

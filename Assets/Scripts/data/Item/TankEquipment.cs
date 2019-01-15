@@ -31,21 +31,46 @@ namespace MetalMax
         public List<TankEquipment> infoList;
     }
 
-    public class TankEquipment:ISerializationCallbackReceiver
+    [Serializable]
+    public class TankEquipment: Item, ISerializationCallbackReceiver
 	{
-        public int id;
-        public string name;
         [NonSerialized]
         public TankEquipmentType tankEquipmentType; //装备类型
-        public string tankEquipmentTypeString;    
-        public int hp;
+        public string equiptype;    
+        public int sp;
         public int damage;
         public int defense;
 
+        public override string GetToolTipText()
+        {
+            string text = base.GetToolTipText();
+
+            string equipTypeText = "";
+            switch (tankEquipmentType)
+            {
+                case TankEquipmentType.Main:
+                    equipTypeText = "主炮";
+                    break;
+                case TankEquipmentType.Second:
+                    equipTypeText = "副炮";
+                    break;
+                case TankEquipmentType.Engine:
+                    equipTypeText = "引擎";
+                    break;
+                case TankEquipmentType.Chassis:
+                    equipTypeText = "底盘";
+                    break;
+            }
+            string newText = string.Format("{0}\n\n<color=blue><size=15>装备类型：{1}\n最大装甲片数：{2}\n攻击力：{3}\n防御力：{4}</size></color>", text, equipTypeText, sp, damage, defense);
+
+            return newText;
+        }
+
         public void OnAfterDeserialize()
         {
-            TankEquipmentType type = (TankEquipmentType)System.Enum.Parse(typeof(TankEquipmentType), tankEquipmentTypeString);
-            tankEquipmentType = type;
+            itemType = (ItemType)Enum.Parse(typeof(ItemType), typeString);
+            itemQuality = (ItemQuality)Enum.Parse(typeof(ItemQuality), itemQualityString);
+            tankEquipmentType = (TankEquipmentType)System.Enum.Parse(typeof(TankEquipmentType), equiptype);
         }
 
         public void OnBeforeSerialize()

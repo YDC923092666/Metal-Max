@@ -30,9 +30,17 @@ namespace MetalMax
         {
             itemList = new List<Item>();
             //读取人物装备
-            string ta = SaveManager.GetJsonStringFromFile(Const.personEquipmentInfoFilePath);
-            PersonEquipmentJson jsonObject = JsonUtility.FromJson<PersonEquipmentJson>(ta);
-            foreach (var item in jsonObject.infoList)
+            string personJson = SaveManager.GetJsonStringFromFile(Const.personEquipmentInfoFilePath);
+            var personJsonObject = JsonUtility.FromJson<PersonEquipmentJson>(personJson);
+            foreach (var item in personJsonObject.infoList)
+            {
+                itemList.Add(item);
+            }
+
+            //读取坦克装备
+            string tankJson = SaveManager.GetJsonStringFromFile(Const.tankEquipmentInfoFilePath);
+            var tankJsonObject = JsonUtility.FromJson<TankEquipmentJson>(tankJson);
+            foreach (var item in tankJsonObject.infoList)
             {
                 itemList.Add(item);
             }

@@ -39,7 +39,6 @@ namespace MetalMax
 
         public override string GetToolTipText()
         {
-            base.GetToolTipText();
             string text = base.GetToolTipText();
 
             string equipTypeText = "";

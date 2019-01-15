@@ -1,0 +1,16 @@
+{
+	"infoList":
+	[
+		{
+		"id": 301,
+		"name": "T-64",
+		"typeString": "Special",
+		"itemQualityString": "Common",
+		"description": "T-64主战坦克!",
+		"capacity": 1,
+		"buyPrice": 0,
+        "sellPrice": 10000,
+		"sprite": "Sprites/Tank/Chassis3"
+		}
+	]
+}
