@@ -235,31 +235,31 @@ namespace MetalMax
 
         public void ShowItemInfoPanel(string content, ItemType type)
         {
-            PushPanel(UIPanelType.ItemInfoPanel, content);
+            PushPanel(UIPanelType.ItemInfo4knapsackPanel, content);
             string text = null;
+            string buttonName = null;
             switch (type)
             {
                 case ItemType.Consumable:
                     text = "使用";
+                    buttonName = "UseButton";
                     break;
                 case ItemType.PersonEquipment:
                     text = "装备";
+                    buttonName = "TakeOnButton";
                     break;
                 case ItemType.TankEquipment:
                     text = "装备";
+                    buttonName = "TakeOnButton";
                     break;
                 case ItemType.Special:
                     text = "使用";
+                    buttonName = "UseButton";
                     break;
             }
-            panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
-        }
-
-        public void ShowItemInfoPanel(string content)
-        {
-            PushPanel(UIPanelType.ItemInfoPanel, content);
-            string text = "卸下";
-            panelDict[UIPanelType.ItemInfoPanel].gameObject.transform.Find("ButtonGroup/UseButton/Text").GetComponent<Text>().text = text;
+            var buttonGo = panelDict[UIPanelType.ItemInfo4knapsackPanel].gameObject;
+            buttonGo.transform.Find("ButtonGroup").GetChild(0).GetComponentInChildren<Text>().text = text;
+            buttonGo.transform.Find("ButtonGroup").GetChild(0).name = buttonName;
         }
 
         /// <summary>
@@ -270,12 +270,13 @@ namespace MetalMax
         {
             PushPanel(UIPanelType.ItemInfo4CharPanel, content);
             string text = "卸下";
+            panelDict[UIPanelType.ItemInfo4CharPanel].gameObject.transform.Find("ButtonGroup/TakeOffButton/Text").GetComponent<Text>().text = text;
         }
 
         public void HideItemInfoPanel()
         {
             BasePanel panel;
-            panelDict.TryGetValue(UIPanelType.ItemInfoPanel, out panel);
+            panelDict.TryGetValue(UIPanelType.ItemInfo4knapsackPanel, out panel);
             if (panelStack.Contains(panel))
             {
                 PopPanel();
@@ -347,28 +348,54 @@ namespace MetalMax
             PushPanel(UIPanelType.CharacterPanel);
         }
 
-        public void OnUseButtonClick()
+        /// <summary>
+        /// 点击装备/使用按钮
+        /// </summary>
+        /// <param name="go"></param>
+        public void OnClick(GameObject go)
         {
-            //弹出当前最高层（ItemInfoPanel），显示角色面板层
-            PopPanel();
-            PushPanel(UIPanelType.CharacterPanel);
-            PopPanel();
+            if(go != null)
+            {
+                switch (go.name)
+                {
+                    case "TakeOnButton":
+                        //弹出当前最高层（ItemInfoPanel），显示角色面板层
+                        PopPanel();
+                        PushPanel(UIPanelType.CharacterPanel);
+                        PopPanel();
 
-            CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
-            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+                        CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
+                        DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+                        break;
+                    case "UseButton":
+                        PopPanel();
+                        var item = selectedSlot.GetComponentInChildren<ItemUI>().Item;
+                        //调用物品的use方法，适用于消耗品和特殊物品
+                        item.Use();
+                        break;
+                }
+            }
         }
 
+        /// <summary>
+        /// 点击卸下按钮
+        /// </summary>
         public void OnTakeOffButtonClick()
         {
             //弹出当前最高层（ItemInfoPanel）
             PopPanel();
-
-            CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
+            var item = selectedSlot.GetComponentInChildren<ItemUI>().Item;
+            CharacterPanel.Instance.PutOff(item);
             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+            CharacterPanel.Instance.UpdateUI();
         }
-
-        public void OnMoreButtonClick()
+        
+        /// <summary>
+        /// 点击丢弃按钮
+        /// </summary>
+        public void OnDropButtonClick()
         {
+            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
         }
         #endregion
     }

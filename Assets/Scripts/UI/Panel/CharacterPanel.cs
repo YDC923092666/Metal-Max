@@ -95,7 +95,6 @@ namespace MetalMax
         public void PutOff(Item item)
         {
             KnapsackPanel.Instance.StoreItem(item);
-            UpdateUI();
         }
 
         /// <summary>
@@ -162,6 +161,7 @@ namespace MetalMax
             canvasGroup.blocksRaycasts = true;
             isShow = true;
             UIManager.Instance.canClickUIButton = false;
+            UpdateUI();
         }
 
         public override void OnPause()

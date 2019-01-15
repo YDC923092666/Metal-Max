@@ -15,18 +15,18 @@ namespace MetalMax
             base.Start();
             contentText = transform.Find("Content").GetComponent<Text>();
 
-            //给“装备/使用”按钮添加点击事件
+            //给“卸下”按钮添加点击事件
             takeOffButton = transform.Find("ButtonGroup/TakeOffButton").GetComponent<Button>();
             takeOffButton.onClick.AddListener(() =>
             {
                 UIManager.Instance.OnTakeOffButtonClick();
             });
 
-            //给“更多”按钮添加点击事件
-            moreButton = transform.Find("ButtonGroup/MoreButton").GetComponent<Button>();
+            //给“丢弃”按钮添加点击事件
+            moreButton = transform.Find("ButtonGroup/DropButton").GetComponent<Button>();
             moreButton.onClick.AddListener(() =>
             {
-                UIManager.Instance.OnMoreButtonClick();
+                UIManager.Instance.OnDropButtonClick();
             });
         }
 

@@ -64,8 +64,13 @@ namespace MetalMax
                     color = "orange";
                     break;
             }
-            string text = string.Format("<color={4}>{0}</color>\n<size=10><color=green>购买价格：{1} 出售价格：{2}</color></size>\n<color=yellow><size=10>{3}</size></color>", name, buyPrice, sellPrice, description, color);
+            string text = string.Format("<color={4}>{0}</color>\n<size=10><color=green>购买价格：{1} 出售价格：{2}</color></size>\n<color=yellow><size=15>{3}</size></color>", name, buyPrice, sellPrice, description, color);
             return text;
+        }
+
+        public virtual void Use()
+        {
+
         }
     }
 }

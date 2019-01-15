@@ -29,6 +29,7 @@ namespace MetalMax
         void ParseItemJson()
         {
             itemList = new List<Item>();
+            //读取人物装备
             string ta = SaveManager.GetJsonStringFromFile(Const.personEquipmentInfoFilePath);
             PersonEquipmentJson jsonObject = JsonUtility.FromJson<PersonEquipmentJson>(ta);
             foreach (var item in jsonObject.infoList)

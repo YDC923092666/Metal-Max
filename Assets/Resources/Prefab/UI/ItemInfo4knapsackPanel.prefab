@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 225314109775867892}
   - component: {fileID: 114436359888418020}
   m_Layer: 5
-  m_Name: ItemInfoPanel
+  m_Name: ItemInfo4knapsackPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

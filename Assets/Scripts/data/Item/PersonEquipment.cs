@@ -65,7 +65,7 @@ namespace MetalMax
                     break;
             }
 
-            string newText = string.Format("{0}\n\n<color=blue>装备类型：{1}\n最大生命值：{2}\n攻击力：{3}\n防御力：{4}</color>", text, equipTypeText, hp, damage, defense);
+            string newText = string.Format("{0}\n\n<color=blue><size=15>装备类型：{1}\n最大生命值：{2}\n攻击力：{3}\n防御力：{4}\n速度：{5}</size></color>", text, equipTypeText, hp, damage, defense, speed);
 
             return newText;
         }
