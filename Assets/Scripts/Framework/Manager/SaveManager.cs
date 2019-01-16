@@ -226,6 +226,25 @@ namespace MetalMax
             }
         }
 
-        
+        public static TankStatus GetTankStatusById(int id)
+        {
+            foreach (var item in currentArchive.tankStatusList)
+            {
+                if(item.tankID == id)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public static void SaveTankStatus(TankStatus tankStatus)
+        {
+            if(currentArchive.tankStatusList == null)
+            {
+                currentArchive.tankStatusList = new List<TankStatus>();
+            }
+            currentArchive.tankStatusList.Add(tankStatus);
+        }
     }
 }

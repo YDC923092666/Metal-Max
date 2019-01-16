@@ -13,7 +13,10 @@
 		"sp": 0,
 		"damage": 200,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Main1"
+		"sprite": "Sprites/Tank/Main1",
+		"normalBulletCount": 20,
+		"ironBulletCount": 5,
+		"smokeBulletCount": 5
 		},
 		{
 		"id": 102,
@@ -28,7 +31,10 @@
 		"sp": 0,
 		"damage": 150,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Second1"
+		"sprite": "Sprites/Tank/Second1",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 103,
@@ -43,7 +49,10 @@
 		"sp": 300,
 		"damage": 0,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Engine1"
+		"sprite": "Sprites/Tank/Engine1",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 104,
@@ -58,7 +67,10 @@
 		"sp": 0,
 		"damage": 0,
 		"defense": 300,
-		"sprite": "Sprites/Tank/Chassis1"
+		"sprite": "Sprites/Tank/Chassis1",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 105,
@@ -73,7 +85,10 @@
 		"sp": 0,
 		"damage": 300,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Main2"
+		"sprite": "Sprites/Tank/Main2",
+		"normalBulletCount": 30,
+		"ironBulletCount": 8,
+		"smokeBulletCount": 8
 		},
 		{
 		"id": 106,
@@ -88,7 +103,10 @@
 		"sp": 0,
 		"damage": 60,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Second2"
+		"sprite": "Sprites/Tank/Second2",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 107,
@@ -103,7 +121,10 @@
 		"sp": 600,
 		"damage": 0,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Engine2"
+		"sprite": "Sprites/Tank/Engine2",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 108,
@@ -118,7 +139,10 @@
 		"sp": 0,
 		"damage": 0,
 		"defense": 600,
-		"sprite": "Sprites/Tank/Chassis2"
+		"sprite": "Sprites/Tank/Chassis2",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 109,
@@ -133,7 +157,10 @@
 		"sp": 0,
 		"damage": 100,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Main3"
+		"sprite": "Sprites/Tank/Main3",
+		"normalBulletCount": 30,
+		"ironBulletCount": 12,
+		"smokeBulletCount": 12
 		},
 		{
 		"id": 110,
@@ -148,7 +175,10 @@
 		"sp": 0,
 		"damage": 90,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Second3"
+		"sprite": "Sprites/Tank/Second3",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 111,
@@ -163,7 +193,10 @@
 		"sp": 1200,
 		"damage": 0,
 		"defense": 0,
-		"sprite": "Sprites/Tank/Engine3"
+		"sprite": "Sprites/Tank/Engine3",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		},
 		{
 		"id": 112,
@@ -178,7 +211,10 @@
 		"sp": 0,
 		"damage": 0,
 		"defense": 900,
-		"sprite": "Sprites/Tank/Chassis3"
+		"sprite": "Sprites/Tank/Chassis3",
+		"normalBulletCount": 0,
+		"ironBulletCount": 0,
+		"smokeBulletCount": 0
 		}
 	]
 }

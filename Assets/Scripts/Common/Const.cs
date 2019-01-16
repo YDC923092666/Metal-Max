@@ -12,5 +12,6 @@ namespace MetalMax
         public const string bossInfoFilePath = "Resources/Data/BossInfo.json";
         public const string NPCInfoFilePath = "Resources/Data/NPCInfo.json";
         public const string panelTypeFilePath = "Resources/Data/UIPanelInfo.json";
+        public const string tankFilePath = "Resources/Data/Tank.json";
     }
 }

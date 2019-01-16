@@ -11,7 +11,7 @@ namespace MetalMax
         /// <summary>
         ///  物品信息的列表（集合）
         /// </summary>
-        private List<Item> itemList;
+        public List<Item> itemList;
 
         #region ItemInfoPanel
         private ItemInfoPanel itemInfoPanel;
@@ -29,17 +29,25 @@ namespace MetalMax
         void ParseItemJson()
         {
             itemList = new List<Item>();
-            //读取人物装备
-            string personJson = SaveManager.GetJsonStringFromFile(Const.personEquipmentInfoFilePath);
-            var personJsonObject = JsonUtility.FromJson<PersonEquipmentJson>(personJson);
-            foreach (var item in personJsonObject.infoList)
+            ////读取人物装备
+            //string personJson = SaveManager.GetJsonStringFromFile(Const.personEquipmentInfoFilePath);
+            //var personJsonObject = JsonUtility.FromJson<PersonEquipmentJson>(personJson);
+            //foreach (var item in personJsonObject.infoList)
+            //{
+            //    itemList.Add(item);
+            //}
+
+            //读取坦克装备
+            string tankEquipJson = SaveManager.GetJsonStringFromFile(Const.tankEquipmentInfoFilePath);
+            var tankEquipJsonObject = JsonUtility.FromJson<TankEquipmentJson>(tankEquipJson);
+            foreach (var item in tankEquipJsonObject.infoList)
             {
                 itemList.Add(item);
             }
 
-            //读取坦克装备
-            string tankJson = SaveManager.GetJsonStringFromFile(Const.tankEquipmentInfoFilePath);
-            var tankJsonObject = JsonUtility.FromJson<TankEquipmentJson>(tankJson);
+            //读取坦克
+            string tankJson = SaveManager.GetJsonStringFromFile(Const.tankFilePath);
+            var tankJsonObject = JsonUtility.FromJson<TankJson>(tankJson);
             foreach (var item in tankJsonObject.infoList)
             {
                 itemList.Add(item);

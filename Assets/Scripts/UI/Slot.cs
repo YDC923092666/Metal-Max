@@ -8,7 +8,7 @@ namespace MetalMax
     /// <summary>
     /// 物品槽
     /// </summary>
-    public class Slot : MonoBehaviour,IPointerClickHandler
+    public class Slot : MonoBehaviour, IPointerClickHandler
     {
         public GameObject itemPrefab;
         /// <summary>

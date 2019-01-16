@@ -40,6 +40,9 @@ namespace MetalMax
         public int sp;
         public int damage;
         public int defense;
+        public int normalBulletCount;
+        public int ironBulletCount;
+        public int smokeBulletCount;
 
         public override string GetToolTipText()
         {

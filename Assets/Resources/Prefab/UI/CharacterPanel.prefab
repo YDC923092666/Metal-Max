@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 222709125223483854}
   - component: {fileID: 114288910495254126}
   - component: {fileID: 114547381094870970}
-  - component: {fileID: 114983969196508112}
+  - component: {fileID: 114266129753072216}
   m_Layer: 5
   m_Name: TankSlot
   m_TagString: Untagged
@@ -913,6 +913,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114266129753072216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722014436947188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 292804fed6c767b4ea5e5476dad42028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemPrefab: {fileID: 101822, guid: 11d985094fd1bea4ab8299ee07268983, type: 2}
 --- !u!114 &114288910495254126
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1795,19 +1807,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefab: {fileID: 101822, guid: 11d985094fd1bea4ab8299ee07268983, type: 2}
   equipType: 0
---- !u!114 &114983969196508112
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1722014436947188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43dcbe4249f8b3445b254ce64e2a28a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 101822, guid: 11d985094fd1bea4ab8299ee07268983, type: 2}
-  equipType: 6
 --- !u!222 &222032353531138738
 CanvasRenderer:
   m_ObjectHideFlags: 1

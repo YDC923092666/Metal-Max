@@ -89,6 +89,33 @@ namespace MetalMax
         }
 
         /// <summary>
+        /// 装上坦克
+        /// </summary>
+        /// <param name="item"></param>
+        public void PutOnTank(Item item)
+        {
+            Item exitItem = null;
+            Slot tankSlot = GetComponentInChildren<TankSlot>();
+            //如果格子里有装备了，则交换装备
+            if (tankSlot.transform.childCount > 0)
+            {
+                ItemUI currentItemUI = tankSlot.transform.GetChild(0).GetComponent<ItemUI>();
+                exitItem = currentItemUI.Item;
+                currentItemUI.SetItem(item, 1);
+            }
+            //如果没有装备，则装备上
+            else
+            {
+                tankSlot.StoreItem(item);
+            }
+            //如果对象不为空，则代表有装备被换下来，换下来的装备要装入背包中
+            if (exitItem != null)
+            {
+                KnapsackPanel.Instance.StoreItem(exitItem);
+            }
+        }
+
+        /// <summary>
         /// 卸下装备
         /// </summary>
         /// <param name="item"></param>
@@ -138,7 +165,7 @@ namespace MetalMax
             totalSpeed = 0;
             foreach (Slot slot in slotArray)
             {
-                if (slot.transform.childCount > 0)
+                if (slot.transform.childCount > 0 && !(slot is TankSlot))
                 {
                     PersonEquipment item = (PersonEquipment)slot.transform.GetChild(0).GetComponent<ItemUI>().Item;
                     totalHp += item.hp;

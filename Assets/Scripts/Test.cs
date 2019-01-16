@@ -34,8 +34,10 @@ namespace MetalMax
         {
             if (Input.GetKeyDown(KeyCode.G))
             {
-                int id = UnityEngine.Random.Range(1, 31);
-                KnapsackPanel.Instance.StoreItem(id);
+                int count = InventoryManager.Instance.itemList.Count;
+                int id = UnityEngine.Random.Range(0, count);
+                Item item = InventoryManager.Instance.itemList[id];
+                KnapsackPanel.Instance.StoreItem(item);
             }
         }
 

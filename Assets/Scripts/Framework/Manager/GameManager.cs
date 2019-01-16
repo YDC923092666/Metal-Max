@@ -9,9 +9,8 @@ using LitJson;
 
 namespace MetalMax
 {
-	public class GameManager : MonoBehaviour
-	{
-        
-
+	public class GameManager : MonoSingleton<GameManager>
+    {
+        public bool isEquipTank = false; //是否已经装备了坦克
     }
 }

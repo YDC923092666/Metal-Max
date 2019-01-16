@@ -13,6 +13,7 @@ namespace MetalMax
         PersonEquipment,
         TankEquipment,
         Special,
+        Tank
     }
 
     /// <summary>

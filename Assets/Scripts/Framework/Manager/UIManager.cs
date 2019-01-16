@@ -236,6 +236,7 @@ namespace MetalMax
         public void ShowItemInfoPanel(string content, ItemType type)
         {
             PushPanel(UIPanelType.ItemInfo4knapsackPanel, content);
+            var buttonGo = panelDict[UIPanelType.ItemInfo4knapsackPanel].gameObject;
             string text = null;
             string buttonName = null;
             switch (type)
@@ -248,6 +249,12 @@ namespace MetalMax
                     text = "装备";
                     buttonName = "TakeOnButton";
                     break;
+                case ItemType.Tank:
+                    text = "装备";
+                    buttonName = "TakeOnButton";
+                    buttonGo.transform.Find("ButtonGroup/SellButton").gameObject.SetActive(false);
+                    buttonGo.transform.Find("ButtonGroup/DropButton").gameObject.SetActive(false);
+                    break;
                 case ItemType.TankEquipment:
                     text = "装备";
                     buttonName = "TakeOnButton";
@@ -257,7 +264,6 @@ namespace MetalMax
                     buttonName = "UseButton";
                     break;
             }
-            var buttonGo = panelDict[UIPanelType.ItemInfo4knapsackPanel].gameObject;
             buttonGo.transform.Find("ButtonGroup").GetChild(0).GetComponentInChildren<Text>().text = text;
             buttonGo.transform.Find("ButtonGroup").GetChild(0).name = buttonName;
         }
@@ -270,7 +276,25 @@ namespace MetalMax
         {
             PushPanel(UIPanelType.ItemInfo4CharPanel, content);
             string text = "卸下";
+
             panelDict[UIPanelType.ItemInfo4CharPanel].gameObject.transform.Find("ButtonGroup/TakeOffButton/Text").GetComponent<Text>().text = text;
+        }
+
+        /// <summary>
+        /// 显示角色面板专用ItemInfoPanel
+        /// </summary>
+        /// <param name="content"></param>
+        public void ShowItemInfo4CharPanel(string content, Item item)
+        {
+            PushPanel(UIPanelType.ItemInfo4CharPanel, content);
+            string text = "卸下";
+            var panelGo = panelDict[UIPanelType.ItemInfo4CharPanel].gameObject;
+            if (item.itemType == ItemType.Tank)
+            {
+                panelGo.transform.Find("ButtonGroup/SellButton").gameObject.SetActive(false);
+                panelGo.transform.Find("ButtonGroup/DropButton").gameObject.SetActive(false);
+            }
+            panelGo.transform.Find("ButtonGroup/TakeOffButton/Text").GetComponent<Text>().text = text;
         }
 
         public void HideItemInfoPanel()
@@ -356,30 +380,59 @@ namespace MetalMax
         {
             if(go != null)
             {
+                var selectedItem = selectedSlot.GetComponentInChildren<ItemUI>().Item;
                 switch (go.name)
                 {
                     case "TakeOnButton":
                         //如果装备类型是人物装备，则给人物穿上
-                        if(selectedSlot.GetComponentInChildren<ItemUI>().Item.itemType == ItemType.PersonEquipment)
+                        if(selectedItem.itemType == ItemType.PersonEquipment)
                         {
                             //弹出当前最高层（ItemInfoPanel），显示角色面板层
                             PopPanel();
                             PushPanel(UIPanelType.CharacterPanel);
                             PopPanel();
 
-                            CharacterPanel.Instance.PutOn(selectedSlot.GetComponentInChildren<ItemUI>().Item);
+                            CharacterPanel.Instance.PutOn(selectedItem);
                             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
                         }
-                        else //如果装备类型是坦克装备，则给坦克装备上
+                        //如果装备类型是坦克装备，则给坦克装备上
+                        else if (selectedItem.itemType == ItemType.TankEquipment) 
                         {
                             //首先判断人物是否已经装备上了坦克
+                            if (GameManager.Instance.isEquipTank)
+                            {
+                                PopPanel();
+                                PushPanel(UIPanelType.TankPanel);
+                                PopPanel();
+
+                                TankPanel.Instance.PutOn(selectedItem);
+                                DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
+                            }
+                            else
+                            {
+                                print("请先装备一辆坦克");
+                                //TODO
+                                //在提示面板里提示该信息
+                            }
+                        }
+                        //如果装备类型是坦克
+                        else
+                        {
+                            //弹出当前最高层（ItemInfoPanel），显示角色面板层
+                            PopPanel();
+                            PushPanel(UIPanelType.CharacterPanel);
+                            PopPanel();
+
+                            CharacterPanel.Instance.PutOnTank(selectedItem);
+                            SaveManager.currentArchive.currentTankID = selectedItem.id;
+                            GameManager.Instance.isEquipTank = true;
+                            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
                         }
                         break;
                     case "UseButton":
                         PopPanel();
-                        var item = selectedSlot.GetComponentInChildren<ItemUI>().Item;
                         //调用物品的use方法，适用于消耗品和特殊物品
-                        item.Use();
+                        selectedItem.Use();
                         break;
                 }
             }
