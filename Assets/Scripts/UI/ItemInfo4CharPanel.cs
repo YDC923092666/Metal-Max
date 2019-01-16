@@ -19,7 +19,7 @@ namespace MetalMax
             takeOffButton = transform.Find("ButtonGroup/TakeOffButton").GetComponent<Button>();
             takeOffButton.onClick.AddListener(() =>
             {
-                UIManager.Instance.OnTakeOffButtonClick();
+                OnTakeOffButtonClick();
             });
 
             //给“丢弃”按钮添加点击事件
@@ -60,6 +60,32 @@ namespace MetalMax
             canvasGroup.blocksRaycasts = false;
             canvasGroup.alpha = 0;
             isShow = false;
+        }
+
+        public void OnTakeOffButtonClick()
+        {
+            //弹出当前最高层（ItemInfoPanel）
+            UIManager.Instance.PopPanel();
+            var item = UIManager.Instance.selectedSlot.GetComponentInChildren<ItemUI>().Item;
+            switch (item.itemType)
+            {
+                case ItemType.PersonEquipment:
+                    CharacterPanel.Instance.PutOff(item);
+                    DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
+                    CharacterPanel.Instance.UpdateUI();
+                    break;
+                case ItemType.Tank:
+                    CharacterPanel.Instance.PutOff(item);
+                    DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
+                    GameManager.Instance.isEquipTank = false;
+                    SaveManager.currentArchive.currentTankID = 0;
+                    break;
+                case ItemType.TankEquipment:
+                    TankPanel.Instance.PutOff(item);
+                    DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
+                    TankPanel.Instance.UpdateUI();
+                    break;
+            }
         }
     }
 }

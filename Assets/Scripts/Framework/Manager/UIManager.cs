@@ -365,14 +365,6 @@ namespace MetalMax
         }
 
         /// <summary>
-        /// 打开装备面板
-        /// </summary>
-        public void OnEquipmentButtonClick()
-        {
-            PushPanel(UIPanelType.CharacterPanel);
-        }
-
-        /// <summary>
         /// 点击装备/使用按钮
         /// </summary>
         /// <param name="go"></param>
