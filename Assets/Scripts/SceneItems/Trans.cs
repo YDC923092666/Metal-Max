@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace MetalMax
 {
-	public class Stairs : MonoBehaviour 
+	public class Trans : MonoBehaviour
 	{
         public string sceneName;
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.tag == Tags.charactor)
+            if (collision.tag == Tags.charactor)
             {
                 LoadScene(sceneName);
             }
@@ -22,5 +21,5 @@ namespace MetalMax
         {
             SceneManager.LoadScene(sceneName);
         }
-	}
+    }
 }

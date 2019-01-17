@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212702812678320896}
   - component: {fileID: 61485577367591640}
   - component: {fileID: 61480442178667928}
-  - component: {fileID: 114385611646746652}
+  - component: {fileID: 114647012561289780}
   m_Layer: 0
   m_Name: House4
   m_TagString: Untagged
@@ -93,7 +93,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.95024204}
   m_EdgeRadius: 0
---- !u!114 &114385611646746652
+--- !u!114 &114647012561289780
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1654189364821170}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6ad68d575b56f4db7003292b9819d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 305ce00ed64278849ac71f31b3705857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 

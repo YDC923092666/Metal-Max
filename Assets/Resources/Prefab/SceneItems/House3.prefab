@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212049543146367818}
   - component: {fileID: 61783872087920492}
   - component: {fileID: 61615989850317372}
-  - component: {fileID: 114653500600097702}
+  - component: {fileID: 114146239672767002}
   m_Layer: 0
   m_Name: House3
   m_TagString: Untagged
@@ -93,7 +93,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.95024204}
   m_EdgeRadius: 0
---- !u!114 &114653500600097702
+--- !u!114 &114146239672767002
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1967454444782976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe6ad68d575b56f4db7003292b9819d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 305ce00ed64278849ac71f31b3705857, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 
