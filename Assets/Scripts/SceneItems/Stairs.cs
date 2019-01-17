@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace MetalMax
 {
-	public class DownStairs : MonoBehaviour 
+	public class Stairs : MonoBehaviour 
 	{
         public string sceneName;
 
