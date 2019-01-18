@@ -11,6 +11,7 @@ namespace MetalMax
         protected List<string> talkList;
         protected SpriteRenderer rd;
         protected NPCInfo info;
+        private MainMenuPanel menuPanel;
 
         protected virtual void Start()
         {
@@ -27,9 +28,12 @@ namespace MetalMax
 
         public virtual void Talk()
         {
-            var nameText = info.name;
             var containTextList = info.talkList;
-            UIManager.Instance.UpdateTalkPanel(nameText, containTextList);
+            if (menuPanel == null)
+            {
+                menuPanel = GameObject.Find("Canvas/MainMenuPanel").GetComponent<MainMenuPanel>();
+            }
+            menuPanel.ShowInfoPanel(containTextList);
         }
     }
 }

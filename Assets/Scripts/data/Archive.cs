@@ -25,6 +25,9 @@ namespace MetalMax
 
         public Archive()
         {
+            personStatus = new PersonStatus();
+            tankStatusList = new List<TankStatus>();
+            bossList = new List<Boss>();
         }
 
         public Archive(int id, string sceneName, double[] position, int currentTankID, DateTime archiveDateTime, PersonStatus personStatus, List<TankStatus> tankStatusList, List<Boss> bossList)

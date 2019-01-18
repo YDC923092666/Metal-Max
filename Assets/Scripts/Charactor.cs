@@ -6,14 +6,21 @@ using HedgehogTeam.EasyTouch;
 
 namespace MetalMax
 {
-	public class Char01Move : MonoBehaviour 
+	public class Charactor : MonoBehaviour 
 	{
+        public static int initLv = 1;
+        public static int initHp = 20;
+        public static int initSpeed = 1;
+        public static int initDamage = 20;
+        public static int initDefense = 20;
+
         private Animator anim;
         public float speed = 3;
         public static Vector2 direction;
 
         private void Start()
         {
+            DontDestroyOnLoad(this);
             anim = GetComponent<Animator>();
         }
         private void FixedUpdate()

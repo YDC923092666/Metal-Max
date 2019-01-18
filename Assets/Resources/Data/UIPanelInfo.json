@@ -20,7 +20,10 @@
 	"path":"Prefab/UI/ItemInfo4CharPanel"},
 
 	{"panelTypeString":"TankPanel",
-	"path":"Prefab/UI/TankPanel"}
+	"path":"Prefab/UI/TankPanel"},
+
+	{"panelTypeString":"TipsPanel",
+	"path":"Prefab/UI/TipsPanel"}
 
 	]
 }

@@ -14,7 +14,8 @@ namespace MetalMax
         ItemInfo4knapsackPanel,
         CharacterPanel,
         ItemInfo4CharPanel,
-        TankPanel
+        TankPanel,
+        TipsPanel
     }
 
     [Serializable]

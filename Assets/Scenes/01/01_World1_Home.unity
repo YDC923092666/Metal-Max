@@ -262,7 +262,7 @@ Prefab:
     - target: {fileID: 114013879177999364, guid: 9ebcff8b7e8312a478537378a771a669,
         type: 2}
       propertyPath: showBehaviourInspector
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114013879177999364, guid: 9ebcff8b7e8312a478537378a771a669,
         type: 2}
@@ -320,6 +320,16 @@ Prefab:
     - target: {fileID: 4201608916221474, guid: 9ebcff8b7e8312a478537378a771a669, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114013879177999364, guid: 9ebcff8b7e8312a478537378a771a669,
+        type: 2}
+      propertyPath: showSpriteInspector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114013879177999364, guid: 9ebcff8b7e8312a478537378a771a669,
+        type: 2}
+      propertyPath: showPSInspector
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebcff8b7e8312a478537378a771a669, type: 2}
@@ -591,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50e224c4ff281f4ea3ae23ffa5bbdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mode: 0
+  Mode: 2
 --- !u!114 &1137703888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3164,6 +3174,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1964698885290382, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
+      propertyPath: m_Name
+      value: Char
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
   m_IsPrefabAsset: 0
@@ -3251,6 +3265,11 @@ Prefab:
     - target: {fileID: 4570126432760186, guid: 53ac27b3d4ac9c74889ced815ae88ac0, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114498293751465888, guid: 53ac27b3d4ac9c74889ced815ae88ac0,
+        type: 2}
+      propertyPath: sceneName
+      value: "01_World1_\u8F66\u95F4"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53ac27b3d4ac9c74889ced815ae88ac0, type: 2}

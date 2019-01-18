@@ -19,13 +19,7 @@ namespace MetalMax
 	public class UIManager: MonoSingleton<UIManager>
 	{
         private Vector2 rayDir;
-        private float distance = 1f; //射线检测距离
-        private LayerMask mask = 1 << 8; //射线只检测Item层
-        private GameObject talkPanel; //对话框面板
-        private Text nameText;  //名字文本框
-        private Text containText;   //对话内容文本框
-        private int index = 0; //对话的索引
-        private int talkInterval = 3;   //对话间隔
+        
         public bool canClickUIButton = true; //是否可以点击UI按钮。在某些情况下（如正在对话），该按钮不能点击
         private Stack<BasePanel> panelStack;
 
@@ -97,7 +91,7 @@ namespace MetalMax
         /// <summary>
         /// 入栈，把某个页面显示在界面上
         /// </summary>
-        public void PushPanel(UIPanelType panelType, string content=null)
+        public GameObject PushPanel(UIPanelType panelType, string content=null)
         {
             if (panelStack == null)
             {
@@ -117,6 +111,7 @@ namespace MetalMax
             {
                 panelStack.Push(panel);
             }
+            return panel.gameObject;
         }
 
         /// <summary>
@@ -196,41 +191,16 @@ namespace MetalMax
             canvasScaler.matchWidthOrHeight = matchWidthOrHeight;
         }
 
-        /// <summary>
-        /// 更新对话面板
-        /// </summary>
-        /// <param name="nameText">角色名</param>
-        /// <param name="containTextList">角色对话列表</param>
-        public void UpdateTalkPanel(string nameText, List<NPCTalk> containTextList)
-        {
-            this.nameText.text = nameText + "：";
-            //读取所有的对话内容
-            ChangeContainText(containTextList);
-        }
 
         /// <summary>
-        /// 递归调用本身，读取所有的对话内容
+        /// 显示tipspanel和指定的内容
         /// </summary>
-        /// <param name="containTextList">包含对话的list</param>
-        private void ChangeContainText(List<NPCTalk> containTextList)
+        /// <param name="content">要显示的文本内容</param>
+        public void ShowTipsPanel(string content)
         {
-            //递归结束的条件。如果索引大于等于列表的长度，则表示对话内容已经读取完毕。
-            //隐藏对话面板
-            if (index >= containTextList.Count)
-            {
-                PopPanel();
-                this.nameText.text = null;
-                index = 0;
-                canClickUIButton = true;
-                return;
-            }
-            //使用dotween插件，每一次动画完成后递归调用本函数，直至所有对话内容读取完毕
-            containText.DOText(containTextList[index].talk, talkInterval).OnComplete(() =>
-            {
-                index++;
-                containText.text = null;
-                ChangeContainText(containTextList);
-            });
+            var tipsPanel = PushPanel(UIPanelType.TipsPanel);
+            var tipsPanelText = tipsPanel.GetComponentInChildren<Text>();
+            tipsPanelText.text = content;
         }
 
         public void ShowItemInfoPanel(string content, ItemType type)
@@ -307,12 +277,51 @@ namespace MetalMax
             }
         }
 
+        /// <summary>
+        /// 显示TalkPanel和指定的内容
+        /// </summary>
+        /// <param name = "content" > 要显示的文本内容 </ param >
+        //public void ShowTalkPanel(List<NPCTalk> containTextList)
+        //{
+        //    if (containText == null)
+        //    {
+        //        containText = infoPanel.GetComponentInChildren<Text>();
+        //    }
+        //    containText.text = null;
+        //    ChangeContainText(containTextList);
+        //}
+
+        /// <summary>
+        /// 递归调用本身，读取所有的对话内容
+        /// </summary>
+        /// <param name = "containTextList" > 包含对话的list </ param >
+        //private void ChangeContainText(List<NPCTalk> containTextList)
+        //{
+        //    递归结束的条件。如果索引大于等于列表的长度，则表示对话内容已经读取完毕。
+        //    隐藏对话面板
+        //    if (index >= containTextList.Count)
+        //    {
+        //        ShowOnlyOnePanel("Status");
+        //        index = 0;
+        //        UIManager.Instance.canClickUIButton = true;
+        //        return;
+        //    }
+        //    使用dotween插件，每一次动画完成后递归调用本函数，直至所有对话内容读取完毕
+        //    containText.DOText(containTextList[index].talk, talkInterval).OnComplete(() =>
+        //    {
+        //        index++;
+        //        containText.text = null;
+        //        ChangeContainText(containTextList);
+        //    });
+        //}
+
         #region ButtonClickEvent
         /// <summary>
         /// 当右下角按钮被点击时，显示buttonPanel，当再点击时，隐藏buttonPanel;
         /// </summary>
         public void OnUIButtonClick()
         {
+            print("UIBUTTONCLICK");
             BasePanel mainMenuPanel = null;
             if (panelDict == null)
             {
@@ -330,31 +339,6 @@ namespace MetalMax
             }
         }
 
-        /// <summary>
-        /// 当对话按钮被点击时
-        /// </summary>
-        public void OnTalkButtonClick()
-        {
-            //射线检测身前的物体
-            Vector2 headDir = Char01Move.direction;
-            Vector2 char01Position = GameObject.FindGameObjectWithTag(Tags.charactor).transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(char01Position, headDir, distance, mask);
-            if (hit.collider != null && hit.collider.tag == Tags.NPC)
-            {
-                canClickUIButton = false;
-                PushPanel(UIPanelType.TalkPanel);
-                talkPanel = panelDict[UIPanelType.TalkPanel].gameObject;
-                nameText = talkPanel.transform.Find("NameText").GetComponent<Text>();
-                containText = talkPanel.transform.Find("ContainText").GetComponent<Text>();
-                
-                hit.collider.GetComponent<NPCBase>().Talk();
-            }
-            else
-            {
-                //显示tipPanel，提示前面没有人。
-                //TODO
-            }
-        }
 
         /// <summary>
         /// 打开背包面板
@@ -402,9 +386,8 @@ namespace MetalMax
                             }
                             else
                             {
-                                print("请先装备一辆坦克");
-                                //TODO
-                                //在提示面板里提示该信息
+                                PopPanel();
+                                ShowTipsPanel("请先装备一辆坦克");
                             }
                         }
                         //如果装备类型是坦克

@@ -6,7 +6,7 @@ namespace MetalMax
 {
     public class SaveManager : MonoSingleton<SaveManager>
     {
-        public static Archive currentArchive;
+        public static Archive currentArchive = new Archive();
 
         protected override void Awake()
         {

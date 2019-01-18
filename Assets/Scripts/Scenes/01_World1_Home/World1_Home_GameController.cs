@@ -10,6 +10,8 @@ namespace MetalMax
         public override void Init()
         {
             base.Init();
+            var canvas = GameObject.Find("Canvas");
+            DontDestroyOnLoad(canvas);
         }
 
         protected override void InitCharactor()
