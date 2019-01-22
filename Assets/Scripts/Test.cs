@@ -66,7 +66,6 @@ namespace MetalMax
                 for (int j = 1; j < columns; j++)
                 {
                     var nValue = result.Tables[0].Rows[i][j];
-                    print(nValue.GetType());
                     if (j == 1)
                     {
                         monster.name = nValue.ToString();
@@ -110,6 +109,12 @@ namespace MetalMax
                 }
                 monsterList.Add(monster);
             }
+            MonsterJson monsterJson = new MonsterJson
+            {
+                infoList = monsterList
+            };
+            string text = JsonUtility.ToJson(monsterJson);
+            print(text);
             excelDataReader.Close();
         }
 

@@ -5,12 +5,14 @@ using UnityEngine;
 
 namespace MetalMax
 {
+    [Serializable]
     public class MonsterJson
     {
         public List<Monster> infoList;
     }
 
-	public class Monster
+    [Serializable]
+    public class Monster
 	{
         public string name;
         public int id;
