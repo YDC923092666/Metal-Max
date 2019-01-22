@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using ExcelDataReader;
 using System.IO;
 using UnityEngine;
+using System.Data;
+using System.Collections.Generic;
+using System;
 
 namespace MetalMax
 {
-	public class Test : MonoBehaviour
+    public class Test : MonoBehaviour
 	{
         public void TestJson()
         {
@@ -41,15 +42,75 @@ namespace MetalMax
             }
         }
 
-        private Array[] arrays;
         public void TestArray()
         {
+            var filePath = Const.monsterFilePath;
+            ReadExcelStream(filePath);
+        }
+
+        void ReadExcelStream(string filePath)
+        {
+            FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+            DataSet result = excelDataReader.AsDataSet();
+
+            int columns = result.Tables[0].Columns.Count;
+            int rows = result.Tables[0].Rows.Count;
+
+            List<Monster> monsterList = new List<Monster>();
             
-            if(arrays == null)
+            for (int i = 1; i < rows; i++)
             {
-                print("1");
+                Monster monster = new Monster();
+                for (int j = 1; j < columns; j++)
+                {
+                    var nValue = result.Tables[0].Rows[i][j];
+                    print(nValue.GetType());
+                    if (j == 1)
+                    {
+                        monster.name = nValue.ToString();
+                    }
+                    else if (j == 2)
+                    {
+                        monster.id = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 3)
+                    {
+                        monster.hp = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 4)
+                    {
+                        monster.attackCount = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 5)
+                    {
+                        monster.damage = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 6)
+                    {
+                        monster.defense = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 7)
+                    {
+                        monster.speed = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 8)
+                    {
+                        monster.shootingRate = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 9)
+                    {
+                        monster.escapeRate = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 10)
+                    {
+                        monster.sprite = nValue.ToString();
+                    }
+                }
+                monsterList.Add(monster);
             }
-            print("2");
+            excelDataReader.Close();
         }
 
     }

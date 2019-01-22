@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Charactor
   - NPC
+  - Tilemap
   layers:
   - Default
   - TransparentFX

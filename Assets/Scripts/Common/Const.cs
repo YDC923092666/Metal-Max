@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.IO;
 using UnityEngine;
 
 namespace MetalMax
@@ -13,5 +12,6 @@ namespace MetalMax
         public const string NPCInfoFilePath = "Resources/Data/NPCInfo.json";
         public const string panelTypeFilePath = "Resources/Data/UIPanelInfo.json";
         public const string tankFilePath = "Resources/Data/Tank.json";
+        public static string monsterFilePath = Application.dataPath + "/Resources/Data/Monster.xlsx";
     }
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using ExcelDataReader;
 using System.IO;
 using UnityEngine;
+using System.Data;
+using System.Collections.Generic;
+using System;
 
 namespace MetalMax
 {
@@ -245,6 +248,20 @@ namespace MetalMax
                 currentArchive.tankStatusList = new List<TankStatus>();
             }
             currentArchive.tankStatusList.Add(tankStatus);
+        }
+
+        /// <summary>
+        /// 返回excel表的对象
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static DataSet ReadExcelStream(string filePath)
+        {
+            FileStream stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
+            IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+
+            DataSet result = excelDataReader.AsDataSet();
+            return result;
         }
     }
 }

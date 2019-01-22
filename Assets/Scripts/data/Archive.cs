@@ -21,13 +21,11 @@ namespace MetalMax
         public DateTime archiveDateTime; //存档时间
         public PersonStatus personStatus;
         public List<TankStatus> tankStatusList;
-        public List<Boss> bossList; //消灭的BOSS列表
 
         public Archive()
         {
             personStatus = new PersonStatus();
             tankStatusList = new List<TankStatus>();
-            bossList = new List<Boss>();
         }
 
         public Archive(int id, string sceneName, double[] position, int currentTankID, DateTime archiveDateTime, PersonStatus personStatus, List<TankStatus> tankStatusList, List<Boss> bossList)
@@ -39,7 +37,6 @@ namespace MetalMax
             this.archiveDateTime = archiveDateTime;
             this.personStatus = personStatus;
             this.tankStatusList = tankStatusList;
-            this.bossList = bossList;
         }
     }
 

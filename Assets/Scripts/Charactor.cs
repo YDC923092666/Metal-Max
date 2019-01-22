@@ -86,5 +86,16 @@ namespace MetalMax
             }
 
         }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if(collision.tag == Tags.Tilemap)
+            {
+                if (UnityEngine.Random.Range(0, 101) > 98)
+                {
+                    print("Battle");
+                }
+            }
+        }
     }
 }
