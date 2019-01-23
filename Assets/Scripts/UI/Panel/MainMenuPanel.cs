@@ -87,13 +87,13 @@ namespace MetalMax
             charButton.GetComponentInChildren<Text>().text = SaveManager.currentArchive.personStatus.personName;
             charButton.onClick.AddListener(OnCharButtonClick);
             //如果装备了坦克，则显示查看坦克装备的按钮
-            if (GameManager.Instance.isEquipTank)
+            if (SaveManager.currentArchive.isEquipTank)
             {
                 var tankButtonGo = rightPanel.transform.Find("Equipment/ButtonGroup/TankButton").gameObject;
                 tankButtonGo.SetActive(true);
                 tankButton = tankButtonGo.GetComponent<Button>();
-                print(SaveManager.currentArchive.currentTankID);
-                var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentTankID);
+                print(SaveManager.currentArchive.currentEquipTankID);
+                var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentEquipTankID);
                 tankButton.GetComponentInChildren<Text>().text = tankStatus.tankName;
                 tankButton.onClick.AddListener(OnTankButtonClick);
             }

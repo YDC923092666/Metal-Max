@@ -17,7 +17,9 @@ namespace MetalMax
         public int id;
         public string sceneName;   //最后所在的场景
         public double[] position;   //最后保存的位置
-        public int currentTankID;   //最后装备的坦克的ID
+        public bool isEquipTank; //是否装备坦克
+        public int currentEquipTankID;   //最后装备的坦克的ID
+        public bool isOnTank;   //是否乘坐坦克
         public DateTime archiveDateTime; //存档时间
         public PersonStatus personStatus;
         public List<TankStatus> tankStatusList;
@@ -33,7 +35,7 @@ namespace MetalMax
             this.id = id;
             this.sceneName = sceneName;
             this.position = position;
-            this.currentTankID = currentTankID;
+            this.currentEquipTankID = currentTankID;
             this.archiveDateTime = archiveDateTime;
             this.personStatus = personStatus;
             this.tankStatusList = tankStatusList;

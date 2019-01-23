@@ -77,8 +77,8 @@ namespace MetalMax
                 case ItemType.Tank:
                     CharacterPanel.Instance.PutOff(item);
                     DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
-                    GameManager.Instance.isEquipTank = false;
-                    SaveManager.currentArchive.currentTankID = 0;
+                    SaveManager.currentArchive.isEquipTank = false;
+                    SaveManager.currentArchive.currentEquipTankID = 0;
                     break;
                 case ItemType.TankEquipment:
                     TankPanel.Instance.PutOff(item);

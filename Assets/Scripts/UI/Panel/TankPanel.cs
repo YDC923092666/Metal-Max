@@ -113,7 +113,7 @@ namespace MetalMax
             }
 
             ChangeCurrentArchive();
-            var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentTankID);
+            var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentEquipTankID);
 
             if (nameText == null) nameText = transform.Find("RightPanel/Text/NameText").GetComponent<Text>();
             if (spText == null) spText = transform.Find("RightPanel/Text/SpText").GetComponent<Text>();
@@ -156,7 +156,7 @@ namespace MetalMax
                     totalsmokeBullet += item.smokeBulletCount;
                 }
             }
-            var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentTankID);
+            var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentEquipTankID);
             tankStatus.tankSp = totalSp;
             tankStatus.tankDamage = totalDamage;
             tankStatus.tankDefense = totalDefense;

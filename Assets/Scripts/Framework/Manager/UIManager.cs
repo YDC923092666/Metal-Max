@@ -375,7 +375,7 @@ namespace MetalMax
                         else if (selectedItem.itemType == ItemType.TankEquipment) 
                         {
                             //首先判断人物是否已经装备上了坦克
-                            if (GameManager.Instance.isEquipTank)
+                            if (SaveManager.currentArchive.isEquipTank)
                             {
                                 PopPanel();
                                 PushPanel(UIPanelType.TankPanel);
@@ -399,8 +399,8 @@ namespace MetalMax
                             PopPanel();
 
                             CharacterPanel.Instance.PutOnTank(selectedItem);
-                            SaveManager.currentArchive.currentTankID = selectedItem.id;
-                            GameManager.Instance.isEquipTank = true;
+                            SaveManager.currentArchive.currentEquipTankID = selectedItem.id;
+                            SaveManager.currentArchive.isEquipTank = true;
                             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
                         }
                         break;

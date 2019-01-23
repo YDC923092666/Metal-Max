@@ -53,3 +53,12 @@ TagManager:
   - name: UI
     uniqueID: 910439743
     locked: 0
+  - name: BattleBackGround
+    uniqueID: 1757803257
+    locked: 0
+  - name: BattleDefault
+    uniqueID: 1693230435
+    locked: 0
+  - name: BattleUI
+    uniqueID: 1353394629
+    locked: 0
