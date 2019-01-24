@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace MetalMax
 {
-	public class PlayerBattle : MonoBehaviour
+	public class PlayerBattle : BattleStat
 	{
         public int HP = 100;
 
@@ -28,35 +28,13 @@ namespace MetalMax
             HP -= mValue;
         }
 
-        void OnGUI()
+        public override bool IsDead()
         {
-            //如果处于等待状态，则显示操作窗口
-            if (isWaitPlayer && ifUIshow)
+            if (HP == 0)
             {
-                GUI.Window(0, new Rect(Screen.width / 2 + 150, Screen.height / 2 + 150, 200, 200), InitWindow, "请选择技能");
-                mAnim.SetBool("skill", false);
-                mAnim.SetBool("idle", true);
+                return true;
             }
-        }
-
-        void InitWindow(int ID)
-        {
-            if (GUI.Button(new Rect(0, 20, 200, 30), "飞剑斩"))
-            {
-                mAnim.SetBool("idle", false);
-                mAnim.SetBool("skill", true);
-                //交换操作权
-                isWaitPlayer = false;
-                ifUIshow = false;
-            }
-            if (GUI.Button(new Rect(0, 50, 200, 30), "降魔伏法"))
-            {
-                mAnim.SetBool("idle", false);
-                mAnim.SetBool("skill", true);
-                //交换操作权
-                isWaitPlayer = false;
-                ifUIshow = false;
-            }
+            return false;
         }
     }
 }

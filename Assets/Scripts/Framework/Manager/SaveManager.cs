@@ -261,6 +261,7 @@ namespace MetalMax
             IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
 
             DataSet result = excelDataReader.AsDataSet();
+            excelDataReader.Close();
             return result;
         }
     }

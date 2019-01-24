@@ -5,8 +5,8 @@ using DG.Tweening;
 
 namespace MetalMax
 {
-	public class MonsterBattle : MonoBehaviour
-	{
+	public class MonsterBattle : BattleStat
+    {
         public int HP = 100;
         public bool isWaitPlayer = true;
         public float duration = 0.5f;
@@ -33,6 +33,15 @@ namespace MetalMax
                 //人物闪烁，表示攻击
                 mRenderer.DOFade(0, duration).ChangeEndValue(255, true).Restart();
             }
+        }
+
+        public override bool IsDead()
+        {
+            if(HP == 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

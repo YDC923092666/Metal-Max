@@ -45,6 +45,16 @@ namespace MetalMax
             };
             SaveManager.SaveCurrentArchive(archive);
 
+            //创建空物体Managers，并挂载各种manager脚本
+            GameObject newGo = new GameObject();
+            newGo.name = "Managers";
+            newGo.AddComponent<GameManager>();
+            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[0]);
+            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[1]);
+            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[2]);
+            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[3]);
+
+            BattleGameController.Instance.StartGame();
         }
 
         protected override void LaunchInProductionMode()
