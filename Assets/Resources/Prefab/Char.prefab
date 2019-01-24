@@ -23,10 +23,10 @@ GameObject:
   - component: {fileID: 95871662755787636}
   - component: {fileID: 61692878075379616}
   - component: {fileID: 50855807398095322}
-  - component: {fileID: 114620662816690188}
-  - component: {fileID: 114836916766789422}
+  - component: {fileID: 114264111513868154}
+  - component: {fileID: 114951531568597194}
   m_Layer: 0
-  m_Name: Char01
+  m_Name: Char
   m_TagString: Charactor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114620662816690188
+--- !u!114 &114264111513868154
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,8 +119,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8e81f45a3fa1b4b982a50b5d39f7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
---- !u!114 &114836916766789422
+  id: 0
+  hp: 0
+  attackCount: 0
+  damage: 0
+  defense: 0
+  speed: 0
+  shootingRate: 0
+  escapeRate: 0
+--- !u!114 &114951531568597194
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,9 +135,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1964698885290382}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fce09ea101786a54e8a976bf7e131de0, type: 3}
+  m_Script: {fileID: 11500000, guid: d4933963fe6d2e14f953ff5fd9a32421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 3
 --- !u!212 &212660382118175396
 SpriteRenderer:
   m_ObjectHideFlags: 1

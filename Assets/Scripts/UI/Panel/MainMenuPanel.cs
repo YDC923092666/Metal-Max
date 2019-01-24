@@ -122,7 +122,7 @@ namespace MetalMax
         public void OnTalkButtonClick()
         {
             //射线检测身前的物体
-            Vector2 headDir = Charactor.direction;
+            Vector2 headDir = CharactorMove.direction;
             Vector2 char01Position = GameObject.FindGameObjectWithTag(Tags.charactor).transform.position;
             RaycastHit2D hit = Physics2D.Raycast(char01Position, headDir, distance, mask);
             if (hit.collider != null && hit.collider.tag == Tags.NPC)

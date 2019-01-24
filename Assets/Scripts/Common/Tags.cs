@@ -11,6 +11,7 @@ namespace MetalMax
         public const string chest = "Chest";
         public const string NPC = "NPC";
         public const string Tilemap = "Tilemap";
-        public const string monster = "Monster";
+        public const string battleCharactor = "BattleCharactor";
+        public const string battleMonster = "BattleMonster";
     }
 }

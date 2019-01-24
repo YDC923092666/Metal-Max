@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HedgehogTeam.EasyTouch;
 
 namespace MetalMax
 {
-	public class Charactor : MonoBehaviour 
+	public class CharactorMove : MonoBehaviour
 	{
-        public static int initLv = 1;
-        public static int initHp = 20;
-        public static int initSpeed = 1;
-        public static int initDamage = 20;
-        public static int initDefense = 20;
-
         private Animator anim;
-        public float speed = 3;
+        public float moveSpeed = 3;
         public static Vector2 direction;
 
         private void Start()
@@ -46,7 +38,7 @@ namespace MetalMax
                 }
                 anim.SetFloat("v", v);
                 anim.SetBool("Idle", false);
-                transform.Translate(Vector3.up * v * speed * Time.fixedDeltaTime, Space.World);
+                transform.Translate(Vector3.up * v * moveSpeed * Time.fixedDeltaTime, Space.World);
             }
             else if (v == 0 && h != 0)
             {
@@ -63,11 +55,11 @@ namespace MetalMax
                 anim.SetFloat("v", 0);
                 anim.SetFloat("h", h);
                 anim.SetBool("Idle", false);
-                transform.Translate(Vector3.right * h * speed * Time.fixedDeltaTime, Space.World);
+                transform.Translate(Vector3.right * h * moveSpeed * Time.fixedDeltaTime, Space.World);
             }
-            else if(v == 0 && h == 0)
+            else if (v == 0 && h == 0)
             {
-                anim.SetBool("Idle",true);
+                anim.SetBool("Idle", true);
             }
             else
             {
@@ -82,7 +74,7 @@ namespace MetalMax
                 anim.SetFloat("v", v);
                 anim.SetFloat("h", 0);
                 anim.SetBool("Idle", false);
-                transform.Translate(Vector3.up * v * speed * Time.fixedDeltaTime, Space.World);
+                transform.Translate(Vector3.up * v * moveSpeed * Time.fixedDeltaTime, Space.World);
             }
 
         }

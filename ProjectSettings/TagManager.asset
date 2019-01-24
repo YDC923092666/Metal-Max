@@ -7,7 +7,8 @@ TagManager:
   - Charactor
   - NPC
   - Tilemap
-  - Monster
+  - BattleCharactor
+  - BattleMonster
   layers:
   - Default
   - TransparentFX

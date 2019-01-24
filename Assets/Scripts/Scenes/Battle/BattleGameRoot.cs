@@ -48,11 +48,25 @@ namespace MetalMax
             //创建空物体Managers，并挂载各种manager脚本
             GameObject newGo = new GameObject();
             newGo.name = "Managers";
-            newGo.AddComponent<GameManager>();
+            GameManager gameManager = newGo.AddComponent<GameManager>();
+            gameManager.enabled = true;
             GameManager.battleMonsters.Add(GameManager.Instance.monsterList[0]);
             GameManager.battleMonsters.Add(GameManager.Instance.monsterList[1]);
             GameManager.battleMonsters.Add(GameManager.Instance.monsterList[2]);
             GameManager.battleMonsters.Add(GameManager.Instance.monsterList[3]);
+
+            //创建一个tag为charactor的人物在场景中
+            GameObject newGo2 = Instantiate(Resources.Load<GameObject>("Prefab/Char"));
+            newGo2.name = "Charactor";
+            newGo2.GetComponent<BaseAttr>().id = 1;
+            newGo2.GetComponent<BaseAttr>().hp = 20;
+            newGo2.GetComponent<BaseAttr>().damage = 1;
+            newGo2.GetComponent<BaseAttr>().defense = 1;
+            newGo2.GetComponent<BaseAttr>().shootingRate = 1;
+            newGo2.GetComponent<BaseAttr>().escapeRate = 1;
+            newGo2.GetComponent<BaseAttr>().speed = 1;
+            newGo2.GetComponent<BaseAttr>().attackCount = 1;
+
 
             BattleGameController.Instance.StartGame();
         }

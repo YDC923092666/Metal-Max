@@ -8,10 +8,11 @@ using DG.Tweening;
 
 namespace MetalMax
 {
-	public class GameManager : MonoSingleton<GameManager>
+    public class GameManager : MonoSingleton<GameManager>
     {
         public bool isInBattleState = false;
 
+        public Charactor charactor;  //从excel解析出来的1个主角
         public List<Monster> monsterList;  //从excel解析出来的所有怪物
         public static List<Monster> battleMonsters = new List<Monster>();   //战斗场景要生成的怪物
         public int monstersCount;
@@ -20,11 +21,12 @@ namespace MetalMax
         {
             base.Awake();
             GetAllMonsters();
+            GetCharactor();
         }
 
         private void Start()
         {
-            
+
         }
 
         public void EnterBattleState(int minMonsterId, int maxMonsterId)
@@ -56,7 +58,7 @@ namespace MetalMax
                     var nValue = result.Tables[0].Rows[i][j];
                     if (j == 1)
                     {
-                        monster.name = nValue.ToString();
+                        monster.nameString = nValue.ToString();
                     }
                     else if (j == 2)
                     {
@@ -97,12 +99,56 @@ namespace MetalMax
                 }
                 monsterList.Add(monster);
             }
-            print(monsterList.Count);
             //MonsterJson monsterJson = new MonsterJson
             //{
             //    infoList = monsterList
             //};
             //string text = JsonUtility.ToJson(monsterJson);
+        }
+
+        void GetCharactor()
+        {
+            var result = SaveManager.ReadExcelStream(Const.charactorFilePath);
+            int columns = result.Tables[0].Columns.Count;
+            int rows = result.Tables[0].Rows.Count;
+
+            charactor = new Charactor();
+            for (int j = 0; j < columns; j++)
+            {
+                var nValue = result.Tables[0].Rows[1][j];
+                if (j == 0)
+                {
+                    charactor.id = Convert.ToInt32(nValue);
+                }
+                else if (j == 1)
+                {
+                    charactor.hp = Convert.ToInt32(nValue);
+                }
+                else if (j == 2)
+                {
+                    charactor.attackCount = Convert.ToInt32(nValue);
+                }
+                else if (j == 3)
+                {
+                    charactor.damage = Convert.ToInt32(nValue);
+                }
+                else if (j == 4)
+                {
+                    charactor.defense = Convert.ToInt32(nValue);
+                }
+                else if (j == 5)
+                {
+                    charactor.speed = Convert.ToInt32(nValue);
+                }
+                else if (j == 6)
+                {
+                    charactor.shootingRate = Convert.ToInt32(nValue);
+                }
+                else if (j == 7)
+                {
+                    charactor.escapeRate = Convert.ToInt32(nValue);
+                }
+            }
         }
     }
 }

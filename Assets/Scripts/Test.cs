@@ -68,7 +68,7 @@ namespace MetalMax
                     var nValue = result.Tables[0].Rows[i][j];
                     if (j == 1)
                     {
-                        monster.name = nValue.ToString();
+                        monster.nameString = nValue.ToString();
                     }
                     else if (j == 2)
                     {

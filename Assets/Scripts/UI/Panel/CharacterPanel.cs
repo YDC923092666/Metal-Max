@@ -175,10 +175,12 @@ namespace MetalMax
                 }
             }
             var personStatus = SaveManager.currentArchive.personStatus;
-            personStatus.personMaxHp = Charactor.initHp + totalHp;
-            personStatus.personDamage = Charactor.initDamage + totalDamage;
-            personStatus.personDefense = Charactor.initDefense + totalDefense;
-            personStatus.personSpeed = Charactor.initSpeed + totalSpeed;
+            var personCurrentStatus = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<Charactor>();
+            //TODO
+            //personStatus.personMaxHp = personCurrentStatus. + totalHp;
+            //personStatus.personDamage = Charactor.initDamage + totalDamage;
+            //personStatus.personDefense = Charactor.initDefense + totalDefense;
+            //personStatus.personSpeed = Charactor.initSpeed + totalSpeed;
         }
 
         public override void OnEnter(string content)

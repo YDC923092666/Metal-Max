@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ namespace MetalMax
 	public class BattleGameController : MonoSingleton<BattleGameController> 
 	{
         private Queue<GameObject> battleUnits;           //所有参战对象的列表
-        private GameObject[] playerUnits;           //所有参战玩家的列表
+        private GameObject playerUnit;           //主角
         private GameObject[] enemyUnits;            //所有参战敌人的列表
         private List<GameObject> fasterEnemyUnits = new List<GameObject>(); //所有参战速度比主角快的敌人的列表
         private List<GameObject> slowerEnemyUnits = new List<GameObject>(); //所有参战速度比主角慢的敌人的列表
@@ -24,6 +23,10 @@ namespace MetalMax
 
         private GameObject battlePanel;
         private List<Transform> parents;
+        private Transform charParent;
+
+        public int attackData;            //伤害值
+
 
         protected override void Awake()
         {
@@ -42,11 +45,17 @@ namespace MetalMax
             Transform Bg = GameObject.Find("BG").transform;
             foreach (Transform item in Bg)
             {
-                parents.Add(item);
+                if(item.name!= "CharactorPoint")
+                {
+                    parents.Add(item);
+                }
+                
             }
+
+            charParent = GameObject.Find("BG/CharactorPoint").transform;
             //创建怪物和角色
             SpawnMonsters(GameManager.battleMonsters, parents);
-            SpawnCharactor();
+            SpawnCharactor(charParent);
 
             //禁用角色面板
             battlePanel = GameObject.Find("Canvas/BattlePanel");
@@ -56,10 +65,10 @@ namespace MetalMax
             battleUnits = new Queue<GameObject>();
 
             //将怪物单位分类成速度快和速度慢的
-            enemyUnits = GameObject.FindGameObjectsWithTag(Tags.monster);
+            enemyUnits = GameObject.FindGameObjectsWithTag(Tags.battleMonster);
             foreach (GameObject enemyUnit in enemyUnits)
             {
-                if(enemyUnit.GetComponent<MonsterBattle>().monster.speed > SaveManager.currentArchive.personStatus.personSpeed)
+                if(enemyUnit.GetComponent<MonsterBattle>().status.speed > playerUnit.GetComponent<BattleStat>().status.speed)
                 {
                     fasterEnemyUnits.Add(enemyUnit);
                 }
@@ -75,13 +84,8 @@ namespace MetalMax
                 battleUnits.Enqueue(item);
             }
 
-
             //添加玩家单位至参战列表
-            playerUnits = GameObject.FindGameObjectsWithTag(Tags.charactor);
-            foreach (GameObject playerUnit in playerUnits)
-            {
-                battleUnits.Enqueue(playerUnit);
-            }
+            battleUnits.Enqueue(playerUnit);
 
             //添加速度比主角慢的怪物单位至参战队列
             foreach (GameObject item in slowerEnemyUnits)
@@ -90,7 +94,7 @@ namespace MetalMax
             }
 
             //开始战斗
-            //ToBattle();
+            ToBattle();
         }
 
         /// <summary>
@@ -99,8 +103,8 @@ namespace MetalMax
         /// </summary>
         public void ToBattle()
         {
-            remainingEnemyUnits = GameObject.FindGameObjectsWithTag(Tags.monster);
-            remainingPlayer = GameObject.FindGameObjectWithTag(Tags.charactor);
+            remainingEnemyUnits = GameObject.FindGameObjectsWithTag(Tags.battleMonster);
+            remainingPlayer = GameObject.FindGameObjectWithTag(Tags.battleCharactor);
 
             //检查存活敌人单位
             if (remainingEnemyUnits.Length == 0)
@@ -109,7 +113,7 @@ namespace MetalMax
                 //TODO
             }
             //检查存活玩家单位
-            else if (remainingPlayer.GetComponent<PlayerBattle>().HP == 0)
+            else if (remainingPlayer.GetComponent<BattleStat>().status.hp == 0)
             {
                 Debug.Log("我方全灭，战斗失败");
                 //TODO
@@ -147,11 +151,11 @@ namespace MetalMax
         /// <returns></returns>
         void FindTarget()
         {
-            if (currentActUnit.tag == Tags.monster)
+            if (currentActUnit.tag == Tags.battleMonster)
             {
                 //如果行动单位是怪物则攻击玩家
                 currentActUnitTarget = remainingPlayer;
-                LaunchAttack();
+                MonsterLaunchAttack();
             }
             else if (currentActUnit.tag == Tags.charactor)
             {
@@ -160,9 +164,35 @@ namespace MetalMax
             }
         }
 
-        public void LaunchAttack()
+        /// <summary>
+        /// 怪物发动攻击
+        /// </summary>
+        public void MonsterLaunchAttack()
         {
+            //存储攻击者和攻击目标的属性脚本
+            BattleStat attackOwner = currentActUnit.GetComponent<BattleStat>();
+            BattleStat attackReceiver = currentActUnitTarget.GetComponent<BattleStat>();
 
+            //命中率-躲避率 = 命中概率。如果在这个范围内，则命中
+            if(Random.Range(0, 100)<(attackOwner.status.shootingRate - attackReceiver.status.escapeRate))
+            {
+                //根据攻防计算伤害
+                attackData = attackOwner.status.damage - attackReceiver.status.defense + Random.Range(-2, 2);
+                //TODO 显示战斗信息
+                print(attackOwner.gameObject.name + "造成伤害： " + attackData);
+            }
+            else
+            {
+                attackData = 0;
+                //TODO 显示躲避成功的文字
+                print(attackReceiver.gameObject.name + "闪避成功");
+            }
+            print("当前攻击者是：" + attackOwner.gameObject.name);
+            //播放攻击动画
+            attackOwner.Attack();
+
+            //在对象承受伤害并进入下个单位操作前前添加1s延迟
+            //StartCoroutine("WaitForTakeDamage");
         }
 
         /// <summary>
@@ -173,33 +203,48 @@ namespace MetalMax
             for (int i = 0; i < monsters.Count; i++)
             {
                 //初始化怪物
-                GameObject monsterPrefab = Resources.Load<GameObject>("Prefab/Monster");
+                GameObject monsterPrefab = Resources.Load<GameObject>("Prefab/Battle_Monster");
                 var monsterSprite = Resources.Load<Sprite>(monsters[i].sprite);
                 monsterPrefab.GetComponent<SpriteRenderer>().sprite = monsterSprite;
                 GameObject monsterGo = Instantiate(monsterPrefab, parents[i], true);
                 monsterGo.transform.position = parents[i].position;
                 //给怪物身上的组件赋予对象
-                monsterGo.GetComponent<MonsterBattle>().monster = monsters[i];
+                monsterGo.GetComponent<MonsterBattle>().status = monsters[i];
+                monsterGo.name = monsters[i].nameString;
+                print(monsterGo.GetComponent<MonsterBattle>().status.id);
             }
-            //foreach (var monster in monsters)
-            //{
-            //    GameObject monsterGo = Resources.Load<GameObject>(monster.sprite);
-            //    Instantiate(monsterGo, parent);
-            //    monsterGo.transform.position = parent.position;
-            //}
-            
         }
 
         public void SpawnCharactor(Transform parent)
         {
             //初始化角色
-            GameObject monsterPrefab = Resources.Load<GameObject>("Prefab/Monster");
-            var monsterSprite = Resources.Load<Sprite>(monsters[i].sprite);
-            monsterPrefab.GetComponent<SpriteRenderer>().sprite = monsterSprite;
-            GameObject monsterGo = Instantiate(monsterPrefab, parents[i], true);
-            monsterGo.transform.position = parents[i].position;
+            GameObject charPrefab = Resources.Load<GameObject>("Prefab/Battle_Char");
+            playerUnit = Instantiate(charPrefab, parent, true);
+            playerUnit.transform.position = parent.position;
             //给怪物身上的组件赋予对象
-            monsterGo.GetComponent<MonsterBattle>().monster = monsters[i];
+            playerUnit.GetComponent<PlayerBattle>().status = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<BaseAttr>();
+            print(playerUnit.GetComponent<PlayerBattle>().status.hp);
+        }
+
+        /// <summary>
+        /// 延时操作函数，避免在怪物回合操作过快
+        /// </summary>
+        /// <returns></returns>
+        IEnumerator WaitForTakeDamage()
+        {
+            //被攻击者承受伤害
+            currentActUnitTarget.GetComponent<BattleStat>().ReceiveDamage(attackData);
+            if (!currentActUnitTarget.GetComponent<BattleStat>().IsDead())
+            {
+                currentActUnitTarget.GetComponent<Animator>().SetTrigger("TakeDamage");
+            }
+            else
+            {
+                currentActUnitTarget.GetComponent<Animator>().SetTrigger("Dead");
+            }
+
+            yield return new WaitForSeconds(1);
+            ToBattle();
         }
     }
 }
