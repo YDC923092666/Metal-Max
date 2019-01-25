@@ -81,13 +81,6 @@ namespace MetalMax
                 }
                 else
                 {
-                    if(item.itemType == ItemType.Tank)
-                    {
-                        TankStatus tankStatus = new TankStatus();
-                        tankStatus.tankID = item.id;
-                        tankStatus.tankName = item.name;
-                        SaveManager.SaveTankStatus(tankStatus);
-                    }
                     slot.StoreItem(item);//把物品存储到这个空的物品槽里面
                 }
             }

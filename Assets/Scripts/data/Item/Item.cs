@@ -11,9 +11,7 @@ namespace MetalMax
     {
         Consumable,
         PersonEquipment,
-        TankEquipment,
         Special,
-        Tank
     }
 
     /// <summary>

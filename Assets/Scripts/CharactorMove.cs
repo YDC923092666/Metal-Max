@@ -83,12 +83,13 @@ namespace MetalMax
         {
             if (collision.tag == Tags.Tilemap && GameManager.Instance.isInBattleState == false)
             {
-                if (UnityEngine.Random.Range(0, 101) > 98)
+                if (Random.Range(0, 101) > 98)
                 {
                     var monsterScript = collision.GetComponent<MonsterSpwan>();
                     var minMonsterId = monsterScript.minMonsterId;
                     var maxMonsterId = monsterScript.maxMonsterId;
-                    GameManager.Instance.EnterBattleState(minMonsterId, maxMonsterId);
+                    var monsterCount = monsterScript.monsterCount;
+                    GameManager.Instance.EnterBattleState(minMonsterId, maxMonsterId, monsterCount);
                 }
             }
         }

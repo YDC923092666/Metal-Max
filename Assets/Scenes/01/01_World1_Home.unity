@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50e224c4ff281f4ea3ae23ffa5bbdb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mode: 2
+  Mode: 0
 --- !u!114 &1137703888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3135,52 +3135,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4976107671388510, guid: 84f1278378527634e83efbdc75e65733,
     type: 2}
   m_PrefabInternal: {fileID: 2027314101}
---- !u!1001 &1967557481
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4959943237067220, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1964698885290382, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-      propertyPath: m_Name
-      value: Char
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0942bf19d1bfc16499ebb5a5c5123a77, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &2027314101
 Prefab:
   m_ObjectHideFlags: 0

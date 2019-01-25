@@ -50,7 +50,6 @@ namespace MetalMax
 
             attackButton = humanPanel.transform.Find("AttackButton").GetComponent<Button>();
             otherButton2 = humanPanel.transform.Find("OtherButton2").GetComponent<Button>();
-            InitPanel();
         }
 
         /// <summary>
@@ -58,15 +57,7 @@ namespace MetalMax
         /// </summary>
         private void InitPanel()
         {
-            //显示坦克面板还是人物面板？
-            if (SaveManager.currentArchive.isOnTank && SaveManager.currentArchive.isEquipTank)
-            {
-                ShowOnlyOnePanel(leftPanel, "TankPanel");
-            }
-            else
-            {
-                ShowOnlyOnePanel(leftPanel, "HumanPanel");
-            }
+            ShowOnlyOnePanel(leftPanel, "HumanPanel");
             ShowOnlyOnePanel(rightPanel, "StatusPanel");
             UpdateStatusPanelUI();
         }
@@ -89,18 +80,12 @@ namespace MetalMax
             return targetPanel;
         }
 
+        /// <summary>
+        /// 更新右侧人物属性界面
+        /// </summary>
         public void UpdateStatusPanelUI()
         {
             string hpString = null;
-            if (SaveManager.currentArchive.isEquipTank && SaveManager.currentArchive.isOnTank)
-            {
-                var tank = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentEquipTankID);
-                hpString = string.Format("HP: {0}\nSP: {1}", SaveManager.currentArchive.personStatus.personCurrentHp, tank.tankSp);
-            }
-            else
-            {
-                hpString = string.Format("HP: {0}", SaveManager.currentArchive.personStatus.personCurrentHp);
-            }
             nameText.text = SaveManager.currentArchive.personStatus.personName;
             hpText.text = hpString;
         }

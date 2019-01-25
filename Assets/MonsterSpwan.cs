@@ -9,5 +9,7 @@ namespace MetalMax
 	{
         public int minMonsterId;
         public int maxMonsterId;
+
+        public int monsterCount;
 	}
 }

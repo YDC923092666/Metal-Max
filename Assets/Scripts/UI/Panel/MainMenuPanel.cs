@@ -81,27 +81,22 @@ namespace MetalMax
         /// </summary>
         public void OnEquipmentButtonClick()
         {
-            ShowOnlyOnePanel("Equipment");
-            var charButtonGo = rightPanel.transform.Find("Equipment/ButtonGroup/CharButton").gameObject;
-            charButton = charButtonGo.GetComponent<Button>();
-            charButton.GetComponentInChildren<Text>().text = SaveManager.currentArchive.personStatus.personName;
-            charButton.onClick.AddListener(OnCharButtonClick);
-            //如果装备了坦克，则显示查看坦克装备的按钮
-            if (SaveManager.currentArchive.isEquipTank)
-            {
-                var tankButtonGo = rightPanel.transform.Find("Equipment/ButtonGroup/TankButton").gameObject;
-                tankButtonGo.SetActive(true);
-                tankButton = tankButtonGo.GetComponent<Button>();
-                print(SaveManager.currentArchive.currentEquipTankID);
-                var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentEquipTankID);
-                tankButton.GetComponentInChildren<Text>().text = tankStatus.tankName;
-                tankButton.onClick.AddListener(OnTankButtonClick);
-            }
-            else
-            {
-                var tankButtonGo = rightPanel.transform.Find("Equipment/ButtonGroup/TankButton").gameObject;
-                tankButtonGo.SetActive(false);
-            }
+            UIManager.Instance.PushPanel(UIPanelType.CharacterPanel);
+            ////如果装备了坦克，则显示查看坦克装备的按钮
+            //if (SaveManager.currentArchive.isEquipTank)
+            //{
+            //    var tankButtonGo = rightPanel.transform.Find("Equipment/ButtonGroup/TankButton").gameObject;
+            //    tankButtonGo.SetActive(true);
+            //    tankButton = tankButtonGo.GetComponent<Button>();
+            //    var tankStatus = SaveManager.GetTankStatusById(SaveManager.currentArchive.currentEquipTankID);
+            //    tankButton.GetComponentInChildren<Text>().text = tankStatus.tankName;
+            //    tankButton.onClick.AddListener(OnTankButtonClick);
+            //}
+            //else
+            //{
+            //    var tankButtonGo = rightPanel.transform.Find("Equipment/ButtonGroup/TankButton").gameObject;
+            //    tankButtonGo.SetActive(false);
+            //}
             
         }
 

@@ -74,17 +74,6 @@ namespace MetalMax
                     DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
                     CharacterPanel.Instance.UpdateUI();
                     break;
-                case ItemType.Tank:
-                    CharacterPanel.Instance.PutOff(item);
-                    DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
-                    SaveManager.currentArchive.isEquipTank = false;
-                    SaveManager.currentArchive.currentEquipTankID = 0;
-                    break;
-                case ItemType.TankEquipment:
-                    TankPanel.Instance.PutOff(item);
-                    DestroyImmediate(UIManager.Instance.selectedSlot.transform.GetChild(0).gameObject);
-                    TankPanel.Instance.UpdateUI();
-                    break;
             }
         }
     }

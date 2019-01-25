@@ -23,6 +23,8 @@ namespace MetalMax
         private Text defenseText;
         private Text speedText;
         private Text expText;
+        private Text shootingRateText;
+        private Text escapeRateText;
 
         private int totalHp = 0;
         private int totalDamage = 0;
@@ -45,6 +47,8 @@ namespace MetalMax
             defenseText = GameObject.Find("RightPanel/DefenseText").GetComponent<Text>();
             speedText = GameObject.Find("RightPanel/SpeedText").GetComponent<Text>();
             expText = GameObject.Find("RightPanel/ExpText").GetComponent<Text>();
+            shootingRateText = GameObject.Find("RightPanel/ShootingRateText").GetComponent<Text>();
+            escapeRateText = GameObject.Find("RightPanel/EscapeRateText").GetComponent<Text>();
         }
 
         /// <summary>
@@ -89,33 +93,6 @@ namespace MetalMax
         }
 
         /// <summary>
-        /// 装上坦克
-        /// </summary>
-        /// <param name="item"></param>
-        public void PutOnTank(Item item)
-        {
-            Item exitItem = null;
-            Slot tankSlot = GetComponentInChildren<TankSlot>();
-            //如果格子里有装备了，则交换装备
-            if (tankSlot.transform.childCount > 0)
-            {
-                ItemUI currentItemUI = tankSlot.transform.GetChild(0).GetComponent<ItemUI>();
-                exitItem = currentItemUI.Item;
-                currentItemUI.SetItem(item, 1);
-            }
-            //如果没有装备，则装备上
-            else
-            {
-                tankSlot.StoreItem(item);
-            }
-            //如果对象不为空，则代表有装备被换下来，换下来的装备要装入背包中
-            if (exitItem != null)
-            {
-                KnapsackPanel.Instance.StoreItem(exitItem);
-            }
-        }
-
-        /// <summary>
         /// 卸下装备
         /// </summary>
         /// <param name="item"></param>
@@ -134,9 +111,8 @@ namespace MetalMax
                 slotArray = GetComponentsInChildren<Slot>();
             }
 
-            ChangeCurrentArchive();
-            var personStatus = SaveManager.currentArchive.personStatus;
-            
+            ChangeCharactorAttr();
+
             if (nameText == null) nameText = GameObject.Find("RightPanel/NameText").GetComponent<Text>();
             if (lvText == null) lvText = GameObject.Find("RightPanel/LvText").GetComponent<Text>();
             if (hpText == null) hpText = GameObject.Find("RightPanel/HpText").GetComponent<Text>();
@@ -144,28 +120,34 @@ namespace MetalMax
             if (defenseText == null) defenseText = GameObject.Find("RightPanel/DefenseText").GetComponent<Text>();
             if(speedText == null) speedText = GameObject.Find("RightPanel/SpeedText").GetComponent<Text>();
             if(expText == null) expText = GameObject.Find("RightPanel/ExpText").GetComponent<Text>();
+            if(shootingRateText == null) shootingRateText = GameObject.Find("RightPanel/ShootingRateText").GetComponent<Text>();
+            if (escapeRateText == null) escapeRateText = GameObject.Find("RightPanel/EscapeRateText").GetComponent<Text>();
 
-            nameText.text = personStatus.personName;
-            lvText.text = personStatus.personLv.ToString();
-            hpText.text = string.Format("{0}/{1}", personStatus.personCurrentHp, personStatus.personMaxHp);
-            damageText.text = personStatus.personDamage.ToString();
-            defenseText.text = personStatus.personDefense.ToString();
-            speedText.text = personStatus.personSpeed.ToString();
-            expText.text = string.Format("{0}/{1}", personStatus.personExp, personStatus.personCurrentLvNeedExp);
+            var personStatus = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<Charactor>();
+            nameText.text = personStatus.nameString;
+            lvText.text = personStatus.lv.ToString();
+            hpText.text = string.Format("{0}/{1}", personStatus.hp, personStatus.maxHp);
+            damageText.text = personStatus.damage.ToString();
+            defenseText.text = personStatus.defense.ToString();
+            speedText.text = personStatus.speed.ToString();
+            expText.text = string.Format("{0}/{1}", personStatus.exp, personStatus.maxExp);
+            shootingRateText.text = personStatus.shootingRate.ToString();
+            escapeRateText.text = personStatus.escapeRate.ToString();
         }
 
         /// <summary>
         /// 修改当前存档中，人物属性值
         /// </summary>
-        public void ChangeCurrentArchive()
+        public void ChangeCharactorAttr()
         {
+            //计算装备加的属性值
             totalHp = 0;
             totalDamage = 0;
             totalDefense = 0;
             totalSpeed = 0;
             foreach (Slot slot in slotArray)
             {
-                if (slot.transform.childCount > 0 && !(slot is TankSlot))
+                if (slot.transform.childCount > 0)
                 {
                     PersonEquipment item = (PersonEquipment)slot.transform.GetChild(0).GetComponent<ItemUI>().Item;
                     totalHp += item.hp;
@@ -174,13 +156,12 @@ namespace MetalMax
                     totalSpeed += item.speed;
                 }
             }
-            var personStatus = SaveManager.currentArchive.personStatus;
-            var personCurrentStatus = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<Charactor>();
-            //TODO
-            //personStatus.personMaxHp = personCurrentStatus. + totalHp;
-            //personStatus.personDamage = Charactor.initDamage + totalDamage;
-            //personStatus.personDefense = Charactor.initDefense + totalDefense;
-            //personStatus.personSpeed = Charactor.initSpeed + totalSpeed;
+            //修改人物属性
+            var personStatus = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<Charactor>();
+            personStatus.maxHp = personStatus.initHp + totalHp;
+            personStatus.damage = personStatus.initDamage + totalDamage;
+            personStatus.defense = personStatus.initDefense + totalDefense;
+            personStatus.speed = personStatus.initSpeed + totalSpeed;
         }
 
         public override void OnEnter(string content)

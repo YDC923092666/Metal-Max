@@ -21,7 +21,7 @@ namespace MetalMax
         {
             base.Awake();
             GetAllMonsters();
-            GetCharactor();
+            GetCharactorBaseAttr();
         }
 
         private void Start()
@@ -29,11 +29,14 @@ namespace MetalMax
 
         }
 
-        public void EnterBattleState(int minMonsterId, int maxMonsterId)
+        public void EnterBattleState(int minMonsterId, int maxMonsterId , int monsterCount = 0)
         {
             isInBattleState = true;
             SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
-            monstersCount = UnityEngine.Random.Range(1, 7);
+            if(monsterCount == 0)
+            {
+                monstersCount = UnityEngine.Random.Range(1, 7);
+            }
             battleMonsters = new List<Monster>();
             for (int i = 0; i < monstersCount; i++)
             {
@@ -106,7 +109,10 @@ namespace MetalMax
             //string text = JsonUtility.ToJson(monsterJson);
         }
 
-        void GetCharactor()
+        /// <summary>
+        /// 获取人物基础属性
+        /// </summary>
+        void GetCharactorBaseAttr()
         {
             var result = SaveManager.ReadExcelStream(Const.charactorFilePath);
             int columns = result.Tables[0].Columns.Count;
@@ -122,7 +128,7 @@ namespace MetalMax
                 }
                 else if (j == 1)
                 {
-                    charactor.hp = Convert.ToInt32(nValue);
+                    charactor.initHp = Convert.ToInt32(nValue);
                 }
                 else if (j == 2)
                 {
@@ -130,23 +136,35 @@ namespace MetalMax
                 }
                 else if (j == 3)
                 {
-                    charactor.damage = Convert.ToInt32(nValue);
+                    charactor.initDamage = Convert.ToInt32(nValue);
                 }
                 else if (j == 4)
                 {
-                    charactor.defense = Convert.ToInt32(nValue);
+                    charactor.initDefense = Convert.ToInt32(nValue);
                 }
                 else if (j == 5)
                 {
-                    charactor.speed = Convert.ToInt32(nValue);
+                    charactor.initSpeed = Convert.ToInt32(nValue);
                 }
                 else if (j == 6)
                 {
-                    charactor.shootingRate = Convert.ToInt32(nValue);
+                    charactor.initShootingRate = Convert.ToInt32(nValue);
                 }
                 else if (j == 7)
                 {
-                    charactor.escapeRate = Convert.ToInt32(nValue);
+                    charactor.initEscapeRate = Convert.ToInt32(nValue);
+                }
+                else if (j == 8)
+                {
+                    charactor.nameString = Convert.ToString(nValue);
+                }
+                else if (j == 9)
+                {
+                    charactor.sprite = Convert.ToString(nValue);
+                }
+                else if (j == 10)
+                {
+                    charactor.battleSprite = Convert.ToString(nValue);
                 }
             }
         }

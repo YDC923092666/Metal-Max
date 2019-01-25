@@ -14,7 +14,6 @@ namespace MetalMax
     [Serializable]
     public class Monster: BaseAttr
 	{
-        public string nameString;
-        public string sprite;
+        
     }
 }

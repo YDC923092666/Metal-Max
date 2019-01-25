@@ -96,42 +96,6 @@ namespace MetalMax
         }
 
         /// <summary>
-        /// 通过Tank装备的id找到对象
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static TankEquipment GetTankEquipmentObjectFromListById(int id)
-        {
-            TankEquipmentJson jsonObject = GetObjectFromJsonString<TankEquipmentJson>(Const.tankEquipmentInfoFilePath);
-            foreach (var item in jsonObject.infoList)
-            {
-                if (item.id == id)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 通过BOSS的id找到对象
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static Boss GetBossObjectFromListById(int id)
-        {
-            BossJson jsonObject = GetObjectFromJsonString<BossJson>(Const.bossInfoFilePath);
-            foreach (var item in jsonObject.infoList)
-            {
-                if (item.id == id)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
         /// 通过NPC的id找到对象
         /// </summary>
         /// <param name="id"></param>
@@ -227,27 +191,6 @@ namespace MetalMax
             {
                 currentArchive = archive;
             }
-        }
-
-        public static TankStatus GetTankStatusById(int id)
-        {
-            foreach (var item in currentArchive.tankStatusList)
-            {
-                if(item.tankID == id)
-                {
-                    return item;
-                }
-            }
-            return null;
-        }
-
-        public static void SaveTankStatus(TankStatus tankStatus)
-        {
-            if(currentArchive.tankStatusList == null)
-            {
-                currentArchive.tankStatusList = new List<TankStatus>();
-            }
-            currentArchive.tankStatusList.Add(tankStatus);
         }
 
         /// <summary>

@@ -219,16 +219,6 @@ namespace MetalMax
                     text = "装备";
                     buttonName = "TakeOnButton";
                     break;
-                case ItemType.Tank:
-                    text = "装备";
-                    buttonName = "TakeOnButton";
-                    buttonGo.transform.Find("ButtonGroup/SellButton").gameObject.SetActive(false);
-                    buttonGo.transform.Find("ButtonGroup/DropButton").gameObject.SetActive(false);
-                    break;
-                case ItemType.TankEquipment:
-                    text = "装备";
-                    buttonName = "TakeOnButton";
-                    break;
                 case ItemType.Special:
                     text = "使用";
                     buttonName = "UseButton";
@@ -259,11 +249,6 @@ namespace MetalMax
             PushPanel(UIPanelType.ItemInfo4CharPanel, content);
             string text = "卸下";
             var panelGo = panelDict[UIPanelType.ItemInfo4CharPanel].gameObject;
-            if (item.itemType == ItemType.Tank)
-            {
-                panelGo.transform.Find("ButtonGroup/SellButton").gameObject.SetActive(false);
-                panelGo.transform.Find("ButtonGroup/DropButton").gameObject.SetActive(false);
-            }
             panelGo.transform.Find("ButtonGroup/TakeOffButton/Text").GetComponent<Text>().text = text;
         }
 
@@ -370,39 +355,7 @@ namespace MetalMax
 
                             CharacterPanel.Instance.PutOn(selectedItem);
                             DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
-                        }
-                        //如果装备类型是坦克装备，则给坦克装备上
-                        else if (selectedItem.itemType == ItemType.TankEquipment) 
-                        {
-                            //首先判断人物是否已经装备上了坦克
-                            if (SaveManager.currentArchive.isEquipTank)
-                            {
-                                PopPanel();
-                                PushPanel(UIPanelType.TankPanel);
-                                PopPanel();
-
-                                TankPanel.Instance.PutOn(selectedItem);
-                                DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
-                            }
-                            else
-                            {
-                                PopPanel();
-                                ShowTipsPanel("请先装备一辆坦克");
-                            }
-                        }
-                        //如果装备类型是坦克
-                        else
-                        {
-                            //弹出当前最高层（ItemInfoPanel），显示角色面板层
-                            PopPanel();
-                            PushPanel(UIPanelType.CharacterPanel);
-                            PopPanel();
-
-                            CharacterPanel.Instance.PutOnTank(selectedItem);
-                            SaveManager.currentArchive.currentEquipTankID = selectedItem.id;
-                            SaveManager.currentArchive.isEquipTank = true;
-                            DestroyImmediate(selectedSlot.transform.GetChild(0).gameObject);
-                        }
+                        };
                         break;
                     case "UseButton":
                         PopPanel();
