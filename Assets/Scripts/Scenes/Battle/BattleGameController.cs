@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MetalMax
 {
@@ -14,34 +15,57 @@ namespace MetalMax
         private GameObject[] remainingEnemyUnits;           //剩余参战对敌人的列表
         private GameObject remainingPlayer;           //剩余参战玩家
 
-        private GameObject currentActUnit;          //当前行动的单位
-        private GameObject currentActUnitTarget;            //当前行动的单位的目标
+        public GameObject currentActUnit;          //当前行动的单位
+        public GameObject currentActUnitTarget;            //当前行动的单位的目标
 
-        public bool isWaitForPlayerToChooseSkill = false;            //玩家选择技能UI的开关
         public bool isWaitForPlayerToChooseTarget = false;            //是否等待玩家选择目标，控制射线的开关
-
 
         private GameObject battlePanel; //玩家选择面板
         private GameObject battleInfoPanel; //战斗信息面板
-        private List<Transform> parents;
-        private Transform charParent;
+        private List<Transform> parents;    //怪物生成的位置
+        private Transform charParent;   //主角生成的位置
 
         public int attackData;            //伤害值
-
 
         protected override void Awake()
         {
             base.Awake();
         }
+
+        //private void Update()
+        //{
+        //    if (isWaitForPlayerToChooseTarget)
+        //    {
+        //        targetChooseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //        if (Physics.Raycast(targetChooseRay, out targetHit))
+        //        {
+        //            if (Input.GetMouseButtonDown(0) && targetHit.collider.gameObject.tag == "EnemyUnit")
+        //            {
+        //                currentActUnitTarget = targetHit.collider.gameObject;
+        //                isWaitForPlayerToChooseTarget = false;
+
+        //                Destroy(thisPartical);          //选择完目标后删除标识当前行动单位的特效
+
+        //                //如果是远程单位直接在这里LaunchAttack，就不需要RunToTarget
+        //                if (currentActUnit.GetComponent<UnitStats>().attackType == 1)
+        //                {
+        //                    LaunchAttack();
+        //                }
+        //                else
+        //                {
+        //                    RunToTarget();
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
         /// <summary>
         /// 创建初始参战列表，存储参战单位
         /// </summary>
         public void StartGame()
         {
-            //禁用结束菜单
-            //endImage = GameObject.Find("ResultImage");
-            //endImage.SetActive(false);
-
+            //寻找需要初始化怪物的位置
             parents = new List<Transform>();
             Transform Bg = GameObject.Find("BG").transform;
             foreach (Transform item in Bg)
@@ -63,18 +87,24 @@ namespace MetalMax
             battlePanel.SetActive(false);
 
             //更新battleInfoPanel信息
-            battleInfoPanel = GameObject.Find("Canvas/BattleInfoPanel");
+            if (battleInfoPanel == null)
+            {
+                battleInfoPanel = GameObject.Find("Canvas/BattleInfoPanel");
+            }
             var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
-            //var charactorStatus = (Charactor)playerUnit.GetComponent<PlayerBattle>().status;
-            //string battleInfoText = null;
-            //if(charactorStatus.isEquipTank && charactorStatus.isOnTank)
-            //{
-            //    battleInfoText = string.Format("HP: {0}\nSP: {1}", charactorStatus.hp)
-            //}
-            ////var 
-            //var battleInfoText = playerUnit.GetComponent<PlayerBattle>().status.
-            //battleInfoPanelScript.ChangeBattleInfoTextText();
-            //battleInfoPanelScript.ChangeStatusText();
+            
+            string infoText = null;
+            foreach (var item in GameManager.battleMonsters)
+            {
+                infoText += string.Format("{0}出现了!\n", item.nameString);
+            }
+            battleInfoPanelScript.ChangeBattleInfoText(infoText);
+
+            //更新人物状态面板
+            var charactorStatus = playerUnit.GetComponent<BattleStat>().status;
+            string battleStatusText = null;
+            battleStatusText = string.Format("HP: {0}", charactorStatus.hp);
+            battleInfoPanelScript.ChangeStatusText(battleStatusText);
 
             //创建参战列表
             battleUnits = new Queue<GameObject>();
@@ -83,7 +113,7 @@ namespace MetalMax
             enemyUnits = GameObject.FindGameObjectsWithTag(Tags.battleMonster);
             foreach (GameObject enemyUnit in enemyUnits)
             {
-                if(enemyUnit.GetComponent<MonsterBattle>().status.speed > playerUnit.GetComponent<PlayerBattle>().status.speed)
+                if(enemyUnit.GetComponent<BattleStat>().status.speed > playerUnit.GetComponent<BattleStat>().status.speed)
                 {
                     fasterEnemyUnits.Add(enemyUnit);
                 }
@@ -109,15 +139,17 @@ namespace MetalMax
             }
 
             //开始战斗
-            ToBattle();
+            StartCoroutine(ToBattle());
         }
 
         /// <summary>
         /// 判断战斗进行的条件是否满足，取出参战列表第一单位，并从列表移除该单位，单位行动
         /// 行动完后重新添加单位至队列，继续ToBattle()
         /// </summary>
-        public void ToBattle()
+        public IEnumerator ToBattle()
         {
+            //先等待4秒
+            yield return new WaitForSeconds(4);
             remainingEnemyUnits = GameObject.FindGameObjectsWithTag(Tags.battleMonster);
             remainingPlayer = GameObject.FindGameObjectWithTag(Tags.battleCharactor);
 
@@ -128,11 +160,11 @@ namespace MetalMax
                 //TODO
             }
             //检查存活玩家单位
-            //else if ((PlayerBattle)(remainingPlayer.GetComponent<BattleStat>().status).hp == 0)
-            //{
-            //    Debug.Log("我方全灭，战斗失败");
-            //    //TODO
-            //}
+            else if (remainingPlayer.GetComponent<BattleStat>().status.hp == 0)
+            {
+                Debug.Log("我方全灭，战斗失败");
+                //TODO
+            }
             else
             {
                 //取出参战列表第一单位，并从队列中移除
@@ -167,55 +199,33 @@ namespace MetalMax
         void FindTarget()
         {
             BattleStat currentActUnitStats = currentActUnit.GetComponent<BattleStat>();
+            //显示battleInfo
+            var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
+            battleInfoPanelScript.ChangeBattleInfoText(currentActUnitStats.status.nameString + "开始攻击！");
             if (currentActUnit.tag == Tags.battleMonster)
             {
-                //如果行动单位是怪物则攻击玩家
+                //如果行动单位是怪物
                 currentActUnitTarget = remainingPlayer;
-                currentActUnitStats.Attack(currentActUnitTarget);
+                StartCoroutine(LaunchAttack());
             }
             else if (currentActUnit.tag == Tags.battleCharactor)
             {
                 //TODO
-                //isWaitForPlayerToChooseSkill = true;
-                //battlePanel.SetActive(true);
+                battleInfoPanel.SetActive(false);
+                battlePanel.SetActive(true);
+                battlePanel.GetComponent<BattlePanel>().InitPanel();
             }
         }
 
-        /// <summary>
-        /// 怪物发动攻击
-        /// </summary>
-        //public void MonsterLaunchAttack()
-        //{
-        //    //存储攻击者和攻击目标的属性脚本
-        //    BattleStat attackOwner = currentActUnit.GetComponent<BattleStat>();
-        //    BattleStat attackReceiver = currentActUnitTarget.GetComponent<BattleStat>();
+        public void CharLaunchAttack()
+        {
 
-        //    //命中率-躲避率 = 命中概率。如果在这个范围内，则命中
-        //    if(Random.Range(0, 100)<(attackOwner.status.shootingRate - attackReceiver.status.escapeRate))
-        //    {
-        //        //根据攻防计算伤害
-        //        attackData = attackOwner.status.damage - attackReceiver.status.defense + Random.Range(-2, 2);
-        //        //TODO 显示战斗信息
-        //        print(attackOwner.gameObject.name + "造成伤害： " + attackData);
-        //    }
-        //    else
-        //    {
-        //        attackData = 0;
-        //        //TODO 显示躲避成功的文字
-        //        print(attackReceiver.gameObject.name + "闪避成功");
-        //    }
-        //    print("当前攻击者是：" + attackOwner.gameObject.name);
-        //    //播放攻击动画
-        //    attackOwner.Attack();
-
-        //    //在对象承受伤害并进入下个单位操作前前添加1s延迟
-        //    //StartCoroutine("WaitForTakeDamage");
-        //}
+        }
 
         /// <summary>
         /// 生成怪物
         /// </summary>
-        public void SpawnMonsters(List<Monster> monsters, List<Transform> parents)
+        public void SpawnMonsters(List<BaseAttr> monsters, List<Transform> parents)
         {
             for (int i = 0; i < monsters.Count; i++)
             {
@@ -225,6 +235,9 @@ namespace MetalMax
                 monsterPrefab.GetComponent<SpriteRenderer>().sprite = monsterSprite;
                 GameObject monsterGo = Instantiate(monsterPrefab, parents[i], true);
                 monsterGo.transform.position = parents[i].position;
+
+                //添加碰撞器
+                monsterGo.AddComponent<BoxCollider2D>();
                 //给怪物身上的组件赋予对象
                 monsterGo.GetComponent<MonsterBattle>().status = monsters[i];
                 monsterGo.name = monsters[i].nameString;
@@ -252,21 +265,50 @@ namespace MetalMax
         /// 延时操作函数，避免在怪物回合操作过快
         /// </summary>
         /// <returns></returns>
-        IEnumerator WaitForTakeDamage()
+        IEnumerator WaitForTakeDamage(int attackData)
         {
-            //被攻击者承受伤害
-            currentActUnitTarget.GetComponent<BattleStat>().ReceiveDamage(attackData);
-            if (!currentActUnitTarget.GetComponent<BattleStat>().IsDead())
+            yield return new WaitForSeconds(1);
+            StartCoroutine(ToBattle());
+        }
+
+        /// <summary>
+        /// 发动攻击
+        /// </summary>
+        public IEnumerator LaunchAttack()
+        {
+            battlePanel.SetActive(false);
+            battleInfoPanel.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
+            //存储攻击者和攻击目标的属性脚本
+            BattleStat attackOwner = currentActUnit.GetComponent<BattleStat>();
+            BattleStat attackReceiver = currentActUnitTarget.GetComponent<BattleStat>();
+
+            //播放攻击动画
+            attackOwner.Attack();
+            yield return new WaitForSeconds(1f);
+
+            //命中率-躲避率 = 命中概率。如果在这个范围内，则命中
+            if (Random.Range(0, 100) < (attackOwner.status.shootingRate - attackReceiver.status.escapeRate))
             {
-                currentActUnitTarget.GetComponent<Animator>().SetTrigger("TakeDamage");
+                //根据攻防计算伤害
+                attackData = attackOwner.status.damage - attackReceiver.status.defense + Random.Range(-2, 2);
+                //显示战斗信息
+                battleInfoPanelScript.ChangeBattleInfoText(attackOwner.gameObject.name + "造成伤害： " + attackData);
+                //被攻击者承受伤害
+                currentActUnitTarget.GetComponent<BattleStat>().ReceiveDamage(attackData);
             }
             else
             {
-                currentActUnitTarget.GetComponent<Animator>().SetTrigger("Dead");
+                attackData = 0;
+                //显示躲避成功的文字
+                battleInfoPanelScript.ChangeBattleInfoText(attackReceiver.gameObject.name + "闪避成功!");
             }
+            print("当前攻击者是：" + attackOwner.gameObject.name);
 
-            yield return new WaitForSeconds(1);
-            ToBattle();
+
+            //在对象承受伤害并进入下个单位操作前前添加1s延迟
+            StartCoroutine(WaitForTakeDamage(attackData));
         }
     }
 }

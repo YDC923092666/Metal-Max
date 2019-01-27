@@ -8,7 +8,7 @@ namespace MetalMax
     [Serializable]
     public class MonsterJson
     {
-        public List<Monster> infoList;
+        public List<BaseAttr> infoList;
     }
 
     [Serializable]

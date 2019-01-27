@@ -5,6 +5,8 @@ namespace MetalMax
 {
 	public abstract class BattleStat : MonoBehaviour 
 	{
+        public BaseAttr status;
+
         public float duration = 0.5f;
 
         protected SpriteRenderer mRenderer;
@@ -12,14 +14,16 @@ namespace MetalMax
         public virtual void Start()
         {
             mRenderer = GetComponent<SpriteRenderer>();
-            //mRenderer.DOFade(0, duration).SetLoops(1, LoopType.Yoyo);
         }
 
         public abstract void ReceiveDamage(int mValue);
 
-        public abstract bool IsDead();
+        public virtual bool IsDead()
+        {
+            return (status.hp == 0) ? true : false;
+        }
 
-        public virtual void Attack(GameObject target)
+        public virtual void Attack()
         {
             //人物闪烁，表示攻击
             if (mRenderer == null)

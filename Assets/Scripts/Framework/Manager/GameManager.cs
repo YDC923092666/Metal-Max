@@ -13,8 +13,8 @@ namespace MetalMax
         public bool isInBattleState = false;
 
         public Charactor charactor;  //从excel解析出来的1个主角
-        public List<Monster> monsterList;  //从excel解析出来的所有怪物
-        public static List<Monster> battleMonsters = new List<Monster>();   //战斗场景要生成的怪物
+        public List<BaseAttr> monsterList;  //从excel解析出来的所有怪物
+        public static List<BaseAttr> battleMonsters = new List<BaseAttr>();   //战斗场景要生成的怪物
         public int monstersCount;
 
         protected override void Awake()
@@ -37,7 +37,7 @@ namespace MetalMax
             {
                 monstersCount = UnityEngine.Random.Range(1, 7);
             }
-            battleMonsters = new List<Monster>();
+            battleMonsters = new List<BaseAttr>();
             for (int i = 0; i < monstersCount; i++)
             {
                 var index = UnityEngine.Random.Range(0, monsterList.Count);
@@ -51,11 +51,11 @@ namespace MetalMax
             int columns = result.Tables[0].Columns.Count;
             int rows = result.Tables[0].Rows.Count;
 
-            monsterList = new List<Monster>();
+            monsterList = new List<BaseAttr>();
 
             for (int i = 1; i < rows; i++)
             {
-                Monster monster = new Monster();
+                BaseAttr monster = new BaseAttr();
                 for (int j = 1; j < columns; j++)
                 {
                     var nValue = result.Tables[0].Rows[i][j];

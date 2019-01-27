@@ -15,18 +15,11 @@ namespace MetalMax
         private GameObject leftPanel;
         private GameObject rightPanel;
 
-        private GameObject tankPanel;
-        private GameObject humanPanel;
         private GameObject tipPanel;
         private GameObject statusPanel;
-        private GameObject bulletPanel;
 
-        private Button mainButton;
-        private Button secondButton;
-        private Button bulletButton;
-        private Button otherButton1;
         private Button attackButton;
-        private Button otherButton2;
+        private Button otherButton;
 
         private void Start()
         {
@@ -37,27 +30,21 @@ namespace MetalMax
             leftPanel = transform.Find("LeftPanel").gameObject;
             rightPanel = transform.Find("RightPanel").gameObject;
 
-            tankPanel = transform.Find("LeftPanel/TankPanel").gameObject;
-            humanPanel = transform.Find("LeftPanel/HumanPanel").gameObject;
             tipPanel = transform.Find("RightPanel/TipPanel").gameObject;
-            bulletPanel = transform.Find("RightPanel/BulletPanel").gameObject;
             statusPanel = transform.Find("RightPanel/StatusPanel").gameObject;
 
-            mainButton = tankPanel.transform.Find("MainButton").GetComponent<Button>();
-            secondButton = tankPanel.transform.Find("SecondButton").GetComponent<Button>();
-            bulletButton = tankPanel.transform.Find("BulletButton").GetComponent<Button>();
-            otherButton1 = tankPanel.transform.Find("OtherButton1").GetComponent<Button>();
+            attackButton = leftPanel.transform.Find("AttackButton").GetComponent<Button>();
+            otherButton = leftPanel.transform.Find("OtherButton").GetComponent<Button>();
 
-            attackButton = humanPanel.transform.Find("AttackButton").GetComponent<Button>();
-            otherButton2 = humanPanel.transform.Find("OtherButton2").GetComponent<Button>();
+            //给攻击按钮绑定点击事件
+            attackButton.onClick.AddListener(OnAttackButtonClick);
         }
 
         /// <summary>
         /// 初始化面板显示
         /// </summary>
-        private void InitPanel()
+        public void InitPanel()
         {
-            ShowOnlyOnePanel(leftPanel, "HumanPanel");
             ShowOnlyOnePanel(rightPanel, "StatusPanel");
             UpdateStatusPanelUI();
         }
@@ -85,19 +72,15 @@ namespace MetalMax
         /// </summary>
         public void UpdateStatusPanelUI()
         {
-            string hpString = null;
-            nameText.text = SaveManager.currentArchive.personStatus.personName;
-            hpText.text = hpString;
+            BaseAttr status = GameObject.FindGameObjectWithTag(Tags.battleCharactor).GetComponent<BattleStat>().status;
+            nameText.text = status.nameString;
+            hpText.text = status.hp.ToString();
         }
 
-        public void BondingTankPanelButtonEvent()
+        private void OnAttackButtonClick()
         {
-            mainButton.onClick.AddListener(OnMainButtonClick);
-        }
-
-        void OnMainButtonClick()
-        {
-
+            ShowOnlyOnePanel(rightPanel, "TipPanel");
+            BattleGameController.Instance.isWaitForPlayerToChooseTarget = true;
         }
     }
 }

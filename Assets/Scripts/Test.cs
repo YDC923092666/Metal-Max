@@ -58,11 +58,11 @@ namespace MetalMax
             int columns = result.Tables[0].Columns.Count;
             int rows = result.Tables[0].Rows.Count;
 
-            List<Monster> monsterList = new List<Monster>();
+            List<BaseAttr> monsterList = new List<BaseAttr>();
             
             for (int i = 1; i < rows; i++)
             {
-                Monster monster = new Monster();
+                BaseAttr monster = new BaseAttr();
                 for (int j = 1; j < columns; j++)
                 {
                     var nValue = result.Tables[0].Rows[i][j];

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4324062867588490}
   - component: {fileID: 212463346147336826}
   - component: {fileID: 114999031918634086}
+  - component: {fileID: 114070917405256246}
   m_Layer: 0
   m_Name: Battle_Monster
   m_TagString: BattleMonster
@@ -41,6 +42,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114070917405256246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1787290680803166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5145c5785e18ed6459cb766ecf988d1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quickActionName: QuickTouch489679d
+  isMultiTouch: 0
+  is2Finger: 0
+  isOnTouch: 0
+  enablePickOverUI: 0
+  resetPhysic: 0
+  directAction: 0
+  axesAction: 0
+  sensibility: 1
+  directCharacterController: {fileID: 0}
+  inverseAxisValue: 0
+  onTouch:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114999031918634086}
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: HedgehogTeam.EasyTouch.QuickTouch+OnTouch, Assembly-CSharp-firstpass,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  onTouchNotOverMe:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: HedgehogTeam.EasyTouch.QuickTouch+OnTouchNotOverMe, Assembly-CSharp-firstpass,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  actionTriggering: 0
 --- !u!114 &114999031918634086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7736cbcbc0cf0c44b8d8b7607ea5587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0.5
   status: {fileID: 0}
+  duration: 0.5
 --- !u!212 &212463346147336826
 SpriteRenderer:
   m_ObjectHideFlags: 1
