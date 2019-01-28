@@ -13,7 +13,7 @@ namespace MetalMax
         public int addDamage;
         public int addDefense;
         public int addSpeed;
-        public int addShootingRate;
-        public int addEscapeRate;
+        public float addShootingRate;
+        public float addEscapeRate;
     }
 }

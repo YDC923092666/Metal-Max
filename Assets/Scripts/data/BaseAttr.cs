@@ -12,8 +12,8 @@ namespace MetalMax
         public int damage;
         public int defense;
         public int speed;
-        public int shootingRate; //命中率
-        public int escapeRate;  //躲避率
+        public float shootingRate; //命中率
+        public float escapeRate;  //躲避率
         public string nameString;
         public string sprite;
     }

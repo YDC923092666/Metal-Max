@@ -19,7 +19,7 @@ namespace MetalMax
         private GameObject statusPanel;
 
         private Button attackButton;
-        private Button otherButton;
+        private Button escapeButton;
 
         private void Start()
         {
@@ -34,10 +34,13 @@ namespace MetalMax
             statusPanel = transform.Find("RightPanel/StatusPanel").gameObject;
 
             attackButton = leftPanel.transform.Find("AttackButton").GetComponent<Button>();
-            otherButton = leftPanel.transform.Find("OtherButton").GetComponent<Button>();
+            escapeButton = leftPanel.transform.Find("EscapeButton").GetComponent<Button>();
 
             //给攻击按钮绑定点击事件
             attackButton.onClick.AddListener(OnAttackButtonClick);
+
+            //给逃跑按钮绑定点击事件
+            escapeButton.onClick.AddListener(OnEscapeButtonClick);
         }
 
         /// <summary>
@@ -81,6 +84,11 @@ namespace MetalMax
         {
             ShowOnlyOnePanel(rightPanel, "TipPanel");
             BattleGameController.Instance.isWaitForPlayerToChooseTarget = true;
+        }
+
+        private void OnEscapeButtonClick()
+        {
+            BattleGameController.Instance.BattleEscape();
         }
     }
 }

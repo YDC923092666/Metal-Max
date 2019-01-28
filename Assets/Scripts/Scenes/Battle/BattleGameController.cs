@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace MetalMax
 {
@@ -27,6 +28,7 @@ namespace MetalMax
         private Transform charParent;   //主角生成的位置
         private Charactor charStatus;
 
+        public int escapeRate = 90; //可逃跑的几率
         public int attackData;            //伤害值
         public int exp; //获得经验值
         public int gold;    //获得金币
@@ -53,7 +55,6 @@ namespace MetalMax
                 {
                     parents.Add(item);
                 }
-                
             }
 
             charParent = GameObject.Find("BG/CharactorPoint").transform;
@@ -293,6 +294,40 @@ namespace MetalMax
 
             //在对象承受伤害并进入下个单位操作前前添加1s延迟
             StartCoroutine(WaitForNextTurn());
+        }
+
+        public void BattleWin()
+        {
+
+        }
+
+        public void BattleLose()
+        {
+
+        }
+
+        public void BattleEscape()
+        {
+            battlePanel.SetActive(false);
+            battleInfoPanel.SetActive(true);
+            if (Random.Range(0, 100) < escapeRate)
+            {
+                battleInfoPanelScript.ChangeBattleInfoText("逃跑成功！");
+                StartCoroutine(UnloadScene());
+            }
+            else
+            {
+                battleInfoPanelScript.ChangeBattleInfoText("逃跑失败！");
+                StartCoroutine(WaitForNextTurn());
+            }
+            //battleInfoPanelScript.ChangeBattleInfoText("逃跑失败！");
+            //StartCoroutine(WaitForNextTurn());
+        }
+
+        IEnumerator UnloadScene()
+        {
+            yield return new WaitForSeconds(2);
+            SceneManager.UnloadSceneAsync("Battle");
         }
     }
 }

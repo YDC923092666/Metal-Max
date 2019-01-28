@@ -255,7 +255,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u8F85\u52A9"
+  m_Text: "\u9003\u8DD1"
 --- !u!222 &77781621
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -575,9 +575,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'HP:80
-
-    SP:80'
+  m_Text: HP:80
 --- !u!222 &307924542
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1182,7 +1180,7 @@ GameObject:
   - component: {fileID: 1180167146}
   - component: {fileID: 1180167145}
   m_Layer: 5
-  m_Name: OtherButton
+  m_Name: EscapeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1204,7 +1202,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 467.49994, y: -48}
+  m_AnchoredPosition: {x: 467.5, y: -48}
   m_SizeDelta: {x: 310, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180167145
@@ -1557,7 +1555,10 @@ MonoBehaviour:
   currentActUnit: {fileID: 0}
   currentActUnitTarget: {fileID: 0}
   isWaitForPlayerToChooseTarget: 0
+  escapeRate: 90
   attackData: 0
+  exp: 0
+  gold: 0
 --- !u!1 &1602723505
 GameObject:
   m_ObjectHideFlags: 0

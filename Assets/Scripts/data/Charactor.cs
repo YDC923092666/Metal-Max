@@ -12,8 +12,8 @@ namespace MetalMax
         public int initDamage;
         public int initDefense;
         public int initSpeed;
-        public int initShootingRate; //命中率
-        public int initEscapeRate;  //躲避率
+        public float initShootingRate; //命中率
+        public float initEscapeRate;  //躲避率
         public string battleSprite;
 
         public int lv = 1;
@@ -27,23 +27,23 @@ namespace MetalMax
         }
 
         /// <summary>
-        /// 获取某个等级所需经验值
+        /// 给定一个等级，获取lv对象
         /// </summary>
+        /// <param name="lv"></param>
         /// <returns></returns>
-        public int GetLvNeedExp(int lv)
+        public Lv GetLvItem(int lv)
         {
             var lvTable = GameManager.Instance.lvList;
-            print(lvTable.Count);
-            int retExp = 0;
+            Lv lvItem = null;
             foreach (var item in lvTable)
             {
-                if(item.lv == lv)
+                if (item.lv == lv)
                 {
-                    retExp = item.exp;
+                    lvItem = item;
                     break;
                 }
             }
-            return retExp;
+            return lvItem;
         }
 
         /// <summary>
@@ -68,13 +68,21 @@ namespace MetalMax
             //如果当前经验比当前等级升级所需经验高，则代表还需要再升级
             while(this.exp > this.maxExp)
             {
+                var thisLv = GetLvItem(this.lv);
                 this.exp -= this.maxExp;
                 this.lv++;
-                this.maxExp = GetLvNeedExp(this.lv);
-                //TODO 每升一级，增加额外的属性
+                this.maxExp = thisLv.exp;
+                //每升一级，增加额外的属性
+                this.hp += thisLv.addHp;
+                this.damage += thisLv.addDamage;
+                this.defense += thisLv.addDefense;
+                this.speed += thisLv.addSpeed;
+                this.shootingRate += thisLv.addShootingRate;
+                this.escapeRate += thisLv.addEscapeRate;
             }
             print(this.lv);
             print(this.maxExp);
+            print(this.shootingRate);
         }
     }
 }

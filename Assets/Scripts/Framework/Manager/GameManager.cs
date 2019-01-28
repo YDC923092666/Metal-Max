@@ -183,6 +183,16 @@ namespace MetalMax
             int columns = result.Tables[0].Columns.Count;
             int rows = result.Tables[0].Rows.Count;
 
+            //初始化一个列数和对应的字段的对应字典
+            //Dictionary<int, string> dict = new Dictionary<int, string>();
+            //dict.Add(0, "lv");
+            //dict.Add(1, "exp");
+            //dict.Add(2, "addHp");
+            //dict.Add(3, "addDamage");
+            //dict.Add(4, "addDefense");
+            //dict.Add(5, "addSpeed");
+            //dict.Add(6, "addShootingRate");
+            //dict.Add(7, "addEscapeRate");
             lvList = new List<Lv>();
 
             for (int i = 1; i < rows; i++)
@@ -190,6 +200,13 @@ namespace MetalMax
                 Lv lv = new Lv();
                 for (int j = 0; j < columns; j++)
                 {
+                    //使用反射给字段赋值
+                    //print(dict[j]);
+                    //var fieldInfo = lv.GetType().GetField(dict[j]);
+                    //print(fieldInfo.Name);
+                    //var nValue = result.Tables[0].Rows[i][j];
+                    //fieldInfo.SetValue(lv, Convert.ToInt32(nValue));
+
                     var nValue = result.Tables[0].Rows[i][j];
                     if (j == 0)
                     {
@@ -217,11 +234,11 @@ namespace MetalMax
                     }
                     else if (j == 6)
                     {
-                        lv.addShootingRate = Convert.ToInt32(nValue);
+                        lv.addShootingRate = Convert.ToSingle(nValue);
                     }
                     else if (j == 7)
                     {
-                        lv.addEscapeRate = Convert.ToInt32(nValue);
+                        lv.addEscapeRate = Convert.ToSingle(nValue);
                     }
                 }
                 lvList.Add(lv);
