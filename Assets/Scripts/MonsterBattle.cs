@@ -24,17 +24,20 @@ namespace MetalMax
             if (status.hp < 0)
             {
                 status.hp = 0;
+                //更新battleInfo面板
+                var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
+                var infoText = gameObject.name + "被击败！";
+                battleInfoPanelScript.ChangeBattleInfoText(infoText);
+
+                //exp,gold累加
+                BattleGameController.Instance.exp += ((Monster)status).exp;
+                BattleGameController.Instance.gold += ((Monster)status).gold;
             }
             //mRenderer.DOFade(0, duration).OnComplete(() =>
             //{
             //    mRenderer.DOFade(255, duration);
             //});
             //Camera.main.DOShakePosition(0.2f, new Vector3(1, 1, 0));
-            //更新status面板
-            //var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
-            //string statusText = string.Format("HP:{0}", status.hp);
-            //battleInfoPanelScript.ChangeStatusText(statusText);
-
         }
 
         public void OnClick()

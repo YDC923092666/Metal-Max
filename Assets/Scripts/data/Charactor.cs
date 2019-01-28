@@ -25,5 +25,56 @@ namespace MetalMax
         {
             maxHp = initHp;
         }
+
+        /// <summary>
+        /// 获取某个等级所需经验值
+        /// </summary>
+        /// <returns></returns>
+        public int GetLvNeedExp(int lv)
+        {
+            var lvTable = GameManager.Instance.lvList;
+            print(lvTable.Count);
+            int retExp = 0;
+            foreach (var item in lvTable)
+            {
+                if(item.lv == lv)
+                {
+                    retExp = item.exp;
+                    break;
+                }
+            }
+            return retExp;
+        }
+
+        /// <summary>
+        /// 检查是否可以升级
+        /// </summary>
+        public bool Check4Upgrade(int exp)
+        {
+            //修改当前人物经验值
+            this.exp += exp;
+            if (this.exp > this.maxExp)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 升级
+        /// </summary>
+        public void Upgrade()
+        {
+            //如果当前经验比当前等级升级所需经验高，则代表还需要再升级
+            while(this.exp > this.maxExp)
+            {
+                this.exp -= this.maxExp;
+                this.lv++;
+                this.maxExp = GetLvNeedExp(this.lv);
+                //TODO 每升一级，增加额外的属性
+            }
+            print(this.lv);
+            print(this.maxExp);
+        }
     }
 }

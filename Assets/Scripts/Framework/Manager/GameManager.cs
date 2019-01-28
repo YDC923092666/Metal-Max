@@ -13,7 +13,8 @@ namespace MetalMax
         public bool isInBattleState = false;
 
         public Charactor charactor;  //从excel解析出来的1个主角
-        public List<BaseAttr> monsterList;  //从excel解析出来的所有怪物
+        public List<Monster> monsterList;  //从excel解析出来的所有怪物
+        public List<Lv> lvList;  //从excel解析出来的所有怪物
         public static List<BaseAttr> battleMonsters = new List<BaseAttr>();   //战斗场景要生成的怪物
         public int monstersCount;
 
@@ -22,11 +23,7 @@ namespace MetalMax
             base.Awake();
             GetAllMonsters();
             GetCharactorBaseAttr();
-        }
-
-        private void Start()
-        {
-
+            GetLvExpTable();
         }
 
         public void EnterBattleState(int minMonsterId, int maxMonsterId , int monsterCount = 0)
@@ -51,11 +48,11 @@ namespace MetalMax
             int columns = result.Tables[0].Columns.Count;
             int rows = result.Tables[0].Rows.Count;
 
-            monsterList = new List<BaseAttr>();
+            monsterList = new List<Monster>();
 
             for (int i = 1; i < rows; i++)
             {
-                BaseAttr monster = new BaseAttr();
+                Monster monster = new Monster();
                 for (int j = 1; j < columns; j++)
                 {
                     var nValue = result.Tables[0].Rows[i][j];
@@ -98,6 +95,14 @@ namespace MetalMax
                     else if (j == 10)
                     {
                         monster.sprite = nValue.ToString();
+                    }
+                    else if (j == 11)
+                    {
+                        monster.exp = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 12)
+                    {
+                        monster.gold = Convert.ToInt32(nValue);
                     }
                 }
                 monsterList.Add(monster);
@@ -166,6 +171,60 @@ namespace MetalMax
                 {
                     charactor.battleSprite = Convert.ToString(nValue);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 获取lv信息表，每个等级对应所需的经验值
+        /// </summary>
+        public void GetLvExpTable()
+        {
+            var result = SaveManager.ReadExcelStream(Const.lvFilePath);
+            int columns = result.Tables[0].Columns.Count;
+            int rows = result.Tables[0].Rows.Count;
+
+            lvList = new List<Lv>();
+
+            for (int i = 1; i < rows; i++)
+            {
+                Lv lv = new Lv();
+                for (int j = 0; j < columns; j++)
+                {
+                    var nValue = result.Tables[0].Rows[i][j];
+                    if (j == 0)
+                    {
+                        lv.lv = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 1)
+                    {
+                        lv.exp = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 2)
+                    {
+                        lv.addHp = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 3)
+                    {
+                        lv.addDamage = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 4)
+                    {
+                        lv.addDefense = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 5)
+                    {
+                        lv.addSpeed = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 6)
+                    {
+                        lv.addShootingRate = Convert.ToInt32(nValue);
+                    }
+                    else if (j == 7)
+                    {
+                        lv.addEscapeRate = Convert.ToInt32(nValue);
+                    }
+                }
+                lvList.Add(lv);
             }
         }
     }

@@ -22,49 +22,28 @@ namespace MetalMax
 
         private GameObject battlePanel; //玩家选择面板
         private GameObject battleInfoPanel; //战斗信息面板
+        private BattleInfoPanel battleInfoPanelScript;
         private List<Transform> parents;    //怪物生成的位置
         private Transform charParent;   //主角生成的位置
+        private Charactor charStatus;
 
         public int attackData;            //伤害值
+        public int exp; //获得经验值
+        public int gold;    //获得金币
 
         protected override void Awake()
         {
             base.Awake();
         }
 
-        //private void Update()
-        //{
-        //    if (isWaitForPlayerToChooseTarget)
-        //    {
-        //        targetChooseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //        if (Physics.Raycast(targetChooseRay, out targetHit))
-        //        {
-        //            if (Input.GetMouseButtonDown(0) && targetHit.collider.gameObject.tag == "EnemyUnit")
-        //            {
-        //                currentActUnitTarget = targetHit.collider.gameObject;
-        //                isWaitForPlayerToChooseTarget = false;
-
-        //                Destroy(thisPartical);          //选择完目标后删除标识当前行动单位的特效
-
-        //                //如果是远程单位直接在这里LaunchAttack，就不需要RunToTarget
-        //                if (currentActUnit.GetComponent<UnitStats>().attackType == 1)
-        //                {
-        //                    LaunchAttack();
-        //                }
-        //                else
-        //                {
-        //                    RunToTarget();
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
         /// <summary>
         /// 创建初始参战列表，存储参战单位
         /// </summary>
         public void StartGame()
         {
+            //获取人物属性
+            charStatus = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<Charactor>();
+
             //寻找需要初始化怪物的位置
             parents = new List<Transform>();
             Transform Bg = GameObject.Find("BG").transform;
@@ -91,7 +70,7 @@ namespace MetalMax
             {
                 battleInfoPanel = GameObject.Find("Canvas/BattleInfoPanel");
             }
-            var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
+            battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
             
             string infoText = null;
             foreach (var item in GameManager.battleMonsters)
@@ -157,7 +136,11 @@ namespace MetalMax
             if (remainingEnemyUnits.Length == 0)
             {
                 Debug.Log("敌人全灭，战斗胜利");
-                //TODO
+                battleInfoPanelScript.ChangeBattleInfoText(string.Format("战斗胜利！\n获得经验值：{0}，金币：{1}！",exp,gold)); ;
+                if (charStatus.Check4Upgrade(exp))
+                {
+                    charStatus.Upgrade();
+                }
             }
             //检查存活玩家单位
             else if (remainingPlayer.GetComponent<BattleStat>().status.hp == 0)
@@ -169,10 +152,6 @@ namespace MetalMax
             {
                 //取出参战列表第一单位，并从队列中移除
                 currentActUnit = battleUnits.Dequeue();
-                //重新将单位添加至参战列表末尾
-                battleUnits.Enqueue(currentActUnit);
-
-                //Debug.Log("当前攻击者：" + currentActUnit.name);
 
                 //获取该行动单位的属性组件
                 BattleStat currentActUnitStats = currentActUnit.GetComponent<BattleStat>();
@@ -180,13 +159,16 @@ namespace MetalMax
                 //判断取出的战斗单位是否存活
                 if (!currentActUnitStats.IsDead())
                 {
+                    //重新将单位添加至参战列表末尾
+                    battleUnits.Enqueue(currentActUnit);
                     //选取攻击目标
                     FindTarget();
                 }
                 else
                 {
-                    //Debug.Log("目标死亡，跳过回合");
-                    ToBattle();
+                    Debug.Log("目标死亡，跳过回合");
+                    Destroy(currentActUnit);
+                    StartCoroutine(ToBattle());
                 }
             }
         }
@@ -217,11 +199,6 @@ namespace MetalMax
             }
         }
 
-        public void CharLaunchAttack()
-        {
-
-        }
-
         /// <summary>
         /// 生成怪物
         /// </summary>
@@ -241,7 +218,6 @@ namespace MetalMax
                 //给怪物身上的组件赋予对象
                 monsterGo.GetComponent<MonsterBattle>().status = monsters[i];
                 monsterGo.name = monsters[i].nameString;
-                print(monsterGo.GetComponent<MonsterBattle>().status.id);
             }
         }
 
@@ -253,22 +229,26 @@ namespace MetalMax
             playerUnit.transform.position = parent.position;
 
             //获取人物当前属性，复制给战斗场景的人物
-            var charStatus = GameObject.FindGameObjectWithTag(Tags.charactor).GetComponent<Charactor>();
             var playerUnitScript = (PlayerBattle)playerUnit.GetComponent<BattleStat>();
             playerUnitScript.status = charStatus;
-
-            //给怪物身上的组件赋予对象
-            print(playerUnitScript.status.hp);
         }
 
         /// <summary>
         /// 延时操作函数，避免在怪物回合操作过快
         /// </summary>
         /// <returns></returns>
-        IEnumerator WaitForTakeDamage(int attackData)
+        IEnumerator WaitForNextTurn()
         {
             yield return new WaitForSeconds(1);
             StartCoroutine(ToBattle());
+        }
+
+        IEnumerator WaitForTakeDamage()
+        {
+            yield return new WaitForSeconds(1.5f);
+            //被攻击者承受伤害
+            currentActUnitTarget.GetComponent<BattleStat>().ReceiveDamage(attackData);
+            yield return new WaitForSeconds(2f);
         }
 
         /// <summary>
@@ -288,15 +268,21 @@ namespace MetalMax
             attackOwner.Attack();
             yield return new WaitForSeconds(1f);
 
+            print("当前攻击者是：" + attackOwner.gameObject.name);
+            print("攻击力：" + attackOwner.status.damage + " 防御力：" + attackReceiver.status.defense);
+            print("命中率：" + attackOwner.status.shootingRate + " 躲避率" + attackReceiver.status.escapeRate);
             //命中率-躲避率 = 命中概率。如果在这个范围内，则命中
             if (Random.Range(0, 100) < (attackOwner.status.shootingRate - attackReceiver.status.escapeRate))
             {
                 //根据攻防计算伤害
                 attackData = attackOwner.status.damage - attackReceiver.status.defense + Random.Range(-2, 2);
+                if(attackData < 0)
+                {
+                    attackData = 0;
+                }
                 //显示战斗信息
                 battleInfoPanelScript.ChangeBattleInfoText(attackOwner.gameObject.name + "造成伤害： " + attackData);
-                //被攻击者承受伤害
-                currentActUnitTarget.GetComponent<BattleStat>().ReceiveDamage(attackData);
+                StartCoroutine(WaitForTakeDamage());
             }
             else
             {
@@ -304,11 +290,9 @@ namespace MetalMax
                 //显示躲避成功的文字
                 battleInfoPanelScript.ChangeBattleInfoText(attackReceiver.gameObject.name + "闪避成功!");
             }
-            print("当前攻击者是：" + attackOwner.gameObject.name);
-
 
             //在对象承受伤害并进入下个单位操作前前添加1s延迟
-            StartCoroutine(WaitForTakeDamage(attackData));
+            StartCoroutine(WaitForNextTurn());
         }
     }
 }

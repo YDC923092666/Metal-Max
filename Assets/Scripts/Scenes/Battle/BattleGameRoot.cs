@@ -15,9 +15,9 @@ namespace MetalMax
             GameManager gameManager = newGo.AddComponent<GameManager>();
             gameManager.enabled = true;
             GameManager.battleMonsters.Add(GameManager.Instance.monsterList[0]);
-            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[1]);
-            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[2]);
-            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[3]);
+            //GameManager.battleMonsters.Add(GameManager.Instance.monsterList[1]);
+            //GameManager.battleMonsters.Add(GameManager.Instance.monsterList[2]);
+            //GameManager.battleMonsters.Add(GameManager.Instance.monsterList[3]);
 
             //初始化预制体
             GameObject charGo = Instantiate(Resources.Load<GameObject>("Prefab/Char"));

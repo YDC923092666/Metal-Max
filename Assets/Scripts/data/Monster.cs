@@ -14,6 +14,7 @@ namespace MetalMax
     [Serializable]
     public class Monster: BaseAttr
 	{
-        
+        public int exp;
+        public int gold;
     }
 }

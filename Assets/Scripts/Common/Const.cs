@@ -11,5 +11,6 @@ namespace MetalMax
         public const string panelTypeFilePath = "Resources/Data/UIPanelInfo.json";
         public static string monsterFilePath = Application.dataPath + "/Resources/Data/Monster.xlsx";
         public static string charactorFilePath = Application.dataPath + "/Resources/Data/Charactor.xlsx";
+        public static string lvFilePath = Application.dataPath + "/Resources/Data/Lv.xlsx";
     }
 }
