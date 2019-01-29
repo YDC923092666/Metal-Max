@@ -9,6 +9,7 @@ TagManager:
   - Tilemap
   - BattleCharactor
   - BattleMonster
+  - Managers
   layers:
   - Default
   - TransparentFX

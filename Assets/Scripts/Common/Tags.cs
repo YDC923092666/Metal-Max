@@ -13,5 +13,6 @@ namespace MetalMax
         public const string Tilemap = "Tilemap";
         public const string battleCharactor = "BattleCharactor";
         public const string battleMonster = "BattleMonster";
+        public const string managers = "Managers";
     }
 }

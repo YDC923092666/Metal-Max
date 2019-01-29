@@ -30,7 +30,7 @@ namespace MetalMax
             {
                 if (canvasTransform == null)
                 {
-                    canvasTransform = GameObject.Find("Canvas").transform;
+                    canvasTransform = GameObject.Find("UICanvas").transform;
                 }
                 return canvasTransform;
             }
@@ -78,11 +78,11 @@ namespace MetalMax
                 if (EventSystem.current.IsPointerOverGameObject())
 #endif
                 {
-                    Debug.Log("当前触摸在UI上");
+                    //Debug.Log("当前触摸在UI上");
                 }
                 else
                 {
-                    Debug.Log("当前没有触摸在UI上");
+                    //Debug.Log("当前没有触摸在UI上");
                     PopPanel();
                 }
             }
@@ -183,7 +183,7 @@ namespace MetalMax
         }
 
         
-        public void SetResolution(float width, float height, float matchWidthOrHeight)
+        public static void SetResolution(float width, float height, float matchWidthOrHeight)
         {
             var canvas = GameObject.Find("Canvas");
             var canvasScaler = canvas.GetComponent<CanvasScaler>();

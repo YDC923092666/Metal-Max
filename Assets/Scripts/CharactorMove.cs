@@ -85,6 +85,7 @@ namespace MetalMax
             {
                 if (Random.Range(0, 101) > 98)
                 {
+                    GameManager.Instance.isInBattleState = true;
                     var monsterScript = collision.GetComponent<MonsterSpwan>();
                     var minMonsterId = monsterScript.minMonsterId;
                     var maxMonsterId = monsterScript.maxMonsterId;

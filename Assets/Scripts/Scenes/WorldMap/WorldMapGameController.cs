@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MetalMax
 {
-    public class World1_Home_GameController : BaseGameController
+    public class WorldMapGameController : BaseGameController
     {
         public override void Init()
         {

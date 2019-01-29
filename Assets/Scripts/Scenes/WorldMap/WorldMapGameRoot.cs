@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace MetalMax
 {
-    public class World1_Home_GameRoot : MainManager
+    public class WorldMapGameRoot : MainManager
     {
         protected override void LaunchInDevelopingMode()
         {
@@ -15,20 +14,17 @@ namespace MetalMax
             newGo.name = "Managers";
             DontDestroyOnLoad(newGo);
 
-            World1_Home_GameController gm = GetComponent<World1_Home_GameController>();
+            WorldMapGameController gm = GetComponent<WorldMapGameController>();
             gm.Init();
         }
 
         protected override void LaunchInProductionMode()
         {
-            World1_Home_GameController gm = GetComponent<World1_Home_GameController>();
-            gm.Init();
+            
         }
 
         protected override void LaunchInTestMode()
         {
-            Sprite sprite = Resources.Load<Sprite>("Sprites/HP3");
-            GameObject.Find("Test").GetComponent<SpriteRenderer>().sprite = sprite;
             
         }
     }

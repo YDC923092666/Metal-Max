@@ -10,7 +10,10 @@ namespace MetalMax
 {
     public class GameManager : MonoSingleton<GameManager>
     {
+        public static bool isReadArchive = false;   //是否读档
+        public static string nextSceneName; //将要加载的场景名
         public bool isInBattleState = false;
+        public static bool isInitGame = false; //是否已经初始化过managers等
 
         public Charactor charactor;  //从excel解析出来的1个主角
         public List<Monster> monsterList;  //从excel解析出来的所有怪物
