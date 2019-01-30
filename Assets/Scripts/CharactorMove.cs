@@ -12,7 +12,6 @@ namespace MetalMax
 
         private void Start()
         {
-            DontDestroyOnLoad(this);
             anim = GetComponent<Animator>();
         }
         private void FixedUpdate()
@@ -26,6 +25,7 @@ namespace MetalMax
             float h = ETCInput.GetAxis("Horizontal");
             if (v != 0 && h == 0)
             {
+                GameManager.Instance.isMove = true;
                 if (v > 0)
                 {
                     v = 1;
@@ -42,6 +42,7 @@ namespace MetalMax
             }
             else if (v == 0 && h != 0)
             {
+                GameManager.Instance.isMove = true;
                 if (h > 0)
                 {
                     h = 1;
@@ -63,6 +64,7 @@ namespace MetalMax
             }
             else
             {
+                GameManager.Instance.isMove = true;
                 if (v > 0)
                 {
                     v = 1;
@@ -81,11 +83,10 @@ namespace MetalMax
 
         private void OnTriggerStay2D(Collider2D collision)
         {
-            if (collision.tag == Tags.Tilemap && GameManager.Instance.isInBattleState == false)
+            if (collision.tag == Tags.Tilemap && GameManager.Instance.isInBattleState == false && GameManager.Instance.isMove)
             {
                 if (Random.Range(0, 101) > 98)
                 {
-                    GameManager.Instance.isInBattleState = true;
                     var monsterScript = collision.GetComponent<MonsterSpwan>();
                     var minMonsterId = monsterScript.minMonsterId;
                     var maxMonsterId = monsterScript.maxMonsterId;

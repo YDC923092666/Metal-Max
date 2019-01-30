@@ -18,10 +18,9 @@ namespace MetalMax
 
         private void Start()
         {
-            if(GameManager.isInitGame == false)
-            {
-                GameInit();
-            }
+            //暂时隐藏UI
+            //UICanvas = GameObject.Find("UICanvas");
+            //UICanvas.SetActive(false);
 
             slider = FindObjectOfType<Slider>();
             slider.value = 0.0f;

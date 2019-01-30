@@ -84,5 +84,10 @@ namespace MetalMax
             print(this.maxExp);
             print(this.shootingRate);
         }
+
+        public override string ToString()
+        {
+            return string.Format("{0}", nameString);
+        }
     }
 }

@@ -7,6 +7,8 @@ namespace MetalMax
 	{
         public BaseAttr status;
 
+        public int alreadyAttackCount = 0;  //已经攻击的次数
+
         public float duration = 0.5f;
 
         protected SpriteRenderer mRenderer;

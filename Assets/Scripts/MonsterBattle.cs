@@ -47,6 +47,7 @@ namespace MetalMax
             {
                 BattleGameController.Instance.currentActUnitTarget = this.gameObject;
                 BattleGameController.Instance.StartCoroutine(BattleGameController.Instance.LaunchAttack());
+                BattleGameController.Instance.isWaitForPlayerToChooseTarget = false;
             }
         }
     }

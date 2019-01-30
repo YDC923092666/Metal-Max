@@ -109,8 +109,13 @@ namespace MetalMax
                 battleUnits.Enqueue(item);
             }
 
+            print(playerUnit.name);
             //添加玩家单位至参战列表
             battleUnits.Enqueue(playerUnit);
+            if (battleUnits.Contains(playerUnit))
+            {
+                print("添加角色到队列成功！");
+            }
 
             //添加速度比主角慢的怪物单位至参战队列
             foreach (GameObject item in slowerEnemyUnits)
@@ -137,7 +142,8 @@ namespace MetalMax
             if (remainingEnemyUnits.Length == 0)
             {
                 Debug.Log("敌人全灭，战斗胜利");
-                battleInfoPanelScript.ChangeBattleInfoText(string.Format("战斗胜利！\n获得经验值：{0}，金币：{1}！",exp,gold)); ;
+                GameManager.Instance.isMove = false;
+                battleInfoPanelScript.ChangeBattleInfoText(string.Format("战斗胜利！\n获得经验值：{0}，金币：{1}！", exp, gold)); ;
                 if (charStatus.Check4Upgrade(exp))
                 {
                     charStatus.Upgrade();
@@ -146,24 +152,34 @@ namespace MetalMax
             //检查存活玩家单位
             else if (remainingPlayer.GetComponent<BattleStat>().status.hp == 0)
             {
+                GameManager.Instance.isMove = false;
                 Debug.Log("我方全灭，战斗失败");
                 //TODO
             }
             else
             {
-                //取出参战列表第一单位，并从队列中移除
-                currentActUnit = battleUnits.Dequeue();
-
+                //取出参战列表第一单位
+                currentActUnit = battleUnits.Peek();
                 //获取该行动单位的属性组件
                 BattleStat currentActUnitStats = currentActUnit.GetComponent<BattleStat>();
 
                 //判断取出的战斗单位是否存活
                 if (!currentActUnitStats.IsDead())
                 {
-                    //重新将单位添加至参战列表末尾
-                    battleUnits.Enqueue(currentActUnit);
-                    //选取攻击目标
-                    FindTarget();
+                    //判断已经攻击了多少次
+                    if(currentActUnitStats.alreadyAttackCount < currentActUnitStats.status.attackCount)
+                    {
+                        currentActUnitStats.alreadyAttackCount++;
+                        //选取攻击目标
+                        FindTarget();
+                    }
+                    else
+                    {
+                        currentActUnitStats.alreadyAttackCount = 0;
+                        battleUnits.Dequeue();
+                        //重新将单位添加至参战列表末尾
+                        battleUnits.Enqueue(currentActUnit);
+                    }
                 }
                 else
                 {

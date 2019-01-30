@@ -417,6 +417,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 61226625347914556, guid: 7774e68ddee5cc24a8158e6c484e8105,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -0.28217983
+      objectReference: {fileID: 0}
+    - target: {fileID: 61226625347914556, guid: 7774e68ddee5cc24a8158e6c484e8105,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.43564034
+      objectReference: {fileID: 0}
+    - target: {fileID: 114538445607290010, guid: 7774e68ddee5cc24a8158e6c484e8105,
+        type: 2}
+      propertyPath: sceneName
+      value: 01_World1_LaduoTown
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7774e68ddee5cc24a8158e6c484e8105, type: 2}
   m_IsPrefabAsset: 0
@@ -505,6 +520,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1137703889}
+  - component: {fileID: 1137703888}
+  - component: {fileID: 1137703887}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -512,6 +529,29 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1137703887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1137703886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 874953505af52c34fa03b7f267c81a1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mode: 0
+--- !u!114 &1137703888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1137703886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50131bbb5381be14bab35f3b70d2b252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1137703889
 Transform:
   m_ObjectHideFlags: 0

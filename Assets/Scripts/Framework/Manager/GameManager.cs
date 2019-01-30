@@ -13,9 +13,14 @@ namespace MetalMax
         public static bool isReadArchive = false;   //是否读档
         public static string nextSceneName; //将要加载的场景名
         public bool isInBattleState = false;
-        public static bool isInitGame = false; //是否已经初始化过managers等
+        public static bool isNewGame = false; //是否新游戏
+        public bool isMove = false;  //角色是否移动过
 
-        public Charactor charactor;  //从excel解析出来的1个主角
+        public static GameObject UICanvasInScene;   //上个场景中的UI面板
+        public static GameObject charactorInScene;  //上个场景中的角色
+
+        public  static Charactor charactor;  //从excel解析出来的1个主角
+
         public List<Monster> monsterList;  //从excel解析出来的所有怪物
         public List<Lv> lvList;  //从excel解析出来的所有怪物
         public static List<BaseAttr> battleMonsters = new List<BaseAttr>();   //战斗场景要生成的怪物

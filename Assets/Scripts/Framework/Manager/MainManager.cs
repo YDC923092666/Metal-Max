@@ -38,8 +38,28 @@ namespace MetalMax
             }
         }
 
-        protected abstract void LaunchInDevelopingMode();
-        protected abstract void LaunchInTestMode();
-        protected abstract void LaunchInProductionMode();
+        protected virtual void LaunchInDevelopingMode()
+        {
+            //创建空物体Managers，并挂载各种manager脚本
+            GameObject newGo = Instantiate(Resources.Load<GameObject>("Prefab/Managers"));
+            newGo.name = "Managers";
+            DontDestroyOnLoad(newGo);
+
+            GameManager.charactor.nameString = "测试";
+
+            //置为true表示是新游戏
+            GameManager.isNewGame = true;
+
+            BaseGameController gameController = GetComponent<BaseGameController>();
+            gameController.Init();
+        }
+        protected virtual void LaunchInTestMode()
+        {
+
+        }
+        protected virtual void LaunchInProductionMode()
+        {
+
+        }
     }
 }
