@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status: {fileID: 0}
+  alreadyAttackCount: 0
   duration: 0.5
 --- !u!212 &212463346147336826
 SpriteRenderer:

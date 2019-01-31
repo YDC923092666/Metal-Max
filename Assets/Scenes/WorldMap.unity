@@ -328,7 +328,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 311
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 903705139}
   - component: {fileID: 903705138}
   - component: {fileID: 903705141}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap_Monster (1)
   m_TagString: Tilemap
   m_Icon: {fileID: 0}
@@ -1656,7 +1656,7 @@ GameObject:
   - component: {fileID: 1396373970}
   - component: {fileID: 1396373969}
   - component: {fileID: 1396373972}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap_Monster (2)
   m_TagString: Tilemap
   m_Icon: {fileID: 0}
@@ -2564,7 +2564,7 @@ GameObject:
   - component: {fileID: 1406832364}
   - component: {fileID: 1406832363}
   - component: {fileID: 1406832366}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap_Monster
   m_TagString: Tilemap
   m_Icon: {fileID: 0}
@@ -3980,7 +3980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minMonsterId: 1
-  maxMonsterId: 4
+  maxMonsterId: 2
   monsterCount: 6
 --- !u!1 &1546287660
 GameObject:
@@ -4077,7 +4077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1741412153}
   - component: {fileID: 1741412152}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CollisionGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4118,7 +4118,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1745718094}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4152,7 +4152,7 @@ GameObject:
   - component: {fileID: 1751687752}
   - component: {fileID: 1751687751}
   - component: {fileID: 1751687753}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap_collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}

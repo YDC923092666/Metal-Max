@@ -9,7 +9,6 @@ namespace MetalMax
     {
         protected override void LaunchInDevelopingMode()
         {
-            GameManager.battleMonsters.Add(GameManager.Instance.monsterList[0]);
             //GameManager.battleMonsters.Add(GameManager.Instance.monsterList[1]);
             //GameManager.battleMonsters.Add(GameManager.Instance.monsterList[2]);
             //GameManager.battleMonsters.Add(GameManager.Instance.monsterList[3]);
@@ -19,6 +18,7 @@ namespace MetalMax
 
         protected override void LaunchInProductionMode()
         {
+            BattleGameController.Instance.StartGame();
         }
 
         protected override void LaunchInTestMode()

@@ -33,7 +33,7 @@ namespace MetalMax
         /// <returns></returns>
         public Lv GetLvItem(int lv)
         {
-            var lvTable = GameManager.Instance.lvList;
+            var lvTable = GameManager.lvList;
             Lv lvItem = null;
             foreach (var item in lvTable)
             {

@@ -8,6 +8,7 @@ namespace MetalMax
 	public class PlayerBattle : BattleStat
 	{
         private GameObject battleInfoPanel;
+        private Camera battleCamera;
 
         public override void Start()
         {
@@ -16,6 +17,7 @@ namespace MetalMax
             {
                 battleInfoPanel = GameObject.Find("Canvas/BattleInfoPanel");
             }
+            battleCamera = GameObject.Find("BattleMainCamera").GetComponent<Camera>();
         }
 
         public override void ReceiveDamage(int mValue)
@@ -29,7 +31,9 @@ namespace MetalMax
             {
                 mRenderer.DOFade(255, duration);
             });
-            Camera.main.DOShakePosition(0.2f, new Vector3(1, 1, 0));
+            //画面振动
+            battleCamera.DOShakePosition(0.2f, new Vector3(1, 1, 0));
+
             //更新status面板
             var battleInfoPanelScript = battleInfoPanel.GetComponent<BattleInfoPanel>();
             string statusText = string.Format("HP:{0}", status.hp);

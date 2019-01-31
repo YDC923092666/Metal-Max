@@ -13,18 +13,20 @@ namespace MetalMax
         public static bool isReadArchive = false;   //是否读档
         public static string nextSceneName; //将要加载的场景名
         public bool isInBattleState = false;
-        public static bool isNewGame = false; //是否新游戏
+        public static bool isNewGame = true; //是否新游戏
         public bool isMove = false;  //角色是否移动过
 
         public static GameObject UICanvasInScene;   //上个场景中的UI面板
         public static GameObject charactorInScene;  //上个场景中的角色
 
-        public  static Charactor charactor;  //从excel解析出来的1个主角
+        public static Charactor charactor;  //从excel解析出来的1个主角
 
-        public List<Monster> monsterList;  //从excel解析出来的所有怪物
-        public List<Lv> lvList;  //从excel解析出来的所有怪物
+        public static List<Monster> monsterList;  //从excel解析出来的所有怪物
+        public static List<Monster> specificMonsterList;   //指定id范围内的所有怪物
+        public static List<Lv> lvList;  //从excel解析出来的LV配置表
         public static List<BaseAttr> battleMonsters = new List<BaseAttr>();   //战斗场景要生成的怪物
-        public int monstersCount;
+
+        private AsyncOperation operation;
 
         protected override void Awake()
         {
@@ -34,20 +36,48 @@ namespace MetalMax
             GetLvExpTable();
         }
 
-        public void EnterBattleState(int minMonsterId, int maxMonsterId , int monsterCount = 0)
+        public void EnterBattleState(int minMonsterId, int maxMonsterId , int monsterCount)
         {
             isInBattleState = true;
-            SceneManager.LoadScene("Battle", LoadSceneMode.Additive);
-            if(monsterCount == 0)
+
+            if (monsterCount == 0)
             {
-                monstersCount = UnityEngine.Random.Range(1, 7);
+                monsterCount = UnityEngine.Random.Range(1, 7);
             }
+
+            //获取指定id范围内的所有怪物列表
+            specificMonsterList = new List<Monster>();
+
+            foreach (var item in monsterList)
+            {
+                if(item.id>= minMonsterId && item.id<= maxMonsterId)
+                {
+                    specificMonsterList.Add(item);
+                }
+            }
+
+            //生成指定数量，且id在要求范围内的怪物列表
             battleMonsters = new List<BaseAttr>();
-            for (int i = 0; i < monstersCount; i++)
+            for (int i = 0; i < monsterCount; i++)
             {
-                var index = UnityEngine.Random.Range(0, monsterList.Count);
-                battleMonsters.Add(monsterList[index]);
+                var index = UnityEngine.Random.Range(0, specificMonsterList.Count);
+                battleMonsters.Add(specificMonsterList[index]);
             }
+
+            SceneManager.LoadSceneAsync("Battle", LoadSceneMode.Additive).completed += ((AsyncOperation) =>
+            {
+                //激活我们想要加载的场景
+                Scene scene = default(Scene);
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                {
+                    if (SceneManager.GetSceneAt(i).name == "Battle")
+                    {
+                        scene = SceneManager.GetSceneAt(i);
+                        break;
+                    }
+                }
+                SceneManager.SetActiveScene(scene);
+            });
         }
 
         void GetAllMonsters()
@@ -115,6 +145,8 @@ namespace MetalMax
                 }
                 monsterList.Add(monster);
             }
+
+            print(monsterList[0].nameString);
             //MonsterJson monsterJson = new MonsterJson
             //{
             //    infoList = monsterList

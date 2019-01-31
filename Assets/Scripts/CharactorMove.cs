@@ -85,7 +85,7 @@ namespace MetalMax
         {
             if (collision.tag == Tags.Tilemap && GameManager.Instance.isInBattleState == false && GameManager.Instance.isMove)
             {
-                if (Random.Range(0, 101) > 98)
+                if (Random.Range(0, 101) > 99)
                 {
                     var monsterScript = collision.GetComponent<MonsterSpwan>();
                     var minMonsterId = monsterScript.minMonsterId;

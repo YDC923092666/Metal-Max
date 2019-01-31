@@ -77,6 +77,7 @@ namespace MetalMax
         {
             BaseAttr status = GameObject.FindGameObjectWithTag(Tags.battleCharactor).GetComponent<BattleStat>().status;
             nameText.text = status.nameString;
+            upperText.text = status.nameString;
             hpText.text = status.hp.ToString();
         }
 

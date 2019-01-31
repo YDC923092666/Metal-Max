@@ -28,6 +28,8 @@ namespace MetalMax
         private Transform charParent;   //主角生成的位置
         private Charactor charStatus;
 
+        //private GameObject mainCamera;  //原场景摄像机
+
         public int escapeRate = 90; //可逃跑的几率
         public int attackData;            //伤害值
         public int exp; //获得经验值
@@ -36,6 +38,11 @@ namespace MetalMax
         protected override void Awake()
         {
             base.Awake();
+            //mainCamera = Camera.main.gameObject;
+            //if(mainCamera.name == "Main Camera")
+            //{
+            //    mainCamera.SetActive(false);
+            //}
         }
 
         /// <summary>
@@ -109,13 +116,8 @@ namespace MetalMax
                 battleUnits.Enqueue(item);
             }
 
-            print(playerUnit.name);
             //添加玩家单位至参战列表
             battleUnits.Enqueue(playerUnit);
-            if (battleUnits.Contains(playerUnit))
-            {
-                print("添加角色到队列成功！");
-            }
 
             //添加速度比主角慢的怪物单位至参战队列
             foreach (GameObject item in slowerEnemyUnits)
@@ -148,13 +150,17 @@ namespace MetalMax
                 {
                     charStatus.Upgrade();
                 }
+                GameManager.Instance.isInBattleState = false;
+
+                BattleWin();
             }
             //检查存活玩家单位
             else if (remainingPlayer.GetComponent<BattleStat>().status.hp == 0)
             {
                 GameManager.Instance.isMove = false;
                 Debug.Log("我方全灭，战斗失败");
-                //TODO
+
+                BattleLose();
             }
             else
             {
@@ -162,12 +168,13 @@ namespace MetalMax
                 currentActUnit = battleUnits.Peek();
                 //获取该行动单位的属性组件
                 BattleStat currentActUnitStats = currentActUnit.GetComponent<BattleStat>();
+                print(currentActUnitStats.name);
 
                 //判断取出的战斗单位是否存活
                 if (!currentActUnitStats.IsDead())
                 {
                     //判断已经攻击了多少次
-                    if(currentActUnitStats.alreadyAttackCount < currentActUnitStats.status.attackCount)
+                    if (currentActUnitStats.alreadyAttackCount < currentActUnitStats.status.attackCount)
                     {
                         currentActUnitStats.alreadyAttackCount++;
                         //选取攻击目标
@@ -179,11 +186,13 @@ namespace MetalMax
                         battleUnits.Dequeue();
                         //重新将单位添加至参战列表末尾
                         battleUnits.Enqueue(currentActUnit);
+                        StartCoroutine(ToBattle());
                     }
                 }
                 else
                 {
                     Debug.Log("目标死亡，跳过回合");
+                    battleUnits.Dequeue();
                     Destroy(currentActUnit);
                     StartCoroutine(ToBattle());
                 }
@@ -209,7 +218,6 @@ namespace MetalMax
             }
             else if (currentActUnit.tag == Tags.battleCharactor)
             {
-                //TODO
                 battleInfoPanel.SetActive(false);
                 battlePanel.SetActive(true);
                 battlePanel.GetComponent<BattlePanel>().InitPanel();
@@ -268,6 +276,13 @@ namespace MetalMax
             yield return new WaitForSeconds(2f);
         }
 
+        IEnumerator WaitForUnloadBattleScene()
+        {
+            yield return new WaitForSeconds(3f);
+            //关闭战斗页面
+            SceneManager.UnloadSceneAsync("Battle");
+        }
+
         /// <summary>
         /// 发动攻击
         /// </summary>
@@ -298,14 +313,14 @@ namespace MetalMax
                     attackData = 0;
                 }
                 //显示战斗信息
-                battleInfoPanelScript.ChangeBattleInfoText(attackOwner.gameObject.name + "造成伤害： " + attackData);
+                battleInfoPanelScript.ChangeBattleInfoText(attackOwner.status.nameString + "造成伤害： " + attackData);
                 StartCoroutine(WaitForTakeDamage());
             }
             else
             {
                 attackData = 0;
                 //显示躲避成功的文字
-                battleInfoPanelScript.ChangeBattleInfoText(attackReceiver.gameObject.name + "闪避成功!");
+                battleInfoPanelScript.ChangeBattleInfoText(attackReceiver.status.nameString + "闪避成功!");
             }
 
             //在对象承受伤害并进入下个单位操作前前添加1s延迟
@@ -314,7 +329,7 @@ namespace MetalMax
 
         public void BattleWin()
         {
-
+            StartCoroutine(WaitForUnloadBattleScene());
         }
 
         public void BattleLose()
@@ -329,7 +344,8 @@ namespace MetalMax
             if (Random.Range(0, 100) < escapeRate)
             {
                 battleInfoPanelScript.ChangeBattleInfoText("逃跑成功！");
-                StartCoroutine(UnloadScene());
+                GameManager.Instance.isInBattleState = false;
+                StartCoroutine(WaitForUnloadBattleScene());
             }
             else
             {
@@ -338,12 +354,6 @@ namespace MetalMax
             }
             //battleInfoPanelScript.ChangeBattleInfoText("逃跑失败！");
             //StartCoroutine(WaitForNextTurn());
-        }
-
-        IEnumerator UnloadScene()
-        {
-            yield return new WaitForSeconds(2);
-            SceneManager.UnloadSceneAsync("Battle");
         }
     }
 }
