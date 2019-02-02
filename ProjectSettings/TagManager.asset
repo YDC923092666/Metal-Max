@@ -10,6 +10,7 @@ TagManager:
   - BattleCharactor
   - BattleMonster
   - Managers
+  - Vcam
   layers:
   - Default
   - TransparentFX

@@ -14,5 +14,6 @@ namespace MetalMax
         public const string battleCharactor = "BattleCharactor";
         public const string battleMonster = "BattleMonster";
         public const string managers = "Managers";
+        public const string vCam = "Vcam";
     }
 }

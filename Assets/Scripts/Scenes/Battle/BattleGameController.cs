@@ -339,19 +339,19 @@ namespace MetalMax
 
         public void BattleEscape()
         {
-            battlePanel.SetActive(false);
-            battleInfoPanel.SetActive(true);
-            if (Random.Range(0, 100) < escapeRate)
-            {
-                battleInfoPanelScript.ChangeBattleInfoText("逃跑成功！");
-                GameManager.Instance.isInBattleState = false;
-                StartCoroutine(WaitForUnloadBattleScene());
-            }
-            else
-            {
-                battleInfoPanelScript.ChangeBattleInfoText("逃跑失败！");
-                StartCoroutine(WaitForNextTurn());
-            }
+            //battlePanel.SetActive(false);
+            //battleInfoPanel.SetActive(true);
+            //if (Random.Range(0, 100) < escapeRate)
+            //{
+            //    battleInfoPanelScript.ChangeBattleInfoText("逃跑成功！");
+            //    GameManager.Instance.isInBattleState = false;
+            //    StartCoroutine(WaitForUnloadBattleScene());
+            //}
+            //else
+            //{
+            //    battleInfoPanelScript.ChangeBattleInfoText("逃跑失败！");
+            //    StartCoroutine(WaitForNextTurn());
+            //}
             //battleInfoPanelScript.ChangeBattleInfoText("逃跑失败！");
             //StartCoroutine(WaitForNextTurn());
         }

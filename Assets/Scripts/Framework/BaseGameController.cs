@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 namespace MetalMax
 {
@@ -34,6 +35,7 @@ namespace MetalMax
         {
             InitUI();
             InitCharactor();
+            InitCam();
             //初始化完毕后，后续再跳转不需要再初始化
             GameManager.isNewGame = false;
 
@@ -139,6 +141,14 @@ namespace MetalMax
                 //设置渲染当前UI的相机
                 UICanvasGo.GetComponent<Canvas>().worldCamera = Camera.main;
             }
+        }
+
+        protected virtual void InitCam()
+        {
+            var vCam = GameObject.FindGameObjectWithTag(Tags.vCam).GetComponent<CinemachineVirtualCamera>();
+
+            vCam.m_Follow = charGo.transform;
+            vCam.m_Lens.OrthographicSize = 5f;
         }
         #endregion
     }
