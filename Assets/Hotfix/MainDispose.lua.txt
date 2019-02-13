@@ -1,0 +1,1 @@
+xlua.hotfix(CS.MetalMax.Home_GameController,'Check4Update',nil)

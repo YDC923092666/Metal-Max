@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using XLua;
 
 namespace MetalMax
 {
+    [Hotfix]
     public class Home_GameController : BaseGameController
     {
         private GameObject canvas;
@@ -70,6 +72,7 @@ namespace MetalMax
             });
         }
 
+        [LuaCallCSharp]
         /// <summary>
         /// 检查是否有最新版本需要更新
         /// </summary>
