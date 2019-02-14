@@ -19,7 +19,8 @@ namespace MetalMax
 
         private byte[] MyLoader(ref string filePath)
         {
-            string absPath = @"C:\Users\YDC\Documents\UnityProjects\Metal-Max\Assets\Hotfix\" + filePath + ".lua.txt";
+            //TODO
+            string absPath = "/Hotfix/" + filePath + ".lua.txt";
             return System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(absPath));
         }
 

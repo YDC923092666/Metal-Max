@@ -22,7 +22,7 @@ namespace MetalMax
             DontDestroyOnLoad(newGo);
 
             //设置分辨率
-            UIManager.SetResolution(1920, 1080, 1);
+            UIManager.SetResolution(1440, 720, 0);
 
             canvas = GameObject.Find("Canvas");
             //显示健康游戏提醒。
@@ -67,6 +67,8 @@ namespace MetalMax
                         //进入游戏角色名字创建页面
                         GameObject createRolePanel = canvas.transform.Find("CreateRolePanel").gameObject;
                         createRolePanel.SetActive(true);
+
+                        createRolePanel.transform.Find("StartGameButton").GetComponent<Button>().onClick.AddListener(OnStartGameButtonClick);
                     }
                 }
             });
@@ -88,16 +90,27 @@ namespace MetalMax
         /// </summary>
         public void OnStartGameButtonClick()
         {
+            Debug.Log("按钮被点击");
             string nameText = GameObject.FindObjectOfType<InputField>().text;
 
+            print(nameText);
+
             GameManager.charactor.nameString = nameText;
+
+            print("1");
             GameManager.nextSceneName = "01_World1_Home";
+
+            print("2");
 
             //置为true表示是新游戏
             GameManager.isNewGame = true;
 
+            print("3");
+
             //加载loading页面
             SceneManager.LoadScene("Loading");
+
+            print("4");
         }
 
         protected override void OnBeforeDestroy()
